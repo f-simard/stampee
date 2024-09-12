@@ -1,0 +1,7 @@
+.lien-details {
+	display: block;
+	font-size: var(--font-short);
+	text-decoration: none;
+
+	color: color-mix(in lch, var(--sombre) 70%, white 30%);
+}

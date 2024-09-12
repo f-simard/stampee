@@ -1,0 +1,53 @@
+.titre-bouton {
+	display: flex;
+	align-items: center;
+	gap: var(--spacing-thinnest);
+	margin-bottom: var(--spacing-broad);
+}
+
+.titre-bouton button {
+	color: transparent;
+	background-color: transparent;
+
+	border: none;
+	flex-grow: 1;
+	aspect-ratio: 1;
+	max-width: var(--svg-width);
+
+	transition-property: transform;
+	transition-duration: 5s;
+	transition-timing-function: ease-in;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.titre-bouton button:hover {
+	cursor: pointer;
+	;
+}
+
+.titre-bouton button:hover path {
+	transition-property: transform;
+	transition-duration: 300ms;
+	transition-timing-function: ease-in-out;
+
+	transform: rotate(45deg);
+	transform-origin: 50% 50%;
+}
+
+.titre-bouton>div {
+	display: flex;
+	gap: var(--spacing-thinnest);
+	align-items: center;
+}
+
+.titre-bouton svg {
+	max-width: var(--svg-width);
+	fill: #f7b02c;
+}
+
+.titre-bouton {
+	--svg-width: 34px;
+}

@@ -1,0 +1,94 @@
+html {
+	background-color: var(--clair);
+
+	@media screen and (max-width:768px) {
+		font-size: 14px;
+	}
+}
+
+main {
+	position: relative;
+
+	margin-top: var(--spacing-broad);
+
+	margin-inline: auto;
+	padding-inline: 4vw;
+
+	@media screen and (min-width:1440px) {
+		max-width: 1440px;
+	}
+}
+
+main> :is(section, .section)+section {
+	margin-top: var(--spacing-broadest);
+
+	@media screen and (max-width:1024px) {
+		margin-top: var(--spacing-broad);
+	}
+}
+
+main:has(.filtre) {
+	display: flex;
+	gap: var(--spacing-broad);
+
+	@media screen and (max-width:1024px) {
+		flex-direction: column;
+		gap: var(--spacing-thin);
+	}
+}
+
+
+main>.filtre {
+
+	@media screen and (min-width:768px) {
+		max-width: 40ch;
+	}
+
+}
+
+.bouton-container+main:has(.filtre) {
+	margin-top: 0;
+}
+
+
+main .principal {
+	flex-basis: 0;
+	flex-grow: 5;
+
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-thin);
+}
+
+footer {
+	margin-top: var(--spacing-broadest);
+}
+
+
+h1 {
+	font-size: var(--font-mega);
+}
+
+h2 {
+	font-size: var(--font-extra);
+}
+
+h3 {
+	font-size: var(--font-taller);
+}
+
+h4 {
+	font-size: var(--font-tall);
+}
+
+h5 {
+	font-size: var(--font-medium);
+}
+
+p,
+span,
+input,
+label {
+	font-size: var(--font-current);
+	line-height: 1.5;
+}

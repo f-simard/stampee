@@ -1,0 +1,23 @@
+.catalogue-conteneur.grille {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(var(--taille),1fr));
+	gap: var(--spacing-broad);
+
+	--taille: clamp(30ch, 2vw, 40ch);
+
+	@media screen and (max-width:480px) {
+		--taille: 20ch;
+	}
+
+}
+
+.catalogue-conteneur.liste {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-thin);
+
+	@media screen and (max-width:780px) {
+		gap: var(--spacing-broader);
+	}
+
+}

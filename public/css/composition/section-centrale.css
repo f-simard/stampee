@@ -1,0 +1,25 @@
+/* Section container styling */
+.section-centrale {
+    padding:var(--spacing-thin);
+    border-radius:var(--radius-sharp);
+    max-width: 800px;
+    margin-inline: auto;
+}
+
+/* Heading styling */
+.section-centrale h3 {  
+    margin-bottom: var(--spacing-thin);
+    text-align: left;
+}
+
+/* Paragraph styling */
+.section-centrale p {
+	font-family: var(--font-sans-serif);
+    margin-bottom: var(--spacing-thinnest);
+}
+
+/* Emphasizing the "Valeur" text */
+.section-centrale p::before {
+    content: "• ";
+    font-weight: bold;
+}

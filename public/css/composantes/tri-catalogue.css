@@ -1,0 +1,46 @@
+.tri-catalogue{
+	font-family: var(--font-sans-serif);
+
+    display: flex;
+    gap: var(--spacing-micro);
+
+    align-items: center;
+
+	& > picture {
+		padding: var(--spacing-nano);
+	}
+
+	& select {
+		padding: var(--spacing-nano);
+	}
+
+	@media screen and (min-width:1024px) {
+		margin-left: auto;
+	}
+
+	@media screen and (max-width: 480px) {
+
+		& select {
+			max-width: 20ch;
+		}
+	}
+
+	@media screen and (max-width:768px) {
+		
+		& *[data-ecran="tablette"]{
+			display: none;
+		}
+		
+	}
+
+}
+
+.tri-catalogue .choix-mode {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.tri-catalogue .choix-mode > * {
+	cursor: pointer;
+}

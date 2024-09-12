@@ -15,19 +15,6 @@ CREATE SCHEMA IF NOT EXISTS `stampee` DEFAULT CHARACTER SET utf8 ;
 USE `stampee` ;
 
 -- -----------------------------------------------------
--- Table `stampee`.`Enchere`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `stampee`.`Enchere` ;
-
-CREATE TABLE IF NOT EXISTS `stampee`.`Enchere` (
-  `idEnchere` INT NOT NULL AUTO_INCREMENT,
-  `dateDebut` TIMESTAMP NOT NULL,
-  `dateFin` TIMESTAMP NOT NULL,
-  PRIMARY KEY (`idEnchere`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `stampee`.`Devise`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `stampee`.`Devise` ;
@@ -36,6 +23,68 @@ CREATE TABLE IF NOT EXISTS `stampee`.`Devise` (
   `idDevise` VARCHAR(3) NOT NULL,
   `nom` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idDevise`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `stampee`.`Enchere`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `stampee`.`Enchere` ;
+
+CREATE TABLE IF NOT EXISTS `stampee`.`Enchere` (
+  `idEnchere` INT NOT NULL AUTO_INCREMENT,
+  `dateDebut` TIMESTAMP NOT NULL,
+  `dateFin` TIMESTAMP NOT NULL,
+  `prixPlancher` FLOAT NOT NULL,
+  `estimation` FLOAT NOT NULL,
+  `idDevise` VARCHAR(3) NOT NULL,
+  PRIMARY KEY (`idEnchere`),
+  INDEX `fk_Enchere_Devise1_idx` (`idDevise` ASC) VISIBLE,
+  CONSTRAINT `fk_Enchere_Devise1`
+    FOREIGN KEY (`idDevise`)
+    REFERENCES `stampee`.`Devise` (`idDevise`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `stampee`.`Timbre`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `stampee`.`Timbre` ;
+
+CREATE TABLE IF NOT EXISTS `stampee`.`Timbre` (
+  `idTimbre` INT NOT NULL AUTO_INCREMENT,
+  `nom` VARCHAR(100) NOT NULL,
+  `description` VARCHAR(120) NULL,
+  `dateProd` DATE NOT NULL,
+  `tirage` INT NULL,
+  `hauteur` DOUBLE NOT NULL,
+  `largeur` DOUBLE NOT NULL,
+  `certifié` TINYINT NOT NULL,
+  `Lord` TINYINT NULL,
+  `datePublication` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`idTimbre`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `stampee`.`Image`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `stampee`.`Image` ;
+
+CREATE TABLE IF NOT EXISTS `stampee`.`Image` (
+  `idImage` INT NOT NULL AUTO_INCREMENT,
+  `chemin` VARCHAR(255) NOT NULL,
+  `idTimbre` INT NOT NULL,
+  `principale` TINYINT NULL DEFAULT 0,
+  PRIMARY KEY (`idImage`, `idTimbre`),
+  INDEX `fk_Image_Timbre1_idx` (`idTimbre` ASC) VISIBLE,
+  CONSTRAINT `fk_Image_Timbre1`
+    FOREIGN KEY (`idTimbre`)
+    REFERENCES `stampee`.`Timbre` (`idTimbre`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
@@ -106,89 +155,16 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `stampee`.`Timbre`
+-- Table `stampee`.`Enchere_has_Timbre`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `stampee`.`Timbre` ;
+DROP TABLE IF EXISTS `stampee`.`Enchere_has_Timbre` ;
 
-CREATE TABLE IF NOT EXISTS `stampee`.`Timbre` (
-  `idTimbre` INT NOT NULL AUTO_INCREMENT,
-  `nom` VARCHAR(100) NOT NULL,
-  `description` VARCHAR(120) NULL,
-  `dateProd` DATE NOT NULL,
-  `tirage` INT NULL,
-  `hauteur` DOUBLE NOT NULL,
-  `largeur` DOUBLE NOT NULL,
-  `certifié` TINYINT NOT NULL,
-  `Lord` TINYINT NULL,
-  `datePublication` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `idMembre` INT NOT NULL,
-  PRIMARY KEY (`idTimbre`),
-  INDEX `fk_Timbre_Membre1_idx` (`idMembre` ASC) VISIBLE,
-  CONSTRAINT `fk_Timbre_Membre1`
-    FOREIGN KEY (`idMembre`)
-    REFERENCES `stampee`.`Membre` (`idMembre`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `stampee`.`Image`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `stampee`.`Image` ;
-
-CREATE TABLE IF NOT EXISTS `stampee`.`Image` (
-  `idImage` INT NOT NULL AUTO_INCREMENT,
-  `chemin` VARCHAR(255) NOT NULL,
-  `idTimbre` INT NOT NULL,
-  PRIMARY KEY (`idImage`, `idTimbre`),
-  INDEX `fk_Image_Timbre1_idx` (`idTimbre` ASC) VISIBLE,
-  CONSTRAINT `fk_Image_Timbre1`
-    FOREIGN KEY (`idTimbre`)
-    REFERENCES `stampee`.`Timbre` (`idTimbre`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `stampee`.`Favori`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `stampee`.`Favori` ;
-
-CREATE TABLE IF NOT EXISTS `stampee`.`Favori` (
-  `idMembre` INT NOT NULL,
-  `idTimbre` INT NOT NULL,
-  PRIMARY KEY (`idMembre`, `idTimbre`),
-  INDEX `fk_Favori_Timbre1_idx` (`idTimbre` ASC) VISIBLE,
-  CONSTRAINT `fk_Favori_Membre1`
-    FOREIGN KEY (`idMembre`)
-    REFERENCES `stampee`.`Membre` (`idMembre`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Favori_Timbre1`
-    FOREIGN KEY (`idTimbre`)
-    REFERENCES `stampee`.`Timbre` (`idTimbre`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `stampee`.`Timbre_has_Enchere`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `stampee`.`Timbre_has_Enchere` ;
-
-CREATE TABLE IF NOT EXISTS `stampee`.`Timbre_has_Enchere` (
-  `prixPlancher` FLOAT NULL,
-  `estimation` FLOAT NULL,
+CREATE TABLE IF NOT EXISTS `stampee`.`Enchere_has_Timbre` (
   `idTimbre` INT NOT NULL,
   `idEnchere` INT NOT NULL,
-  `Devise_idDevise` VARCHAR(3) NOT NULL,
   PRIMARY KEY (`idTimbre`, `idEnchere`),
   INDEX `fk_Timbre_has_Enchere_Enchere1_idx` (`idEnchere` ASC) VISIBLE,
   UNIQUE INDEX `idTimbre_UNIQUE` (`idTimbre` ASC) VISIBLE,
-  INDEX `fk_Timbre_has_Enchere_Devise1_idx` (`Devise_idDevise` ASC) VISIBLE,
   CONSTRAINT `fk_Timbre_has_Enchere_Timbre1`
     FOREIGN KEY (`idTimbre`)
     REFERENCES `stampee`.`Timbre` (`idTimbre`)
@@ -197,11 +173,6 @@ CREATE TABLE IF NOT EXISTS `stampee`.`Timbre_has_Enchere` (
   CONSTRAINT `fk_Timbre_has_Enchere_Enchere1`
     FOREIGN KEY (`idEnchere`)
     REFERENCES `stampee`.`Enchere` (`idEnchere`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Timbre_has_Enchere_Devise1`
-    FOREIGN KEY (`Devise_idDevise`)
-    REFERENCES `stampee`.`Devise` (`idDevise`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -228,7 +199,55 @@ CREATE TABLE IF NOT EXISTS `stampee`.`Mise` (
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Membre_has_Timbre_has_Enchere_Timbre_has_Enchere1`
     FOREIGN KEY (`idTimbre` , `idEnchere`)
-    REFERENCES `stampee`.`Timbre_has_Enchere` (`idTimbre` , `idEnchere`)
+    REFERENCES `stampee`.`Enchere_has_Timbre` (`idTimbre` , `idEnchere`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `stampee`.`Membre_has_Timbre`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `stampee`.`Membre_has_Timbre` ;
+
+CREATE TABLE IF NOT EXISTS `stampee`.`Membre_has_Timbre` (
+  `idTimbre` INT NOT NULL,
+  `idMembre` INT NOT NULL,
+  PRIMARY KEY (`idTimbre`, `idMembre`),
+  INDEX `fk_Timbre_has_Membre_Membre1_idx` (`idMembre` ASC) VISIBLE,
+  INDEX `fk_Timbre_has_Membre_Timbre1_idx` (`idTimbre` ASC) VISIBLE,
+  CONSTRAINT `fk_Timbre_has_Membre_Timbre1`
+    FOREIGN KEY (`idTimbre`)
+    REFERENCES `stampee`.`Timbre` (`idTimbre`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Timbre_has_Membre_Membre1`
+    FOREIGN KEY (`idMembre`)
+    REFERENCES `stampee`.`Membre` (`idMembre`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `stampee`.`Favori`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `stampee`.`Favori` ;
+
+CREATE TABLE IF NOT EXISTS `stampee`.`Favori` (
+  `idMembre` INT NOT NULL,
+  `idEnchere` INT NOT NULL,
+  PRIMARY KEY (`idMembre`, `idEnchere`),
+  INDEX `fk_Membre_has_Enchere_Enchere1_idx` (`idEnchere` ASC) VISIBLE,
+  INDEX `fk_Membre_has_Enchere_Membre1_idx` (`idMembre` ASC) VISIBLE,
+  CONSTRAINT `fk_Membre_has_Enchere_Membre1`
+    FOREIGN KEY (`idMembre`)
+    REFERENCES `stampee`.`Membre` (`idMembre`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Membre_has_Enchere_Enchere1`
+    FOREIGN KEY (`idEnchere`)
+    REFERENCES `stampee`.`Enchere` (`idEnchere`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

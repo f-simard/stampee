@@ -1,0 +1,8 @@
+[data-bg="sombre--10"]{
+	background-color: var(--sombre--10);
+}
+
+.boite-coin-arroundi{
+	padding: var(--spacing-thinner);
+	border-radius:var(--radius-sharp);
+}

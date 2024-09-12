@@ -1,0 +1,150 @@
+.filtre {
+	display: flex;
+	flex-direction: row;
+	gap: var(--spacing-broad);
+	align-items: flex-start;
+	justify-content: flex-start;
+
+	@media screen and (max-width:480px){
+		flex-direction: column;
+	}
+}
+
+.filtre__contenu h4 {
+	margin-bottom: var(--spacing-thinner);
+}
+
+.filtre__contenu {
+	font-family: var(--font-sans-serif);
+}
+
+.filtre__contenu > details {
+	display: flex;
+	flex-direction: column;
+}
+
+.filtre__contenu > details > *{
+	margin: var(--spacing-nano);
+}
+
+.filtre__contenu summary {
+	font-family: var(--font-sans-serif);
+	font-size: var(--font-medium);
+	font-weight: 600;
+}
+
+.filtre__contenu input {
+	font-size: var(--font-short);
+	max-width: 15ch;
+	padding: var(--spacing-nano);
+}
+
+.filtre__contenu select {
+	padding: var(--spacing-nano);
+}
+
+.filtre__contenu > section > *+*{
+	margin-top: var(--spacing-micro);
+}
+
+.filtre__contenu > *:is(div, section)+* {
+	margin-top: var(--spacing-thinner);
+}
+
+.filtre__contenu .paire {
+	display: flex;
+	gap: var(--spacing-micro);
+
+	&.text{
+		justify-content:space-between;
+	}
+}
+
+.filtre__contenu button {
+	max-width: 30ch;
+	width: 100%;
+
+	margin-top: var(--spacing-micro);
+}
+
+@media (min-width: 1025px) {
+	/*retirer check box*/
+	div:has([id="filtre-bouton"]) {
+		display: none;
+	}
+}
+
+@media (max-width: 1024px) {
+
+	.filtre__check{
+		font-family: var(--font-sans-serif);
+
+		display: flex;
+		gap: 1rem;
+		align-items: center;
+
+		min-width: 12ch;
+	}
+
+	.filtre__contenu h4{
+		display: none;
+	}
+
+	div:has([id="filtre-bouton"]) {
+		margin-top: 0;
+	}
+
+	.filtre__contenu .paire {
+		display: flex;
+		gap: var(--spacing-micro);
+	
+		&.text{
+			flex-wrap: wrap;
+			justify-content:space-between;
+		}
+	}
+
+	/*src accordéon en CSS: https://codepen.io/raubaca/pen/PZzpVe */
+	.filtre__contenu {
+		max-height: 0;
+		overflow: hidden;
+
+		transition-property: max-height, transform;
+		transition-duration: var(--duration-faster);
+		transition-timing-function: ease-in-out;
+	}
+
+	*:has([id="filtre-bouton"]:checked) ~ .filtre__contenu {
+		max-height: 100%;
+
+		transform: translateX(1rem);
+	  }
+
+	.filtre__contenu > :is(section, div){
+		max-width: 30ch;
+	}
+
+	/*placer le check box + changer apparence*/
+	[id="filtre-bouton"] {
+		position: relative;
+		z-index: 2;
+
+		appearance: none;
+
+		/*pointer sur bouton nav*/
+		cursor: pointer;
+	}
+
+	[id="filtre-bouton"]::after {
+		content: "Filtres ❱";
+		font-size: var(--font-tall);
+		font-weight: 600;
+
+	}
+
+	[id="filtre-bouton"]:checked::after {
+		content: "Filtres ❰";
+		font-size: var(--font-tall);
+		font-weight: 600;
+	}
+}

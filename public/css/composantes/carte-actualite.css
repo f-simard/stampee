@@ -1,0 +1,34 @@
+.carte-actualite{
+	--taille-maximale: 200px;
+}
+
+.carte-actualite > picture{
+	display: block;
+	height: var(--taille-maximale);
+	overflow: hidden;
+}
+
+.carte-actualite picture > img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center 40%;
+	
+}
+
+.carte-actualite > *+* {
+	margin-top: var(--spacing-thinner)
+}
+
+.carte-actualite section> *:first-child{
+	font-family: var(--font-serif);
+}
+
+.carte-actualite section > *+*{
+	font-family: var(--font-sans-serif);
+	margin-top: var(--spacing-thinnest);
+}
+
+.carte-actualite a{
+	margin-top: var(--spacing-thin);
+}

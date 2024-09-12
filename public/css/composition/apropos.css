@@ -1,0 +1,7 @@
+.bouton-container{
+    display: flex;
+    padding: var(--spacing-thin);
+    gap: var(--spacing-thin);
+    justify-content: center;
+    flex-wrap: wrap;
+}

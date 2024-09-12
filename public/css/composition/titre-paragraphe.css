@@ -1,0 +1,11 @@
+.titre-paragraphe > * + *{
+	margin-top: var(--spacing-thinnest);
+}
+
+.titre-paragraphe > *:first-child{
+	font-family: var(--font-serif);
+}
+
+.titre-paragraphe > *:not(:first-child){
+	font-family: var(--font-sans-serif);
+}

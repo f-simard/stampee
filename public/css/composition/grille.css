@@ -1,0 +1,15 @@
+.grille {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(20ch, 1fr));
+	gap: var(--spacing-broad);
+}
+
+.grille--2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); 
+    gap: var(--spacing-broad); 
+
+	@media (max-width: 768px) {
+        grid-template-columns: 1fr;
+    }
+}

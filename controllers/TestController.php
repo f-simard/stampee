@@ -7,7 +7,7 @@ class TestController{
 
 		public function index(){
 
-		return View::render('error', ['msg'=>"testController index"]);
+		return View::render('layouts/test');
 
 	}
 }

@@ -1,0 +1,84 @@
+.icone {
+	display: block;
+	max-width: var(--font-taller);
+	max-height: var(--font-taller);
+
+	padding: var(--spacing-nano);
+	border-radius: var(--radius-sharpest);
+
+	&img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	transition-property: background-color,
+	fill,
+	stroke;
+	transition-duration: var(--duration-faster);
+	transition-timing-function: ease-in-out;
+}
+
+.icone[data-format="grande"] {
+	width: var(--font-tall);
+	height: var(--font-tall);
+}
+
+
+.icone[data-format="moyenne"] {
+	width: var(--font-medium);
+	height: var(--font-medium);
+}
+
+.icone[data-format="mini"] {
+	width: var(--font-current);
+	height: var(--font-current);
+}
+
+.icone:hover path {
+	fill: var(--primaire--30);
+	stroke: var(--primaire--30);
+}
+
+.icone:hover path[data-garde] {
+	fill: transparent;
+}
+
+.icone:hover path[data-colorhover] {
+	fill: var(--primaire--30);
+	stroke: var(--primaire--30);
+}
+
+.icone[data-setCouleur="secondaireSurClair"][data-selected="true"] path {
+	fill: var(--clair);
+	stroke: var(--clair);
+}
+
+.icone[data-setCouleur="secondaireSurClair"][data-selected="true"] {
+	background-color: var(--secondaire);
+}
+
+[class^='fa']{
+	padding-right: var(--spacing-micro);
+}
+
+.fa-brands:hover {
+	color: var(--primaire--30);
+}
+
+.fa-2xl {
+	line-height: 0;
+}
+
+.icone-favori {
+	padding: var(--spacing-micro);
+	color: var(--secondaire);
+
+	&:hover {
+		color: var(--primaire--30);
+	}
+}
+
+.fa-circle-play{
+	color: var(--secondaire);
+}

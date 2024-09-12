@@ -1,0 +1,62 @@
+.timbre-similaire {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	font-family: var(--font-sans-serif);
+	gap: var(--spacing-broad);
+	padding: var(--spacing-thin);
+}
+
+.timbre-similaire .infos div p,
+.timbre-similaire .infos div h5 {
+    margin-bottom: var(--spacing-micro);
+	padding-bottom: var(--spacing-nano); 
+
+}
+
+
+
+/* Media query for mobile devices */
+@media (max-width: 767px) {
+
+    
+    .timbre-similaire {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: var(--spacing-nano)
+     }
+    
+
+    
+    .timbre-similaire picture {
+        margin-bottom: var(--spacing-pico);
+    }
+
+    .timbre-similaire .infos {
+        width: 100%;
+        margin-top: var(--spacing-thinner);
+    }
+
+    
+    .timbre-similaire .infos p,
+    .timbre-similaire .infos h5 {
+        text-align: center;
+        margin: var(--spacing-nano);
+    }
+
+    .timbre-similaire .infos p{
+        gap: 30px;
+    }
+
+    .timbre-similaire .timbre{
+     margin:var(--spacing-thin)
+    }
+
+    
+    /* .timbre-similaire .infos > div {
+        margin-bottom: var(--spacing-thinner);
+    } */
+
+}

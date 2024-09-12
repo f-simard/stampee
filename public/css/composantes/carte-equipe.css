@@ -1,0 +1,47 @@
+/* Team member styles */
+.carte-equipe {
+    display: flex;
+    align-items: flex-start; 
+    gap: var(--spacing-thin);
+}
+
+.carte-equipe .texte-equipe {
+    display: flex;
+    flex-direction: column;
+    max-width: 300px; 
+}
+
+.carte-equipe .texte-equipe h5 {
+    margin-bottom: var(--spacing-thin); 
+}
+
+.carte-equipe .texte-equipe p {
+    margin: 0;
+    font-size: var(--font-short);
+	font-family: var(--font-sans-serif);
+}
+
+.carte-equipe img {
+    width: 150px; 
+    height: auto;
+}
+
+@media (max-width: 768px) {
+    .carte-equipe {
+        flex-direction: column; 
+        align-items: center; 
+        text-align: center;
+    }
+
+    .carte-equipe img {
+        width: 100%; 
+        max-width: 200px; 
+        height: auto;
+    }
+
+    .carte-equipe .texte-equipe p{
+        text-align: left;
+
+    }
+
+}

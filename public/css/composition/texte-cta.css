@@ -1,0 +1,17 @@
+.texte-cta {
+	margin-inline: auto;
+
+	display: flex;
+	gap: var(--spacing-thin);
+	align-items: center;
+	flex-wrap: wrap;
+
+	@media screen and (max-width:768px) {
+	gap: var(--spacing-thinner);		
+	}
+}
+
+.texte-cta > a {
+	display: block;
+	margin-inline: auto;
+}

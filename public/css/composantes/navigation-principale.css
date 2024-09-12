@@ -1,0 +1,97 @@
+.navigation-principale {
+	display: flex;
+	gap: var(--spacing-thinnest);
+
+	align-items: center;
+	justify-content: center;
+
+}
+
+.navigation-principale a:not(:has(.icone)) {
+	font-family: var(--font-sans-serif);
+
+	display: block;
+	border-radius: var(--radius-sharpest);
+	padding-inline: var(--spacing-thinnest);
+	padding-block: var(--spacing-micro);
+
+	transition-property: background-color, color;
+	transition-duration: var(--duration-fast);
+	transition-timing-function: ease-in-out;
+}
+
+.navigation-principale :is(a:hover, .actif):not(:has(.icone)) {
+	background-color: var(--clair);
+	color: var(--primaire);
+}
+
+@media (min-width: 768px) {
+
+	/*retirer check box*/
+	[id="nav-bouton"] {
+		display: none;
+	}
+
+	.navigation-principale a[data-ecran="mobile"] {
+		display: none;
+	}
+}
+
+@media (max-width: 767px) {
+
+	.navigation-principale {
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-broad);
+
+		background: var(--primaire);
+		padding-bottom: 8rem;
+
+		/*FIXME: incapable de placer en fixed ou absolute bottom 0, top 100%*/
+		position: fixed;
+		z-index: 4;
+
+		/*position tout l'écran + barre de défilemen au besoin*/
+		inset: 0;
+		overflow: auto;
+
+		/*apparition avec opacité*/
+		/*FIXME: transition visible au changement graduel de résolution d'écran*/
+		transition-property: opacity;
+		transition-duration: 200ms;
+	}
+
+	/*placer le check box + changer apparence*/
+	[id="nav-bouton"] {
+		margin-top: -7px;
+		position: relative;
+		z-index: 5;
+
+		appearance: none;
+
+		/*pointer sur bouton nav*/
+		cursor: pointer;
+	}
+
+	div:has([id="nav-bouton"]:not(:checked))+.navigation-principale {
+		opacity: 0;
+		pointer-events: none;
+	}
+
+	[id="nav-bouton"]::after {
+		content: "☰";
+		font-size: var(--font-extra);
+	}
+
+	[id="nav-bouton"]:checked::after {
+		content: "✖";
+		font-size: var(--font-taller);
+
+		position: fixed;
+		right: var(--spacing-broad);
+
+		@media screen and (max-width:480px) {
+			right: var(--spacing-thin);
+		}
+	}
+}
