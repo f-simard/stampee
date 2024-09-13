@@ -4,8 +4,37 @@
 	display: flex;
 	flex-direction: column;
 	gap: var(--spacing-thinnest);
+
+	font-family: var(--font-sans-serif);
 }
 
-.formulaire label{
+.formulaire :is(label, select, option){
 	font-size: var(--font-medium);
+}
+
+.formulaire h2 {
+	font-family: var(--font-serif);
+}
+
+.formulaire div {
+	display: grid;
+
+	grid-template-areas:
+		"etiquette champ"
+		"erreur  erreur";
+
+	grid-template-columns: 25ch 80ch;
+
+	label{
+		grid-area: etiquette;
+	}
+
+	:is(input, select) {
+		grid-area: champ;
+	}
+
+	.erreur {
+		grid-area: erreur;
+	};
+
 }

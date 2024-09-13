@@ -1,7 +1,7 @@
 {{ include('layouts/entete.php' , {title: 'Créer membre'}) }}
 
 <main>
-	<h1>Créer un compte</h1>
+	<h2>Créer un compte</h2>
 	<form class="formulaire" method="post" enctype="multipart/form-data" novalidate>
 
 		<div>
@@ -116,7 +116,7 @@
 		</div>
 
 
-		<input type="submit" value="Sauvegarder" class="bouton">
+		<input type="submit" value="Sauvegarder" class="bouton" data-couleur="secondaire">
 	</form>
 </main>
 
