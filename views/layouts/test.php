@@ -1,3 +1,3 @@
-{{ include('layouts/header.php' , {title: 'Base'}) }}
+{{ include('layouts/entete.php' , {titre: 'Base'}) }}
 
-{{ include('layouts/footer.php') }}
+{{ include('layouts/pied.php') }}

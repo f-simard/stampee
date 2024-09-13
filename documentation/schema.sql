@@ -119,12 +119,13 @@ DROP TABLE IF EXISTS `stampee`.`Membre` ;
 
 CREATE TABLE IF NOT EXISTS `stampee`.`Membre` (
   `idMembre` INT NOT NULL AUTO_INCREMENT,
-  `username` VARCHAR(45) NOT NULL,
+  `nomUtilisateur` VARCHAR(45) NOT NULL,
+	`motDePasse` VARCHAR(45) NOT NULL,
+  `nomUtilisateur` VARCHAR(45) NOT NULL,
   `nom` VARCHAR(45) NOT NULL,
   `prenom` VARCHAR(45) NOT NULL,
   `adresseCivique` VARCHAR(45) NULL,
   `ville` VARCHAR(45) NULL,
-  `Pays` VARCHAR(45) NULL,
   `codePostal` VARCHAR(45) NULL,
   `courriel` VARCHAR(100) NULL,
   `idDevise` VARCHAR(3) NOT NULL,

@@ -46,6 +46,6 @@ class Route {
             }
        }
        http_response_code(404);
-       return View::render('error', ['msg'=>"Page introuvable"]);
+       return View::render('erreur', ['msg'=>"Page introuvable"]);
     }
 }

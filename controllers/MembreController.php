@@ -1,13 +1,19 @@
-<?php 
+<?php
+
 namespace App\Controllers;
 
 use App\Providers\View;
 
-class MembreController{
+class MembreController
+{
 
-		public function index(){
+	public function creer()
+	{
+		return View::render('membre/creer');
+	}
 
-		return View::render('error', ['msg'=>"testController index"]);
-
+	public function sauvegarder()
+	{
+		return View::render('erreur', ['msg' => "testController index"]);
 	}
 }

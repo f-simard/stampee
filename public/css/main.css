@@ -12,6 +12,8 @@
 @import url("./composition/grille.css");
 @import url("./composition/texte-image.css");
 @import url("./composition/texte-cta.css");
+@import url("./composition/apropos.css");
+@import url("./composition/section-centrale.css");
 
 @import url("./composantes/navigation-principale.css");
 @import url("./composantes/navigation-secondaire.css");
@@ -34,7 +36,6 @@
 @import url("./composantes/pagination.css");
 @import url("./composantes/balise-details.css");
 @import url("./composantes/lien-details.css");
-@import url("./composition/apropos.css");
-@import url("./composition/section-centrale.css");
+@import url("./composantes/formulaire.css");
 
 @import url("./base/utilitaire.css")
