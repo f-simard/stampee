@@ -7,6 +7,6 @@ class Devise extends CRUD {
 
     protected $table = "Devise";
     protected $primaryKey = 'idDevise';
-	protected $fillable = ['nom']; 
+	protected $fillable = ['code', 'nom']; 
 
 }

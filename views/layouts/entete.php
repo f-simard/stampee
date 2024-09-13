@@ -76,7 +76,7 @@
 			<input type="text" name="recherche" id="recherche" >
 			<button class="bouton-reset">
 				<picture class="icone bouton-reset" data-format="moyenne">
-					<img src="assets/img/icones/loupe_ivory.svg" alt="recherche">
+					<img src="{{asset}}/img/icones/loupe_ivory.svg" alt="recherche">
 				</picture>
 			</button>
 		</div>

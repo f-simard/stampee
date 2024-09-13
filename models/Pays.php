@@ -7,6 +7,6 @@ class Pays extends CRUD {
 
     protected $table = "Pays";
     protected $primaryKey = 'idPays';
-	protected $fillable = ['nom']; 
+	protected $fillable = ['code', 'nom']; 
 
 }

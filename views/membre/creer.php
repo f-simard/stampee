@@ -13,7 +13,7 @@
 		</div>
 
 		<div>
-			<label for="prenom">Prénom</label>
+			<label for="prenom">Prénom *</label>
 			<input type="text" name="prenom" id="prenom" value="{{membre.prenom}}">
 			{% if erreurs.prenom is defined %}
 			<span class="erreur">{{erreurs.prenom}}</span>
@@ -21,7 +21,7 @@
 		</div>
 
 		<div>
-			<label for="nom">Nom de famille</label>
+			<label for="nom">Nom de famille *</label>
 			<input type="text" name="nom" id="nom" value="{{membre.nom}}">
 			{% if erreurs.nom is defined %}
 			<span class="erreur">{{erreurs.nom}}</span>
@@ -29,7 +29,7 @@
 		</div>
 
 		<div>
-			<label for="nomUtilisateur">Nom d'utilisateur</label>
+			<label for="nomUtilisateur">Nom d'utilisateur *</label>
 			<input required type="text" name="nomUtilisateur" id="nomUtilisateur" value="{{membre.nomUtilisateur}}">
 			{% if erreurs.nomUtilisateur is defined %}
 			<span class="erreur">{{erreurs.nomUtilisateur}}</span>
@@ -37,7 +37,7 @@
 		</div>
 
 		<div>
-			<label for="courriel">Courriel</label>
+			<label for="courriel">Courriel *</label>
 			<input required type="email" name="courriel" id="courriel" value="{{membre.courriel}}">
 			{% if erreurs.courriel is defined %}
 			<span class="erreur">{{erreurs.courriel}}</span>
@@ -45,7 +45,7 @@
 		</div>
 
 		<div>
-			<label for="motDePasse">Mot de passe</label>
+			<label for="motDePasse">Mot de passe *</label>
 			<input required type="password" name="motDePasse" id="motDePasse" value="{{membre.motDePasse}}">
 			{% if erreurs.motDePasse is defined %}
 			<span class="erreur">{{erreurs.motDePasse}}</span>
@@ -77,11 +77,11 @@
 		</div>
 
 		<div>
-			<label for="pays">Pays</label>
-			<select name="pays" id="pays">
+			<label for="idPays">Pays *</label>
+			<select name="idPays" id="idPays">
 				<option value="">Sélectionner un pays</option>
 				{% for pays in pays_liste %}
-				<option value="{{pays.idPays}}" {% if pays.idPays == membre.pays %} selected {% endif %}>{{pays.nom}}</option>
+				<option value="{{pays.idPays}}" {% if pays.idPays == membre.idPays %} selected {% endif %}>{{pays.nom}}</option>
 				{% endfor  %}
 			</select>
 			{% if erreurs.pays is defined %}
@@ -90,11 +90,11 @@
 		</div>
 
 		<div>
-			<label for="langue">Langue</label>
-			<select name="langue" id="langue">
+			<label for="idLangue">Langue *</label>
+			<select name="idLangue" id="idLangue">
 				<option value="">Sélectionner une langue</option>
 				{% for langue in langues %}
-				<option value="{{langue.idLangue}}" {% if langue.idLangue == membre.langue %} selected {% endif %}> {{langue.idLangue}} - {{langue.nom}}</option>
+				<option value="{{langue.idLangue}}" {% if langue.idLangue == membre.idlangue %} selected {% endif %}> {{langue.idLangue}} - {{langue.nom}}</option>
 				{% endfor %}
 			</select>
 			{% if erreurs.langue is defined %}
@@ -103,11 +103,11 @@
 		</div>
 
 		<div>
-			<label for="devise">Devise</label>
-			<select name="devise" id="devise">
+			<label for="idDevise">Devise *</label>
+			<select name="idDevise" id="idDevise">
 				<option value="">Sélectionner une devise</option>
 				{% for devise in devises %}
-				<option value="{{devise.idDevise}}" {% if devise.idDevise == membre.devise %} selected {% endif %}>{{devise.idDevise}} - {{devise.nom}}</option>
+				<option value="{{devise.idDevise}}" {% if devise.idDevise == membre.idDevise %} selected {% endif %}>{{devise.idDevise}} - {{devise.nom}}</option>
 				{% endfor %}
 			</select>
 			{% if erreurs.devise is defined %}

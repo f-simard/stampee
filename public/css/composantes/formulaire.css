@@ -9,7 +9,7 @@
 }
 
 .formulaire :is(label, select, option){
-	font-size: var(--font-medium);
+	font-size: var(--font-current);
 }
 
 .formulaire h2 {
@@ -17,7 +17,18 @@
 }
 
 .formulaire div {
-	display: grid;
+
+	&:has(input[type='file']){
+		display: flex;
+		flex-direction: column;
+	};
+
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-nano);
+
+	@media screen and (min-width:410px) {
+		display: grid;
 
 	grid-template-areas:
 		"etiquette champ"
@@ -25,7 +36,11 @@
 
 	row-gap: var(--spacing-nano);
 
-	grid-template-columns: 25ch 80ch;
+	grid-template-columns: 20ch auto;
+
+	@media screen and (min-width:419px) {
+			grid-template-columns: 25ch auto;
+	}
 
 	label{
 		grid-area: etiquette;
@@ -39,5 +54,8 @@
 	.erreur {
 		grid-area: erreur;
 	};
+	}
+
+	
 
 }

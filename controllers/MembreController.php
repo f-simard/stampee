@@ -38,12 +38,12 @@ class MembreController
 		$validateur->champ('nomUtilisateur', $data['nomUtilisateur'], "Nom d'usager")->nettoie()->contientEspace()->min(3)->max(45)->unique('Membre');
 		$validateur->champ('courriel', $data['courriel'])->requis()->nettoie()->courriel()->max(100)->unique('Membre');
 		$validateur->champ('motDePasse', $data['motDePasse'], "Mot de passe")->requis()->nettoie()->min(3)->max(45);
-		$validateur->champ('adresseCivique', $data['adresseCivique'], "Adresse")->requis()->nettoie()->min(3)->max(255);
-		$validateur->champ('codePostal', $data['codePostal'], "code postal")->requis()->nettoie()->codePostalNA();
-		$validateur->champ('ville', $data['ville'], "Ville")->requis()->nettoie()->min(2)->max(100);
-		$validateur->champ('pays', $data['pays'])->requis()->existe('Pays', 'idPays');
-		$validateur->champ('langue', $data['langue'])->requis()->existe('Langue', 'idLangue');
-		$validateur->champ('devise', $data['devise'])->requis()->existe('Devise', 'idDevise');
+		$validateur->champ('adresseCivique', $data['adresseCivique'], "Adresse")->nettoie()->max(255);
+		$validateur->champ('codePostal', $data['codePostal'], "code postal")->codePostalNA();
+		$validateur->champ('ville', $data['ville'], "Ville")->max(100);
+		$validateur->champ('idPays', $data['idPays'], 'Pays')->requis()->existe('Pays', 'idPays');
+		$validateur->champ('idLangue', $data['idLangue'], 'Langue')->requis()->existe('Langue', 'idLangue');
+		$validateur->champ('idDevise', $data['idDevise'], 'Devise')->requis()->existe('Devise', 'idDevise');
 		
 		
 		//donner valeur tinyint à isAdmin

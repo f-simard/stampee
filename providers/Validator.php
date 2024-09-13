@@ -137,8 +137,10 @@ class Validator
 	}
 
 	public function codePostalNA(){
+		$exp= '/^((\d{5}-\d{4})|(\d{5})|([A-Z]\d[A-Z]\s\d[A-Z]\d))$/';
+
 		//src pour reg ex: https://regexlib.com/Search.aspx?k=canadian+postal+code&AspxAutoDetectCookieSupport=1
-		if (!preg_match('/^((\d{5}-\d{4})|(\d{5})|([A-Z]\d[A-Z]\s\d[A-Z]\d))$/', $this->valeur)) {
+		if (!empty($this->valeur) && !preg_match($exp, $this->valeur)) {
 			$this->erreurs[$this->cle] = "Format $this->nom invalide";
 		}
 

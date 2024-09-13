@@ -7,6 +7,6 @@ class Langue extends CRUD {
 
     protected $table = "Langue";
     protected $primaryKey = 'idLangue';
-	protected $fillable = ['nom']; 
+	protected $fillable = ['code', 'nom']; 
 
 }

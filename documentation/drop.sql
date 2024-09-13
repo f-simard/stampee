@@ -1,0 +1,11 @@
+DROP table if exists `stampee`.`mise`;
+DROP table if exists `stampee`.`image`;
+DROP table if exists `stampee`.`favori`;
+DROP table if exists `stampee`.`enchere_has_timbre`;
+DROP table if exists `stampee`.`membre_has_timbre`;
+DROP table if exists `stampee`.`membre`;
+DROP table if exists `stampee`.`timbre`;
+DROP table if exists `stampee`.`enchere`;
+DROP table if exists `stampee`.`devise`;
+DROP table if exists `stampee`.`pays`;
+DROP table if exists `stampee`.`langue`;

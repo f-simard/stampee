@@ -20,8 +20,9 @@ USE `stampee` ;
 DROP TABLE IF EXISTS `stampee`.`Devise` ;
 
 CREATE TABLE IF NOT EXISTS `stampee`.`Devise` (
-  `idDevise` VARCHAR(3) NOT NULL,
+  `idDevise` INT NOT NULL AUTO_INCREMENT,
   `nom` VARCHAR(45) NOT NULL,
+  `code` VARCHAR(3) NOT NULL,
   PRIMARY KEY (`idDevise`))
 ENGINE = InnoDB;
 
@@ -37,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `stampee`.`Enchere` (
   `dateFin` TIMESTAMP NOT NULL,
   `prixPlancher` FLOAT NOT NULL,
   `estimation` FLOAT NOT NULL,
-  `idDevise` VARCHAR(3) NOT NULL,
+  `idDevise` INT NOT NULL,
   PRIMARY KEY (`idEnchere`),
   INDEX `fk_Enchere_Devise1_idx` (`idDevise` ASC) VISIBLE,
   CONSTRAINT `fk_Enchere_Devise1`
@@ -94,7 +95,8 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `stampee`.`Langue` ;
 
 CREATE TABLE IF NOT EXISTS `stampee`.`Langue` (
-  `idLangue` VARCHAR(2) NOT NULL,
+  `idLangue` INT NOT NULL AUTO_INCREMENT,
+  `code` VARCHAR(2) NOT NULL,
   `nom` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idLangue`))
 ENGINE = InnoDB;
@@ -106,7 +108,8 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `stampee`.`Pays` ;
 
 CREATE TABLE IF NOT EXISTS `stampee`.`Pays` (
-  `idPays` VARCHAR(3) NOT NULL,
+  `idPays` INT NOT NULL AUTO_INCREMENT,
+  `code` VARCHAR(3) NOT NULL,
   `nom` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idPays`))
 ENGINE = InnoDB;
@@ -119,21 +122,22 @@ DROP TABLE IF EXISTS `stampee`.`Membre` ;
 
 CREATE TABLE IF NOT EXISTS `stampee`.`Membre` (
   `idMembre` INT NOT NULL AUTO_INCREMENT,
-  `nomUtilisateur` VARCHAR(45) NOT NULL,
-	`motDePasse` VARCHAR(45) NOT NULL,
-  `nomUtilisateur` VARCHAR(45) NOT NULL,
   `nom` VARCHAR(45) NOT NULL,
   `prenom` VARCHAR(45) NOT NULL,
   `adresseCivique` VARCHAR(45) NULL,
   `ville` VARCHAR(45) NULL,
-  `codePostal` VARCHAR(45) NULL,
+  `nomUtilisateur` VARCHAR(45) NOT NULL,
+  `motDePasse` VARCHAR(255) NOT NULL,
+  `codePostal` VARCHAR(7) NULL,
   `courriel` VARCHAR(100) NULL,
-  `idDevise` VARCHAR(3) NOT NULL,
-  `idLangue` VARCHAR(2) NOT NULL,
-  `idPays` VARCHAR(3) NOT NULL,
+  `estAdmin` TINYINT(4) NULL DEFAULT '0',
+  `avatar` VARCHAR(255) NULL DEFAULT NULL,
+  `idDevise` INT NOT NULL,
+  `idLangue` INT NOT NULL,
+  `idPays` INT NOT NULL,
   PRIMARY KEY (`idMembre`),
-  UNIQUE INDEX `username_UNIQUE` (`username` ASC) VISIBLE,
   UNIQUE INDEX `courriel_UNIQUE` (`courriel` ASC) VISIBLE,
+  UNIQUE INDEX `nomUtilisateur_UNIQUE` (`nomUtilisateur` ASC) VISIBLE,
   INDEX `fk_Membre_Devise1_idx` (`idDevise` ASC) VISIBLE,
   INDEX `fk_Membre_Langue1_idx` (`idLangue` ASC) VISIBLE,
   INDEX `fk_Membre_Pays1_idx` (`idPays` ASC) VISIBLE,
@@ -152,7 +156,8 @@ CREATE TABLE IF NOT EXISTS `stampee`.`Membre` (
     REFERENCES `stampee`.`Pays` (`idPays`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
