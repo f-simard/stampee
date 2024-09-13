@@ -21,7 +21,9 @@
 
 	grid-template-areas:
 		"etiquette champ"
-		"erreur  erreur";
+		"vide  erreur";
+
+	row-gap: var(--spacing-nano);
 
 	grid-template-columns: 25ch 80ch;
 

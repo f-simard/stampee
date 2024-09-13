@@ -23,8 +23,8 @@
 		<div>
 			<label for="nom">Nom de famille</label>
 			<input type="text" name="nom" id="nom" value="{{membre.nom}}">
-			{% if erreur.nom is defined %}
-			<span class="erreur">{{erreur.nom}}</span>
+			{% if erreurs.nom is defined %}
+			<span class="erreur">{{erreurs.nom}}</span>
 			{% endif %}
 		</div>
 
@@ -61,7 +61,7 @@
 		</div>
 
 		<div>
-			<label for="codePostal">Code postal</label>
+			<label for="codePostal">Code postal (A1A 1A1)</label>
 			<input required type="text" name="codePostal" id="codePostal" value="{{membre.codePostal}}">
 			{% if erreurs.codePostal is defined %}
 			<span class="erreur">{{erreurs.codePostal}}</span>

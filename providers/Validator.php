@@ -1,6 +1,6 @@
 <?php
 
-nomspace App\Providers;
+namespace App\Providers;
 
 use App\Models;
 
@@ -111,11 +111,11 @@ class Validator
 			return $this;
 		};
 
-		$fichier_cible = $_SERVER["DOCUMENT_ROOT"] . UPLOAD . basename($this->valeur["fichierATeleverser"]["nom"]);
+		$fichier_cible = $_SERVER["DOCUMENT_ROOT"] . UPLOAD . basename($this->valeur["fichierATeleverser"]["name"]);
 		$typeImg = strtolower(pathinfo($fichier_cible, PATHINFO_EXTENSION));
 
 		// Check if image file is a actual image or fake image
-		$verification = getimagesize($this->valeur["fichierATeleverser"]["tmp_nom"]);
+		$verification = getimagesize($this->valeur["fichierATeleverser"]["tmp_name"]);
 		if ($verification == false) {
 			$this->erreurs[$this->cle] = "Format de $this->nom invalide.";
 		};
@@ -128,9 +128,18 @@ class Validator
 		// Allow certain file formats
 		if (
 			$typeImg != "jpg" && $typeImg != "png" && $typeImg != "jpeg"
-			&& $imageFiltypeImgeType != "gif"
+			&& $typeImg != "gif"
 		) {
 			$this->erreurs[$this->cle] = "Seul les JPG, JPEG, PNG & GIF sont acceptés";
+		}
+
+		return $this;
+	}
+
+	public function codePostalNA(){
+		//src pour reg ex: https://regexlib.com/Search.aspx?k=canadian+postal+code&AspxAutoDetectCookieSupport=1
+		if (!preg_match('/^((\d{5}-\d{4})|(\d{5})|([A-Z]\d[A-Z]\s\d[A-Z]\d))$/', $this->valeur)) {
+			$this->erreurs[$this->cle] = "Format $this->nom invalide";
 		}
 
 		return $this;
@@ -145,6 +154,6 @@ class Validator
 	//if not success, then error
 	public function obtenirErreur()
 	{
-		if (!$this->estSucces()) return $this->errors;
+		if (!$this->estSucces()) return $this->erreurs;
 	}
 }
