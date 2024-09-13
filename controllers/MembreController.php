@@ -12,7 +12,7 @@ use App\Models\Pays;
 
 class MembreController
 {
-	
+
 	public function creer()
 	{
 		$devise = new Devise;
@@ -24,9 +24,30 @@ class MembreController
 		$langue = new Langue;
 		$langues = $langue->select('nom');
 
-		return View::render('membre/creer', ['devises'=>$devises, 'pays_liste' => $pays_liste, 'langues'=> $langues]);
+		return View::render('membre/creer', ['devises' => $devises, 'pays_liste' => $pays_liste, 'langues' => $langues]);
 	}
-	
+
+	public function voir($data = [])
+
+	{
+		if (isset($data['idMembre']) && $data['idMembre'] != null) {
+
+			$idMembre = $data['idMembre'];
+
+			//récuperer user
+			$membre = new Membre();
+			$membreSelect = $membre->selectByField($idMembre);
+
+			if ($membreSelect) {
+				return View::render('membre/voir', ['membre' => $membreSelect]);
+			} else {
+				return View::render('erreur', ['msg' => "Membre inexistant"]);
+			}
+		} else {
+			return View::render('erreur', ['msg' => "Page  introuvable"]);
+		}
+	}
+
 	public function sauvegarder($data = [])
 	{
 		$validateur = new Validator();
@@ -44,37 +65,37 @@ class MembreController
 		$validateur->champ('idPays', $data['idPays'], 'Pays')->requis()->existe('Pays', 'idPays');
 		$validateur->champ('idLangue', $data['idLangue'], 'Langue')->requis()->existe('Langue', 'idLangue');
 		$validateur->champ('idDevise', $data['idDevise'], 'Devise')->requis()->existe('Devise', 'idDevise');
-		
-		
+
+
 		//donner valeur tinyint à isAdmin
 		if (isset($data['estAdmin'])) {
 			$data['estAdmin'] = 1;
 		} else {
 			$data['estAdmin'] = 0;
 		}
-		
+
 		if ($validateur->estSucces()) {
 			//créer utilisateur
 			$membre = new Membre();
-			
+
 			//encrypter mot de passe
 			$password = $membre->hashMotDePasse($data['motDePasse']);
 			$data['motDePasse'] = $password;
-			
+
 			//sauvegarder sur le serveur
 			// https://stackoverflow.com/questions/15211231/server-document-root-path-in-php
 			$fichierCible = $_SERVER["DOCUMENT_ROOT"] . UPLOAD . basename($_FILES["fichierATeleverser"]["name"]);
 			$deplace = move_uploaded_file($_FILES["fichierATeleverser"]["tmp_name"], $fichierCible);
-			
+
 			//sauvegarder le chemin dans la base de donnée
 			$data['avatar'] = basename($_FILES["fichierATeleverser"]["name"]);
-			
+
 			//créer utilisateur
 			$membreAjoute = $membre->insert($data);
-			
+
 			return View::redirect('login');
 		} else {
-			
+
 			$erreurs = $validateur->obtenirErreur();
 
 			$devise = new Devise;
@@ -85,7 +106,7 @@ class MembreController
 
 			$langue = new Langue;
 			$langues = $langue->select('nom');
-			
+
 			return View::render('membre/creer', ['erreurs' => $erreurs, 'membre' => $data, 'devises' => $devises, 'pays_liste' => $pays_liste, 'langues' => $langues]);
 		}
 	}

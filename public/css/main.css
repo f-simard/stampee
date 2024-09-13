@@ -14,6 +14,7 @@
 @import url("./composition/texte-cta.css");
 @import url("./composition/apropos.css");
 @import url("./composition/section-centrale.css");
+@import url("./composition/champ-etiquette.css");
 
 @import url("./composantes/navigation-principale.css");
 @import url("./composantes/navigation-secondaire.css");
@@ -37,5 +38,6 @@
 @import url("./composantes/balise-details.css");
 @import url("./composantes/lien-details.css");
 @import url("./composantes/formulaire.css");
+@import url("./composantes/medaillon.css");
 
 @import url("./base/utilitaire.css")
