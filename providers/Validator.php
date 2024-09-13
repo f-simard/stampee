@@ -32,7 +32,7 @@ class Validator
 	public function requis()
 	{
 		if (empty($this->valeur)) {
-			$this->erreurs[$this->cle] = "$this->nom est requis.";
+			$this->erreurs[$this->cle] = "$this->nom est requis";
 		}
 		return $this;
 	}
@@ -91,12 +91,12 @@ class Validator
 		return $this;
 	}
 
-	public function existe($model, $field = 'id')
+	public function existe($model, $champ = 'id')
 	{
 		$model = 'App\\Models\\' . $model;
 		$model = new $model;
 
-		$exist = $model->unique($field, $this->valeur);
+		$exist = $model->unique($champ, $this->valeur);
 		if (!$exist) {
 			$this->erreurs[$this->cle] = "$this->nom doit exister";
 		}
@@ -122,7 +122,7 @@ class Validator
 
 		// Check file size
 		if ($this->valeur["fichierATeleverser"]["size"] > 200000) {
-			$this->erreurs[$this->cle] = "L'image est trop grande.";
+			$this->erreurs[$this->cle] = "L'image est trop grande";
 		}
 
 		// Allow certain file formats
@@ -140,6 +140,16 @@ class Validator
 		//src pour reg ex: https://regexlib.com/Search.aspx?k=canadian+postal+code&AspxAutoDetectCookieSupport=1
 		if (!preg_match('/^((\d{5}-\d{4})|(\d{5})|([A-Z]\d[A-Z]\s\d[A-Z]\d))$/', $this->valeur)) {
 			$this->erreurs[$this->cle] = "Format $this->nom invalide";
+		}
+
+		return $this;
+	}
+
+	public function contientEspace()
+	{
+		//src pour reg ex: https://forum.freecodecamp.org/t/find-whitespace-with-regular-expressions-solved/25194
+		if (preg_match('/\s/', $this->valeur)) {
+			$this->erreurs[$this->cle] = "La valeur ne peux pas contenir d'espace";
 		}
 
 		return $this;

@@ -81,7 +81,7 @@
 			<select name="pays" id="pays">
 				<option value="">Sélectionner un pays</option>
 				{% for pays in pays_liste %}
-				<option value="{{pays.idPays}}" {% if pays.idPays == membre.idPays %} selected {% endif %}>{{pays.nom}}</option>
+				<option value="{{pays.idPays}}" {% if pays.idPays == membre.pays %} selected {% endif %}>{{pays.nom}}</option>
 				{% endfor  %}
 			</select>
 			{% if erreurs.pays is defined %}
@@ -94,7 +94,7 @@
 			<select name="langue" id="langue">
 				<option value="">Sélectionner une langue</option>
 				{% for langue in langues %}
-				<option value="{{langue.idLangue}}" {% if langue.idLangue == membre.idLangue %} selected {% endif %}>{{langue.nom}}</option>
+				<option value="{{langue.idLangue}}" {% if langue.idLangue == membre.langue %} selected {% endif %}> {{langue.idLangue}} - {{langue.nom}}</option>
 				{% endfor %}
 			</select>
 			{% if erreurs.langue is defined %}
@@ -107,7 +107,7 @@
 			<select name="devise" id="devise">
 				<option value="">Sélectionner une devise</option>
 				{% for devise in devises %}
-				<option value="{{devise.idDevise}}" {% if devise.idDevise == membre.idDevise %} selected {% endif %}>{{devise.nom}}</option>
+				<option value="{{devise.idDevise}}" {% if devise.idDevise == membre.devise %} selected {% endif %}>{{devise.idDevise}} - {{devise.nom}}</option>
 				{% endfor %}
 			</select>
 			{% if erreurs.devise is defined %}

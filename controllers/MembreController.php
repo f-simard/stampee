@@ -35,15 +35,15 @@ class MembreController
 		}
 		$validateur->champ('prenom', $data['prenom'], "Prénom")->nettoie()->min(2)->max(45);
 		$validateur->champ('nom', $data['nom'], "Nom de famille")->nettoie()->min(2)->max(45);
-		$validateur->champ('nomUtilisateur', $data['nomUtilisateur'], "Nom d'usager")->nettoie()->min(3)->max(45)->unique('Membre');
+		$validateur->champ('nomUtilisateur', $data['nomUtilisateur'], "Nom d'usager")->nettoie()->contientEspace()->min(3)->max(45)->unique('Membre');
 		$validateur->champ('courriel', $data['courriel'])->requis()->nettoie()->courriel()->max(100)->unique('Membre');
 		$validateur->champ('motDePasse', $data['motDePasse'], "Mot de passe")->requis()->nettoie()->min(3)->max(45);
 		$validateur->champ('adresseCivique', $data['adresseCivique'], "Adresse")->requis()->nettoie()->min(3)->max(255);
 		$validateur->champ('codePostal', $data['codePostal'], "code postal")->requis()->nettoie()->codePostalNA();
 		$validateur->champ('ville', $data['ville'], "Ville")->requis()->nettoie()->min(2)->max(100);
-		// $validateur->champ('pays', $data['pays'])->requis()->nettoie()->min(2)->max(100);
-		// $validateur->champ('langue', $data['langue'])->requis()->nettoie()->min(2)->max(100);
-		// $validateur->champ('devise', $data['devise'])->requis()->nettoie()->min(2)->max(100);
+		$validateur->champ('pays', $data['pays'])->requis()->existe('Pays', 'idPays');
+		$validateur->champ('langue', $data['langue'])->requis()->existe('Langue', 'idLangue');
+		$validateur->champ('devise', $data['devise'])->requis()->existe('Devise', 'idDevise');
 		
 		
 		//donner valeur tinyint à isAdmin
@@ -76,8 +76,17 @@ class MembreController
 		} else {
 			
 			$erreurs = $validateur->obtenirErreur();
+
+			$devise = new Devise;
+			$devises = $devise->select('nom');
+
+			$pays = new Pays;
+			$pays_liste = $pays->select('nom');
+
+			$langue = new Langue;
+			$langues = $langue->select('nom');
 			
-			return View::render('membre/creer', ['erreurs' => $erreurs, 'membre' => $data]);
+			return View::render('membre/creer', ['erreurs' => $erreurs, 'membre' => $data, 'devises' => $devises, 'pays_liste' => $pays_liste, 'langues' => $langues]);
 		}
 	}
 }
