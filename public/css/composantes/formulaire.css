@@ -31,6 +31,7 @@
 
 	:is(input, select) {
 		grid-area: champ;
+		padding: var(--spacing-nano);
 	}
 
 	.erreur {

@@ -21,9 +21,10 @@ class Membre extends CRUD
 		'idPays',
 		'idLangue',
 		'idDevise',
-		'motDePasse'
+		'motDePasse',
+		'estAdmin'
 	];
-	private $sel = 'a7w99&';
+	private $sel = 'g7!P92';
 
 	/*encrypter les mots de passe*/
 	public function hashMotDePasse($motDePasse, $cout = 10)
