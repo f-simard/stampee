@@ -57,7 +57,7 @@ class Membre extends CRUD
 			} else {
 				return false;
 			}
-			return $user;
+			return $membre;
 		} else {
 			return false;
 		}

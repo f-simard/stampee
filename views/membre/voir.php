@@ -59,6 +59,8 @@
 			<p class="adresseCivique">Devise: </p>
 			<p class="champ">{{membre.devise}}</p>
 		</div>
+
+		<a href="{{base}}/deconnexion" class="bouton" data-couleur="primaire">Déconnecter</a>
 	</section>
 
 

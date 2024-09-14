@@ -56,6 +56,8 @@
 	};
 	}
 
-	
+}
 
+.formulaire_etroit {
+	max-width: 50ch;
 }

@@ -8,4 +8,9 @@ Route::get('/membre/creer', 'MembreController@creer');
 Route::post('/membre/creer', 'MembreController@sauvegarder');
 Route::get('/membre/voir', 'MembreController@voir');
 
+Route::get('/connexion', 'AuthController@index');
+Route::post('/connexion', 'AuthController@sauvegarder');
+Route::get('/deconnexion', 'AuthController@supprimer');
+Route::get('/accesRefuse', 'AuthController@accesRefuse');
+
 Route::dispatch();
