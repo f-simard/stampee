@@ -30,7 +30,7 @@
 
 		<div>
 			<label for="nomUtilisateur">Nom d'utilisateur *</label>
-			<input required type="text" name="nomUtilisateur" id="nomUtilisateur" value="{{membre.nomUtilisateur}}">
+			<input type="text" name="nomUtilisateur" id="nomUtilisateur" value="{{membre.nomUtilisateur}}">
 			{% if erreurs.nomUtilisateur is defined %}
 			<span class="erreur">{{erreurs.nomUtilisateur}}</span>
 			{% endif %}
@@ -38,7 +38,7 @@
 
 		<div>
 			<label for="courriel">Courriel *</label>
-			<input required type="email" name="courriel" id="courriel" value="{{membre.courriel}}">
+			<input type="email" name="courriel" id="courriel" value="{{membre.courriel}}">
 			{% if erreurs.courriel is defined %}
 			<span class="erreur">{{erreurs.courriel}}</span>
 			{% endif %}
@@ -46,7 +46,7 @@
 
 		<div>
 			<label for="motDePasse">Mot de passe *</label>
-			<input required type="password" name="motDePasse" id="motDePasse" value="{{membre.motDePasse}}">
+			<input type="password" name="motDePasse" id="motDePasse" value="{{membre.motDePasse}}">
 			{% if erreurs.motDePasse is defined %}
 			<span class="erreur">{{erreurs.motDePasse}}</span>
 			{% endif %}
@@ -54,7 +54,7 @@
 
 		<div>
 			<label for="adresseCivique">Adresse Civique</label>
-			<input required type="text" name="adresseCivique" id="adresseCivique" value="{{membre.adresseCivique}}">
+			<input type="text" name="adresseCivique" id="adresseCivique" value="{{membre.adresseCivique}}">
 			{% if erreurs.adresseCivique is defined %}
 			<span class="erreur">{{erreurs.adresseCivique}}</span>
 			{% endif %}
@@ -62,7 +62,7 @@
 
 		<div>
 			<label for="codePostal">Code postal (A1A 1A1)</label>
-			<input required type="text" name="codePostal" id="codePostal" value="{{membre.codePostal}}">
+			<input type="text" name="codePostal" id="codePostal" value="{{membre.codePostal}}">
 			{% if erreurs.codePostal is defined %}
 			<span class="erreur">{{erreurs.codePostal}}</span>
 			{% endif %}
@@ -70,7 +70,7 @@
 
 		<div>
 			<label for="ville">Ville</label>
-			<input required type="text" name="ville" id="ville" value="{{membre.ville}}">
+			<input type="text" name="ville" id="ville" value="{{membre.ville}}">
 			{% if erreurs.ville is defined %}
 			<span class="erreur">{{erreurs.ville}}</span>
 			{% endif %}

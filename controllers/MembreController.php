@@ -52,7 +52,7 @@ class MembreController
 	{
 		$validateur = new Validator();
 		if ($_FILES["fichierATeleverser"]["size"] > 0 || $_FILES["fichierATeleverser"]["error"] == 1) {
-			$validateur->champ('fichierATeleverser', $_FILES, "Image")->image();
+			$validateur->champ('fichierATeleverser', $_FILES, "Image")->image("fichierATeleverser");
 		}
 		$validateur->champ('prenom', $data['prenom'], "Prénom")->nettoie()->min(2)->max(45);
 		$validateur->champ('nom', $data['nom'], "Nom de famille")->nettoie()->min(2)->max(45);
@@ -93,7 +93,7 @@ class MembreController
 			//créer utilisateur
 			$membreAjoute = $membre->insert($data);
 
-			return View::redirect('login');
+			return View::redirect('connexion');
 		} else {
 
 			$erreurs = $validateur->obtenirErreur();

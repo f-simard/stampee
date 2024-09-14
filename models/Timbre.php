@@ -6,17 +6,16 @@ use App\Models\CRUD;
 
 class Timbre extends CRUD
 {
-
 	protected $table = "Timbre";
 	protected $primaryKey = 'idTimbre';
 	protected $fillable = [
-		'nom',
+		'titre',
 		'description',
 		'dateProd',
 		'tirage',
 		'hauteur',
 		'largeur',
-		'certifie'
+		'certifie',
+		'Lord'
 	];
-
 }

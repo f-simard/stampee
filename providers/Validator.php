@@ -103,25 +103,25 @@ class Validator
 		return $this;
 	}
 
-	public function image()
+	public function image($nom)
 	{
 
-		if ($this->valeur["fichierATeleverser"]["error"] == 1) {
+		if ($this->valeur[$nom]["error"] == 1) {
 			$this->erreurs[$this->cle] = "Une erreur est survenue avec l'image.";
 			return $this;
 		};
 
-		$fichier_cible = $_SERVER["DOCUMENT_ROOT"] . UPLOAD . basename($this->valeur["fichierATeleverser"]["name"]);
+		$fichier_cible = $_SERVER["DOCUMENT_ROOT"] . UPLOAD . basename($this->valeur[$nom]["name"]);
 		$typeImg = strtolower(pathinfo($fichier_cible, PATHINFO_EXTENSION));
 
 		// Check if image file is a actual image or fake image
-		$verification = getimagesize($this->valeur["fichierATeleverser"]["tmp_name"]);
+		$verification = getimagesize($this->valeur[$nom]["tmp_name"]);
 		if ($verification == false) {
 			$this->erreurs[$this->cle] = "Format de $this->nom invalide.";
 		};
 
 		// Check file size
-		if ($this->valeur["fichierATeleverser"]["size"] > 200000) {
+		if ($this->valeur[$nom]["size"] > 200000) {
 			$this->erreurs[$this->cle] = "L'image est trop grande";
 		}
 
@@ -154,6 +154,31 @@ class Validator
 			$this->erreurs[$this->cle] = "La valeur ne peux pas contenir d'espace";
 		}
 
+		return $this;
+	}
+
+	// tout numerique
+	public function toutNumeric()
+	{
+		if (!empty($this->valeur) && !is_numeric($this->valeur)) {
+			$this->erreurs[$this->cle] = "$this->nom doit être un nombre";
+		}
+		return $this;
+	}
+
+	public function plusPetit($limite)
+	{
+		if ($this->valeur >= $limite) {
+			$this->erreurs[$this->cle] = "$this->nom must be less than or equal to $limite.";
+		}
+		return $this;
+	}
+
+	public function plusGrand($limite)
+	{
+		if ($this->valeur <= $limite) {
+			$this->erreurs[$this->cle] = "$this->nom must be bigger than or equal to $limite.";
+		}
 		return $this;
 	}
 

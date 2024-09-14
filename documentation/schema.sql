@@ -56,14 +56,14 @@ DROP TABLE IF EXISTS `stampee`.`Timbre` ;
 
 CREATE TABLE IF NOT EXISTS `stampee`.`Timbre` (
   `idTimbre` INT NOT NULL AUTO_INCREMENT,
-  `nom` VARCHAR(100) NOT NULL,
+  `titre` VARCHAR(100) NOT NULL,
   `description` VARCHAR(120) NULL,
-  `dateProd` DATE NOT NULL,
+  `anneeProd` INT NOT NULL,
   `tirage` INT NULL,
   `hauteur` DOUBLE NOT NULL,
   `largeur` DOUBLE NOT NULL,
-  `certifié` TINYINT NOT NULL,
-  `Lord` TINYINT NULL,
+  `certifie` TINYINT NOT NULL,
+  `lord` TINYINT NULL,
   `datePublication` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`idTimbre`))
 ENGINE = InnoDB;

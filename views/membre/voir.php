@@ -47,19 +47,22 @@
 
 		<div class="champ-etiquette">
 			<p class="adresseCivique">Pays: </p>
-			<p class="champ">{{membre.pays}}</p>
+			<p class="champ">{{pays}}</p>
 		</div>
 
 		<div class="champ-etiquette">
 			<p class="adresseCivique">Langue: </p>
-			<p class="champ">{{membre.langue}}</p>
+			<p class="champ">{{langue}}</p>
 		</div>
 
 		<div class="champ-etiquette">
 			<p class="adresseCivique">Devise: </p>
-			<p class="champ">{{membre.devise}}</p>
+			<p class="champ">{{devise}}</p>
 		</div>
 
+	</section>
+	<section class="actions">
+		<a href="{{base}}//timbre/creer" class="bouton" data-couleur="secondaire">Ajouter timbre</a>
 		<a href="{{base}}/deconnexion" class="bouton" data-couleur="primaire">Déconnecter</a>
 	</section>
 
