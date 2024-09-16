@@ -5,8 +5,8 @@ namespace App\Controllers;
 use App\Providers\View;
 use App\Providers\Validator;
 
-use App\Models\Membre;
 use App\Models\Timbre;
+use App\Models\Image;
 
 class TimbreController
 {
@@ -19,9 +19,11 @@ class TimbreController
 
 	public function sauvegarder($data = [])
 	{
+
+		/*TODO: ameliorer avec boucle pour $_FILES*/
 		$validateur = new Validator();
-		if ($_FILES["imagePrincipale"]["size"] > 0 || $_FILES["imagePrincipale"]["error"] == 1) {
-			$validateur->champ('imagePrincipale', $_FILES, "Image")->requis()->image("imagePrincipale");
+		if ($_FILES["imagePrincipale"]["size"] > 0 || ($_FILES["imagePrincipale"]["error"] > 0)) {
+			$validateur->champ('imagePrincipale', $_FILES, "Image")->imgRequise("imagePrincipale")->image("imagePrincipale");
 		}
 		if ($_FILES["image2"]["size"] > 0 || $_FILES["image2"]["error"] == 1) {
 			$validateur->champ('image2', $_FILES, "Image")->image("image2");
@@ -37,45 +39,79 @@ class TimbreController
 		}
 
 		$validateur->champ('titre', $data['titre'])->nettoie()->min(2)->max(100);
-		$validateur->champ('description', $data['description'])->nettoie()->min(2)->max(100);
-		$validateur->champ('anneProd', $data['anneProd'],"Année de production")->requis()->toutNumeric();
-		$validateur->champ('tirage', $data['tirage'])->requis()->toutNumeric()->plusGrand(0);
+		$validateur->champ('description', $data['description'])->nettoie()->max(100);
+		$validateur->champ('anneeProd', $data['anneeProd'], "Année de production")->requis()->toutNumeric();
+		$validateur->champ('tirage', $data['tirage'])->toutNumeric()->plusGrand(0);
 		$validateur->champ('hauteur', $data['hauteur'])->requis()->toutNumeric()->plusGrand(0)->plusPetit(25);
 		$validateur->champ('largeur', $data['largeur'])->requis()->toutNumeric()->plusGrand(0)->plusPetit(25);
 
-
-
-
-		//donner valeur tinyint à isAdmin
-		if (isset($data['estAdmin'])) {
-			$data['estAdmin'] = 1;
+		//ajouter et manipuler data
+		if (isset($data['certifie'])) {
+			$data['certifie'] = 1;
 		} else {
-			$data['estAdmin'] = 0;
+			$data['certifie'] = 0;
 		}
+
+		if (isset($data['lord'])) {
+			$data['lord'] = 1;
+		} else {
+			$data['lord'] = 0;
+		}
+
+		$data['idMembre'] = $_SESSION['idMembre'];
+
 
 		if ($validateur->estSucces()) {
+
 			//créer utilisateur
-			$membre = new Membre();
+			$timbre = new Timbre();
 
-			//encrypter mot de passe
-			$password = $membre->hashMotDePasse($data['motDePasse']);
-			$data['motDePasse'] = $password;
+			//créer timbre
+			$timbreAjoute = $timbre->insert($data);
 
-			//sauvegarder sur le serveur
+			// sauvegarder image sur le serveur
 			// https://stackoverflow.com/questions/15211231/server-document-root-path-in-php
-			$fichierCible = $_SERVER["DOCUMENT_ROOT"] . UPLOAD . basename($_FILES["fichierATeleverser"]["name"]);
-			$deplace = move_uploaded_file($_FILES["fichierATeleverser"]["tmp_name"], $fichierCible);
 
-			//sauvegarder le chemin dans la base de donnée
-			$data['avatar'] = basename($_FILES["fichierATeleverser"]["name"]);
+			foreach ($_FILES as $nom => $fichier) {
+				if ($fichier['error'] == 0) {
+					$fichierCible = $_SERVER["DOCUMENT_ROOT"] . UPLOAD . basename($fichier["name"]);
+					$deplace = move_uploaded_file($fichier["tmp_name"], $fichierCible);
 
-			//créer utilisateur
-			$membreAjoute = $membre->insert($data);
+					//creer lien dans base de données
+					$donneeImage['chemin'] = basename($fichier["name"]);
+					$donneeImage['idTimbre'] = $timbreAjoute;
 
-			return View::redirect('login');
+					if ($nom == 'imagePrincipale') {
+						$donneeImage['principale'] = 1;
+					} else {
+						$donneeImage['principale'] = 0;
+					}
+
+					$image = new Image();
+					$imageAjoute = $image->insert($donneeImage);
+				}
+			}
+
+			return View::redirect('timbre/voir?idTimbre=' . $timbreAjoute);
 		} else {
 
-			return View::render('membre/creer', ['erreurs' => $erreurs, 'membre' => $data, 'devises' => $devises, 'pays_liste' => $pays_liste, 'langues' => $langues]);
+			$erreurs = $validateur->obtenirErreur();
+
+			return View::render('timbre/creer', ['erreurs' => $erreurs, 'timbre' => $data]);
 		}
+	}
+
+	public function afficherSelonMembre()
+	{
+		$timbre = new Timbre();
+		$timbres = $timbre->selectMultipleByField($_SESSION['idMembre'], 'idMembre');
+
+		foreach ($timbres as &$timbre) {
+			$image = new Image();
+			$images = $image->imagePrincipale($timbre['idTimbre']);
+			$timbre['imageSrc'] = $images['chemin'];
+		}
+
+		return View::render('timbre/parMembre', ['timbres' => $timbres]);
 	}
 }

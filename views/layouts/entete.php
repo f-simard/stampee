@@ -45,7 +45,7 @@
 				</svg>
 				
 			</a>
-			<a href="{{base}}/connexion">
+			<a href="{% if guest %}{{base}}/connexion {% else %} {{base}}/membre/voir?idMembre={{session.idMembre}} {% endif %}">
 				<svg role="img" aria-label="icone avatar" class="icone" data-setCouleur="clairSurPrimaire" width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<title>Icone avatar</title>
 					<path data-garde d="M27.6765 52C40.929 52 51.6765 41.2568 51.6765 28C51.6765 14.7432 40.9333 4 27.6765 4C14.4197 4 3.67651 14.7432 3.67651 28C3.67651 41.2568 14.4197 52 27.6765 52Z" stroke="#FEFEF2" stroke-width="7" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>

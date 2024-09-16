@@ -106,33 +106,44 @@ class Validator
 	public function image($nom)
 	{
 
-		if ($this->valeur[$nom]["error"] == 1) {
-			$this->erreurs[$this->cle] = "Une erreur est survenue avec l'image.";
+		if ($_FILES["imagePrincipale"]["error"] !=4 ) {
+			/* src:https://www.php.net/manual/en/features.file-upload.errors.php */
+			if ($this->valeur[$nom]["error"] > 0) {
+				$this->erreurs[$this->cle] = "Une erreur est survenue avec l'image.";
+				return $this;
+			};
+
+			$fichier_cible = $_SERVER["DOCUMENT_ROOT"] . UPLOAD . basename($this->valeur[$nom]["name"]);
+			$typeImg = strtolower(pathinfo($fichier_cible, PATHINFO_EXTENSION));
+
+			// Check if image file is a actual image or fake image
+			$verification = getimagesize($this->valeur[$nom]["tmp_name"]);
+			if ($verification == false) {
+				$this->erreurs[$this->cle] = "Format de $this->nom invalide.";
+			};
+
+			// Check file size
+			if ($this->valeur[$nom]["size"] > 200000) {
+				$this->erreurs[$this->cle] = "L'image est trop grande";
+			}
+
+			// Allow certain file formats
+			if (
+				$typeImg != "jpg" && $typeImg != "png" && $typeImg != "jpeg"
+				&& $typeImg != "gif"
+			) {
+				$this->erreurs[$this->cle] = "Seul les JPG, JPEG, PNG & GIF sont acceptés";
+			}
+
 			return $this;
-		};
-
-		$fichier_cible = $_SERVER["DOCUMENT_ROOT"] . UPLOAD . basename($this->valeur[$nom]["name"]);
-		$typeImg = strtolower(pathinfo($fichier_cible, PATHINFO_EXTENSION));
-
-		// Check if image file is a actual image or fake image
-		$verification = getimagesize($this->valeur[$nom]["tmp_name"]);
-		if ($verification == false) {
-			$this->erreurs[$this->cle] = "Format de $this->nom invalide.";
-		};
-
-		// Check file size
-		if ($this->valeur[$nom]["size"] > 200000) {
-			$this->erreurs[$this->cle] = "L'image est trop grande";
 		}
+		
+	}
 
-		// Allow certain file formats
-		if (
-			$typeImg != "jpg" && $typeImg != "png" && $typeImg != "jpeg"
-			&& $typeImg != "gif"
-		) {
-			$this->erreurs[$this->cle] = "Seul les JPG, JPEG, PNG & GIF sont acceptés";
+	public function imgRequise($nom){
+		 if ($_FILES[$nom]["error"] == 4){
+			$this->erreurs[$this->cle] = "$this->nom requise";
 		}
-
 		return $this;
 	}
 
@@ -168,7 +179,7 @@ class Validator
 
 	public function plusPetit($limite)
 	{
-		if ($this->valeur >= $limite) {
+		if (!empty($this->valeur) && $this->valeur >= $limite) {
 			$this->erreurs[$this->cle] = "$this->nom must be less than or equal to $limite.";
 		}
 		return $this;
@@ -176,7 +187,7 @@ class Validator
 
 	public function plusGrand($limite)
 	{
-		if ($this->valeur <= $limite) {
+		if (!empty($this->valeur) && $this->valeur <= $limite) {
 			$this->erreurs[$this->cle] = "$this->nom must be bigger than or equal to $limite.";
 		}
 		return $this;

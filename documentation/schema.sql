@@ -20,9 +20,8 @@ USE `stampee` ;
 DROP TABLE IF EXISTS `stampee`.`Devise` ;
 
 CREATE TABLE IF NOT EXISTS `stampee`.`Devise` (
-  `idDevise` INT NOT NULL AUTO_INCREMENT,
+  `idDevise` VARCHAR(3) NOT NULL,
   `nom` VARCHAR(45) NOT NULL,
-  `code` VARCHAR(3) NOT NULL,
   PRIMARY KEY (`idDevise`))
 ENGINE = InnoDB;
 
@@ -38,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `stampee`.`Enchere` (
   `dateFin` TIMESTAMP NOT NULL,
   `prixPlancher` FLOAT NOT NULL,
   `estimation` FLOAT NOT NULL,
-  `idDevise` INT NOT NULL,
+  `idDevise` VARCHAR(3) NOT NULL,
   PRIMARY KEY (`idEnchere`),
   INDEX `fk_Enchere_Devise1_idx` (`idDevise` ASC) VISIBLE,
   CONSTRAINT `fk_Enchere_Devise1`
@@ -47,6 +46,75 @@ CREATE TABLE IF NOT EXISTS `stampee`.`Enchere` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `stampee`.`Pays`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `stampee`.`Pays` ;
+
+CREATE TABLE IF NOT EXISTS `stampee`.`Pays` (
+  `idPays` VARCHAR(3) NOT NULL,
+  `nom` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`idPays`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `stampee`.`Langue`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `stampee`.`Langue` ;
+
+CREATE TABLE IF NOT EXISTS `stampee`.`Langue` (
+  `idLangue` VARCHAR(2) NOT NULL,
+  `nom` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`idLangue`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `stampee`.`Membre`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `stampee`.`Membre` ;
+
+CREATE TABLE IF NOT EXISTS `stampee`.`Membre` (
+  `idMembre` INT NOT NULL AUTO_INCREMENT,
+  `nom` VARCHAR(45) NOT NULL,
+  `prenom` VARCHAR(45) NOT NULL,
+  `adresseCivique` VARCHAR(45) NULL,
+  `ville` VARCHAR(45) NULL,
+  `nomUtilisateur` VARCHAR(45) NOT NULL,
+  `motDePasse` VARCHAR(255) NOT NULL,
+  `codePostal` VARCHAR(7) NULL,
+  `courriel` VARCHAR(100) NULL,
+  `estAdmin` TINYINT(4) NULL DEFAULT '0',
+  `avatar` VARCHAR(255) NULL DEFAULT NULL,
+  `idDevise` VARCHAR(3) NOT NULL,
+  `idPays` VARCHAR(3) NOT NULL,
+  `idLangue` VARCHAR(2) NOT NULL,
+  PRIMARY KEY (`idMembre`),
+  UNIQUE INDEX `courriel_UNIQUE` (`courriel` ASC) VISIBLE,
+  UNIQUE INDEX `nomUtilisateur_UNIQUE` (`nomUtilisateur` ASC) VISIBLE,
+  INDEX `fk_Membre_Devise1_idx` (`idDevise` ASC) VISIBLE,
+  INDEX `fk_Membre_Pays1_idx` (`idPays` ASC) VISIBLE,
+  INDEX `fk_Membre_Langue1_idx` (`idLangue` ASC) VISIBLE,
+  CONSTRAINT `fk_Membre_Devise1`
+    FOREIGN KEY (`idDevise`)
+    REFERENCES `stampee`.`Devise` (`idDevise`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Membre_Pays1`
+    FOREIGN KEY (`idPays`)
+    REFERENCES `stampee`.`Pays` (`idPays`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Membre_Langue1`
+    FOREIGN KEY (`idLangue`)
+    REFERENCES `stampee`.`Langue` (`idLangue`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
@@ -65,7 +133,14 @@ CREATE TABLE IF NOT EXISTS `stampee`.`Timbre` (
   `certifie` TINYINT NOT NULL,
   `lord` TINYINT NULL,
   `datePublication` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`idTimbre`))
+  `idMembre` INT NOT NULL,
+  PRIMARY KEY (`idTimbre`),
+  INDEX `fk_Timbre_Membre1_idx` (`idMembre` ASC) VISIBLE,
+  CONSTRAINT `fk_Timbre_Membre1`
+    FOREIGN KEY (`idMembre`)
+    REFERENCES `stampee`.`Membre` (`idMembre`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
@@ -87,77 +162,6 @@ CREATE TABLE IF NOT EXISTS `stampee`.`Image` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `stampee`.`Langue`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `stampee`.`Langue` ;
-
-CREATE TABLE IF NOT EXISTS `stampee`.`Langue` (
-  `idLangue` INT NOT NULL AUTO_INCREMENT,
-  `code` VARCHAR(2) NOT NULL,
-  `nom` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`idLangue`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `stampee`.`Pays`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `stampee`.`Pays` ;
-
-CREATE TABLE IF NOT EXISTS `stampee`.`Pays` (
-  `idPays` INT NOT NULL AUTO_INCREMENT,
-  `code` VARCHAR(3) NOT NULL,
-  `nom` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`idPays`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `stampee`.`Membre`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `stampee`.`Membre` ;
-
-CREATE TABLE IF NOT EXISTS `stampee`.`Membre` (
-  `idMembre` INT NOT NULL AUTO_INCREMENT,
-  `nom` VARCHAR(45) NOT NULL,
-  `prenom` VARCHAR(45) NOT NULL,
-  `adresseCivique` VARCHAR(45) NULL,
-  `ville` VARCHAR(45) NULL,
-  `nomUtilisateur` VARCHAR(45) NOT NULL,
-  `motDePasse` VARCHAR(255) NOT NULL,
-  `codePostal` VARCHAR(7) NULL,
-  `courriel` VARCHAR(100) NULL,
-  `estAdmin` TINYINT(4) NULL DEFAULT '0',
-  `avatar` VARCHAR(255) NULL DEFAULT NULL,
-  `idDevise` INT NOT NULL,
-  `idLangue` INT NOT NULL,
-  `idPays` INT NOT NULL,
-  PRIMARY KEY (`idMembre`),
-  UNIQUE INDEX `courriel_UNIQUE` (`courriel` ASC) VISIBLE,
-  UNIQUE INDEX `nomUtilisateur_UNIQUE` (`nomUtilisateur` ASC) VISIBLE,
-  INDEX `fk_Membre_Devise1_idx` (`idDevise` ASC) VISIBLE,
-  INDEX `fk_Membre_Langue1_idx` (`idLangue` ASC) VISIBLE,
-  INDEX `fk_Membre_Pays1_idx` (`idPays` ASC) VISIBLE,
-  CONSTRAINT `fk_Membre_Devise1`
-    FOREIGN KEY (`idDevise`)
-    REFERENCES `stampee`.`Devise` (`idDevise`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Membre_Langue1`
-    FOREIGN KEY (`idLangue`)
-    REFERENCES `stampee`.`Langue` (`idLangue`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Membre_Pays1`
-    FOREIGN KEY (`idPays`)
-    REFERENCES `stampee`.`Pays` (`idPays`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
@@ -206,30 +210,6 @@ CREATE TABLE IF NOT EXISTS `stampee`.`Mise` (
   CONSTRAINT `fk_Membre_has_Timbre_has_Enchere_Timbre_has_Enchere1`
     FOREIGN KEY (`idTimbre` , `idEnchere`)
     REFERENCES `stampee`.`Enchere_has_Timbre` (`idTimbre` , `idEnchere`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `stampee`.`Membre_has_Timbre`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `stampee`.`Membre_has_Timbre` ;
-
-CREATE TABLE IF NOT EXISTS `stampee`.`Membre_has_Timbre` (
-  `idTimbre` INT NOT NULL,
-  `idMembre` INT NOT NULL,
-  PRIMARY KEY (`idTimbre`, `idMembre`),
-  INDEX `fk_Timbre_has_Membre_Membre1_idx` (`idMembre` ASC) VISIBLE,
-  INDEX `fk_Timbre_has_Membre_Timbre1_idx` (`idTimbre` ASC) VISIBLE,
-  CONSTRAINT `fk_Timbre_has_Membre_Timbre1`
-    FOREIGN KEY (`idTimbre`)
-    REFERENCES `stampee`.`Timbre` (`idTimbre`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Timbre_has_Membre_Membre1`
-    FOREIGN KEY (`idMembre`)
-    REFERENCES `stampee`.`Membre` (`idMembre`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

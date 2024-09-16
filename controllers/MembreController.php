@@ -79,8 +79,8 @@ class MembreController
 			$membre = new Membre();
 
 			//encrypter mot de passe
-			$password = $membre->hashMotDePasse($data['motDePasse']);
-			$data['motDePasse'] = $password;
+			$modeDePasse = $membre->hashMotDePasse($data['motDePasse']);
+			$data['motDePasse'] = $modeDePasse;
 
 			//sauvegarder sur le serveur
 			// https://stackoverflow.com/questions/15211231/server-document-root-path-in-php
@@ -110,4 +110,5 @@ class MembreController
 			return View::render('membre/creer', ['erreurs' => $erreurs, 'membre' => $data, 'devises' => $devises, 'pays_liste' => $pays_liste, 'langues' => $langues]);
 		}
 	}
+
 }

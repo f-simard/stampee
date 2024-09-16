@@ -11,11 +11,12 @@ class Timbre extends CRUD
 	protected $fillable = [
 		'titre',
 		'description',
-		'dateProd',
+		'anneeProd',
 		'tirage',
 		'hauteur',
 		'largeur',
 		'certifie',
-		'Lord'
+		'lord',
+		'idMembre'
 	];
 }

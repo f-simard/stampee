@@ -1,7 +1,7 @@
 {{ include('layouts/entete.php' , {title: 'Créer timbre'}) }}
 
 <main>
-	<h2>Créer un compte</h2>
+	<h2>Ajouter timbre</h2>
 	<form class="formulaire" method="post" enctype="multipart/form-data" novalidate>
 
 		<div>
@@ -47,8 +47,8 @@
 		<div>
 			<label for="titre">Titre*</label>
 			<input type="text" name="titre" id="titre" value="{{timbre.titre}}">
-			{% if erreurs.nom is defined %}
-			<span class="erreur">{{erreurs.nom}}</span>
+			{% if erreurs.titre is defined %}
+			<span class="erreur">{{erreurs.titre}}</span>
 			{% endif %}
 		</div>
 
@@ -77,7 +77,7 @@
 		</div>
 
 		<div>
-			<label for="hauteur">Hauteur (cm)</label>
+			<label for="hauteur">Hauteur* (cm)</label>
 			<input required type="number" name="hauteur" id="hauteur" value="{{timbre.hauteur}}" min=0 max=25>
 			{% if erreurs.hauteur is defined %}
 			<span class="erreur">{{erreurs.hauteur}}</span>
@@ -85,7 +85,7 @@
 		</div>
 
 		<div>
-			<label for="largeur">Largeur (cm)</label>
+			<label for="largeur">Largeur* (cm)</label>
 			<input required type="number" name="largeur" id="largeur" value="{{timbre.largeur}}" min=0 max=25>
 			{% if erreurs.largeur is defined %}
 			<span class="erreur">{{erreurs.largeur}}</span>

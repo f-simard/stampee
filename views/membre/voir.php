@@ -62,7 +62,8 @@
 
 	</section>
 	<section class="actions">
-		<a href="{{base}}//timbre/creer" class="bouton" data-couleur="secondaire">Ajouter timbre</a>
+		<a href="{{base}}/membre/timbre" class="bouton" data-couleur="secondaire">Voir mes timbres</a>
+		<a href="{{base}}/timbre/creer" class="bouton" data-couleur="secondaire">Ajouter timbre</a>
 		<a href="{{base}}/deconnexion" class="bouton" data-couleur="primaire">Déconnecter</a>
 	</section>
 
