@@ -51,6 +51,7 @@ class Membre extends CRUD
 				$_SESSION['nomUtilisateur'] = $membre['nomUtilisateur'];
 				$_SESSION['estAdmin'] = $membre['estAdmin'];
 				$_SESSION['prenom'] = $membre['prenom'];
+				$_SESSION['idDevise'] = $membre['idDevise'];
 				$_SESSION['fingerPrint'] = md5($_SERVER['HTTP_USER_AGENT'] . $_SERVER['REMOTE_ADDR']);
 
 				return true;

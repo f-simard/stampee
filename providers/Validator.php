@@ -193,6 +193,22 @@ class Validator
 		return $this;
 	}
 
+	public function formatDate($format = 'Y-m-d')
+	{
+		$date = \DateTime::createFromFormat($format, $this->valeur);
+		if (!$date || $date->format($format) !== $this->valeur) {
+			$this->erreurs[$this->cle] = "Format de date invalide. Merci d'utiliser le format suivant $format.";
+		}
+		return $this;
+	}
+
+	public function auMoinsUn(){
+		if($this->valeur == null){
+			$this->erreurs[$this->cle] = "Sélectionner au moins un $this->nom ";
+		}
+		return $this;
+	}
+
 	//if no errors, then success
 	public function estSucces()
 	{

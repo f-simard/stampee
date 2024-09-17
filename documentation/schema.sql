@@ -38,6 +38,7 @@ CREATE TABLE IF NOT EXISTS `stampee`.`Enchere` (
   `prixPlancher` FLOAT NOT NULL,
   `estimation` FLOAT NOT NULL,
   `idDevise` VARCHAR(3) NOT NULL,
+    `statut` VARCHAR(6) NOT NULL,
   PRIMARY KEY (`idEnchere`),
   INDEX `fk_Enchere_Devise1_idx` (`idDevise` ASC) VISIBLE,
   CONSTRAINT `fk_Enchere_Devise1`
