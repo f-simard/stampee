@@ -42,18 +42,20 @@
 			<legend>Timbres à mettre en enchère</legend>
 			{% if timbres %}
 			{% for timbre in timbres %}
-			<div class="paire">
+			<div>
 				<!-- sourceTwig: https://dev.to/yanyy/string-concatenation-and-interpolation-in-twig-3h2f AND chatGTP-->
 				<!-- sourceHTML: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox-->
 				<!-- sourceHTML: https://www.hashbangcode.com/article/html-checkbox-php-array -->
 				{% set idTimbre = "timbre" ~ timbre.idTimbre %}
 				<label id="timbre{{timbre.idTimbre}}">{{timbre.titre}} </label>
 				<input type="checkbox" name="timbres[]" id="timbre{{timbre.idTimbre}}" value="{{timbre.idTimbre}}" {% if timbre.idTimbre in enchere.timbres %} checked {% endif %}>
-
 			</div>
 			{% endfor %}
 			{% else %}
 			<p>Aucun timbre disponible</p>
+			{% endif %}
+			{% if erreurs.timbres is defined %}
+			<span class="erreur">{{erreurs.timbres}}</span>
 			{% endif %}
 		</fieldset>
 

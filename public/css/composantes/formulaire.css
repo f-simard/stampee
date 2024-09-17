@@ -8,7 +8,7 @@
 	font-family: var(--font-sans-serif);
 }
 
-.formulaire :is(label, select, option){
+.formulaire :is(label, select, option) {
 	font-size: var(--font-current);
 }
 
@@ -16,46 +16,59 @@
 	font-family: var(--font-serif);
 }
 
-.formulaire div {
+.formulaire fieldset > div {
+	padding-inline: var(--spacing-thinner);
+	padding-block: var(--spacing-nano);
+}
 
-	&:has(input[type='file']){
+.formulaire div {
+	&:has([type="file"]) {
 		display: flex;
 		flex-direction: column;
-	};
+	}
+
+	&:has([type="checkbox"]) {
+		display: flex;
+		flex-direction: row;
+		gap: var(--spacing-thinner);
+	}
 
 	display: flex;
 	flex-direction: column;
 	gap: var(--spacing-nano);
 
-	@media screen and (min-width:410px) {
+	@media screen and (min-width: 410px) {
 		display: grid;
 
-	grid-template-areas:
-		"etiquette champ"
-		"vide  erreur";
+		grid-template-areas:
+			"etiquette champ"
+			"vide  erreur";
 
-	row-gap: var(--spacing-nano);
+		row-gap: var(--spacing-nano);
 
-	grid-template-columns: 20ch auto;
+		grid-template-columns: 20ch auto;
 
-	@media screen and (min-width:419px) {
+		@media screen and (min-width: 419px) {
 			grid-template-columns: 25ch auto;
-	}
+		}
 
-	label{
-		grid-area: etiquette;
-	}
+		label {
+			grid-area: etiquette;
+		}
 
-	:is(input, select) {
-		grid-area: champ;
-		padding: var(--spacing-nano);
-	}
+		:is(input, select) {
+			grid-area: champ;
+			padding: var(--spacing-nano);
+		}
 
-	.erreur {
-		grid-area: erreur;
-	};
-	}
+		> [type="checkbox"] {
+			margin-right: auto;
+		}
 
+		.erreur {
+			grid-area: erreur;
+		}
+	}
 }
 
 .formulaire_etroit {
