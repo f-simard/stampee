@@ -32,4 +32,18 @@ class View
 	{
 		header('location:' . BASE . '/' . $url);
 	}
+
+	static public function msg($data = [])
+	{
+
+		if (isset($data['succesSuppr'])) {
+			return "Suppression réussie";
+		} else if (isset($data['successMiseAJour'])) {
+			return "Mise à jour réussie";
+		} else if (isset($data['succesAjout'])) {
+			return "Ajout réussi";
+		} else {
+			return null;
+		};
+	}
 }

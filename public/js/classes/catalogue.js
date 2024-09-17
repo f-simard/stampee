@@ -14,10 +14,8 @@ class Catalogue {
 		this.statutAffichage = document.querySelector(".catalogue-conteneur[data-enchere]").dataset.enchere;
 		this.mode = 'liste';
 
-		this.instancierCarteLot();
-
 		//ecouteur d'evenement
-		this.checkboxFiltre.addEventListener("click", this.affichageFiltre.bind(this));
+		//this.checkboxFiltre.addEventListener("click", this.affichageFiltre.bind(this));
 		this.iconeModeListe.addEventListener("click", this.changerMode.bind(this));
 		this.iconeModeGrille.addEventListener("click", this.changerMode.bind(this));
 		if(this.boutonActive && this.boutonPassee ){
@@ -26,21 +24,6 @@ class Catalogue {
 		}
 
 
-	}
-
-	instancierCarteLot(){
-
-		let template;
-
-		if(this.statutAffichage == "active"){
-			template = this.conteneurCatalogue.querySelector(".template-carteLot")
-		} else {
-			template = this.conteneurCatalogue.querySelector(".template-archive")
-		}
-
-		for(let i = 0; i<=9 ; i++){
-			new CarteLot(template);
-		}
 	}
 
 	changerMode(evenement){

@@ -1,26 +1,33 @@
 {{ include('layouts/entete.php' , {titre: 'Base'}) }}
 <main>
 	<section>
-		<h2>Enchères personnelless</h2>
+		{% if succes is not null %}
+		<span class="succes">{{succes}}</span>
+		{% endif %}
+
+		<section class="titre-bouton">
+			<h2>Enchères personnelles</h2>
+		</section>
+
 		<div class="principal">
 			<div class="catalogue-conteneur liste" data-enchere="active">
 				{% for enchere in encheres %}
-				<a href="details.html">
+				<a href="{{base}}/enchere/voir?idEnchere={{enchere.idEnchere}}">
 					<article class="carte-lot" data-mode="liste">
 						<section class="info-lot">
-							<div>
-								<div class="info-lot__sous-entete">
-									<h5>Enchere {{enchere.idEnchere}}</h5>
-								</div>
-							</div>
-							<h5>Date debut: {{enchere.dateDebut}}</h5>
-							<h5>Date fin: {{enchere.dateFin}}</h5>
-							<h5>Prix plancher: {{enchere.prixPlancher}}</h5>
-							<h5>Estimation: {{enchere.estimation}}</h5>
-							<h5>Devise de base: {{enchere.idDevise}}</h5>
-							<h5>Statut: {{enchere.statut}}</h5>
-							<h5>Nombre de theme: {{enchere.nbTimbre}}</h5>
+							<h5>Enchere {{enchere.idEnchere}}</h5>
+							<p>Date debut: {{enchere.dateDebut}}</p>
+							<p>Date fin: {{enchere.dateFin}}</p>
+							<p>Prix plancher: {{enchere.prixPlancher}}</p>
+							<p>Estimation: {{enchere.estimation}}</p>
+							<p>Devise de base: {{enchere.idDevise}}</p>
+							<p>Statut: {{enchere.statut}}</p>
+							<p>Nombre de timbre: {{enchere.nbTimbre}}</p>
 						</section>
+						<form action="{{base}}/enchere/supprimer" method="post">
+							<input type="hidden" name="idEnchere" value="{{enchere.idEnchere}}">
+							<button class="bouton">Supprimer</button>
+						</form>
 					</article>
 				</a>
 				{% endfor %}

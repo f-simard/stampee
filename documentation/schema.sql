@@ -7,6 +7,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema stampee
 -- -----------------------------------------------------
+DROP SCHEMA IF EXISTS `stampee` ;
 
 -- -----------------------------------------------------
 -- Schema stampee
@@ -38,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `stampee`.`Enchere` (
   `prixPlancher` FLOAT NOT NULL,
   `estimation` FLOAT NOT NULL,
   `idDevise` VARCHAR(3) NOT NULL,
-    `statut` VARCHAR(6) NOT NULL,
+  `statut` VARCHAR(6) NOT NULL,
   PRIMARY KEY (`idEnchere`),
   INDEX `fk_Enchere_Devise1_idx` (`idDevise` ASC) VISIBLE,
   CONSTRAINT `fk_Enchere_Devise1`
@@ -82,8 +83,8 @@ CREATE TABLE IF NOT EXISTS `stampee`.`Membre` (
   `idMembre` INT NOT NULL AUTO_INCREMENT,
   `nom` VARCHAR(45) NOT NULL,
   `prenom` VARCHAR(45) NOT NULL,
-  `adresseCivique` VARCHAR(45) NULL,
-  `ville` VARCHAR(45) NULL,
+  `adresseCivique` VARCHAR(255) NULL,
+  `ville` VARCHAR(100) NULL,
   `nomUtilisateur` VARCHAR(45) NOT NULL,
   `motDePasse` VARCHAR(255) NOT NULL,
   `codePostal` VARCHAR(7) NULL,
@@ -190,33 +191,6 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `stampee`.`Mise`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `stampee`.`Mise` ;
-
-CREATE TABLE IF NOT EXISTS `stampee`.`Mise` (
-  `idMembre` INT NOT NULL,
-  `idTimbre` INT NOT NULL,
-  `idEnchere` INT NOT NULL,
-  `montant` FLOAT NOT NULL,
-  `dateCreation` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`idMembre`, `idTimbre`, `idEnchere`, `montant`),
-  INDEX `fk_Membre_has_Timbre_has_Enchere_Timbre_has_Enchere1_idx` (`idTimbre` ASC, `idEnchere` ASC) VISIBLE,
-  INDEX `fk_Membre_has_Timbre_has_Enchere_Membre1_idx` (`idMembre` ASC) VISIBLE,
-  CONSTRAINT `fk_Membre_has_Timbre_has_Enchere_Membre1`
-    FOREIGN KEY (`idMembre`)
-    REFERENCES `stampee`.`Membre` (`idMembre`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Membre_has_Timbre_has_Enchere_Timbre_has_Enchere1`
-    FOREIGN KEY (`idTimbre` , `idEnchere`)
-    REFERENCES `stampee`.`Enchere_has_Timbre` (`idTimbre` , `idEnchere`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `stampee`.`Favori`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `stampee`.`Favori` ;
@@ -238,6 +212,32 @@ CREATE TABLE IF NOT EXISTS `stampee`.`Favori` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `stampee`.`Mise`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `stampee`.`Mise` ;
+
+CREATE TABLE IF NOT EXISTS `stampee`.`Mise` (
+  `Membre_idMembre` INT NOT NULL,
+  `Enchere_idEnchere` INT NOT NULL,
+  `montant` FLOAT NOT NULL,
+  `dateCreation` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`Membre_idMembre`, `Enchere_idEnchere`),
+  INDEX `fk_Membre_has_Enchere_Enchere2_idx` (`Enchere_idEnchere` ASC) VISIBLE,
+  INDEX `fk_Membre_has_Enchere_Membre2_idx` (`Membre_idMembre` ASC) VISIBLE,
+  CONSTRAINT `fk_Membre_has_Enchere_Membre2`
+    FOREIGN KEY (`Membre_idMembre`)
+    REFERENCES `stampee`.`Membre` (`idMembre`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Membre_has_Enchere_Enchere2`
+    FOREIGN KEY (`Enchere_idEnchere`)
+    REFERENCES `stampee`.`Enchere` (`idEnchere`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
 
 
 SET SQL_MODE=@OLD_SQL_MODE;

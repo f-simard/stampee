@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,7 +9,8 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="{{asset}}/css/main.css">
+	<link rel="stylesheet" href="{{asset}}css/main.css">
+	{% if titre == 'Vitrine' %} <script src="{{asset}}js/pages/catalogue.js" type="module"></script> {% endif%}
 	<title>{{titre}}</title>
 </head>
 <header class="entete-site">
@@ -22,7 +24,7 @@
 			<a href="#" data-ecran="tablette">
 				<svg aria-label="icone loupe de recherche" role="img" class="icone" data-setCouleur="clairSurPrimaire" width="50" height="50" viewBox="0 0 50 50" fill="transparent" xmlns="http://www.w3.org/2000/svg">
 					<title>loupe de recherche</title>
-					<path d="M36.3162 31.8301C41.7259 24.1987 41.0022 13.5623 34.1541 6.72805C26.4948 -0.909352 14.0802 -0.909352 6.42095 6.72805C-1.2383 14.3685 -1.2383 26.7556 6.42095 34.393C13.2721 41.2272 23.9317 41.9492 31.5849 36.5527L44.0629 49L48.6765 44.1601L36.3162 31.8301ZM11.3512 29.4748C6.41794 24.5507 6.41794 16.5703 11.3512 11.6492C16.2875 6.72504 24.2875 6.72504 29.2208 11.6492C34.1571 16.5703 34.1571 24.5507 29.2208 29.4748C24.2875 34.396 16.2875 34.396 11.3512 29.4748Z" fill="#FEFEF2" stroke="#FEFEF2" stroke-width="0.5" stroke-miterlimit="5"/>
+					<path d="M36.3162 31.8301C41.7259 24.1987 41.0022 13.5623 34.1541 6.72805C26.4948 -0.909352 14.0802 -0.909352 6.42095 6.72805C-1.2383 14.3685 -1.2383 26.7556 6.42095 34.393C13.2721 41.2272 23.9317 41.9492 31.5849 36.5527L44.0629 49L48.6765 44.1601L36.3162 31.8301ZM11.3512 29.4748C6.41794 24.5507 6.41794 16.5703 11.3512 11.6492C16.2875 6.72504 24.2875 6.72504 29.2208 11.6492C34.1571 16.5703 34.1571 24.5507 29.2208 29.4748C24.2875 34.396 16.2875 34.396 11.3512 29.4748Z" fill="#FEFEF2" stroke="#FEFEF2" stroke-width="0.5" stroke-miterlimit="5" />
 				</svg>
 			</a>
 			<a href="#" data-ecran="bureau">
@@ -35,31 +37,31 @@
 				<svg role="img" aria-label="icone marque page" class="icone" data-setCouleur="clairSurPrimaire" width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<title>icone marque page</title>
 					<g clip-path="url(#clip0_72_14)">
-						<path d="M36.8571 0H11.1429C8.30143 0 6.02571 2.38667 6.02571 5.33333L6 48L24 40L42 48V5.33333C42 2.38667 39.6986 0 36.8571 0Z" fill="#FEFEF2"/>
+						<path d="M36.8571 0H11.1429C8.30143 0 6.02571 2.38667 6.02571 5.33333L6 48L24 40L42 48V5.33333C42 2.38667 39.6986 0 36.8571 0Z" fill="#FEFEF2" />
 					</g>
 					<defs>
 						<clipPath id="clip0_72_14">
-							<rect width="50" height="50" fill="white"/>
+							<rect width="50" height="50" fill="white" />
 						</clipPath>
 					</defs>
 				</svg>
-				
+
 			</a>
 			<a href="{% if guest %}{{base}}/connexion {% else %} {{base}}/membre/voir?idMembre={{session.idMembre}} {% endif %}">
 				<svg role="img" aria-label="icone avatar" class="icone" data-setCouleur="clairSurPrimaire" width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<title>Icone avatar</title>
-					<path data-garde d="M27.6765 52C40.929 52 51.6765 41.2568 51.6765 28C51.6765 14.7432 40.9333 4 27.6765 4C14.4197 4 3.67651 14.7432 3.67651 28C3.67651 41.2568 14.4197 52 27.6765 52Z" stroke="#FEFEF2" stroke-width="7" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-					<path d="M27.7104 32.0452C20.3158 32.0452 13.9414 36.2934 10.7133 42.6678C14.9615 47.1528 21.0992 49.6707 27.7104 49.6707C34.3216 49.6707 40.4593 46.916 44.7075 42.6678C41.4794 36.5301 35.1049 32.0452 27.7104 32.0452Z" fill="#FEFEF2"/>
-					<path d="M27.7105 33.6591C21.2327 33.6979 15.1854 37.7309 12.4436 43.5415C12.4436 43.5415 12.1165 41.3291 12.1251 41.3378C20.2858 49.9719 35.0964 49.705 43.3389 41.299C43.3475 41.2904 42.9946 43.5673 42.9946 43.5673C42.6201 41.9619 41.7292 40.5415 40.6402 39.3277C37.4379 35.6606 32.5312 33.5429 27.7105 33.6591ZM27.7105 30.431C33.435 30.4913 38.8755 33.2761 42.732 37.4167C44.0147 38.794 45.1596 40.266 46.4207 41.7682C46.8167 42.2373 46.8339 42.9002 46.5111 43.3865L46.0764 44.0365C38.8282 51.3621 27.2672 53.6132 17.755 49.705C14.5957 48.4353 11.6775 46.4984 9.31021 44.002C8.72054 43.3994 8.61724 42.4999 8.9874 41.794C12.4824 34.9073 19.9716 30.2244 27.7105 30.431Z" fill="#FEFEF2"/>
-					<path d="M27.692 27.8868C31.9066 27.8868 35.3232 24.4702 35.3232 20.2555C35.3232 16.0409 31.9066 12.6243 27.692 12.6243C23.4773 12.6243 20.0607 16.0409 20.0607 20.2555C20.0607 24.4702 23.4773 27.8868 27.692 27.8868Z" fill="#FEFEF2"/>
-					<path d="M27.6918 25.9931C32.7276 25.9027 35.2972 19.8252 31.7205 16.2269C29.5985 14.0189 25.7893 14.0275 23.6631 16.2226C20.0648 19.7994 22.6215 25.9802 27.6918 25.9931ZM27.6918 29.7807C19.2169 29.7678 14.9644 19.5024 20.9299 13.4895C24.4981 9.77502 30.8855 9.77932 34.4579 13.4852C40.4407 19.4852 36.1968 29.8453 27.6918 29.7807Z" fill="#FEFEF2"/>
+					<path data-garde d="M27.6765 52C40.929 52 51.6765 41.2568 51.6765 28C51.6765 14.7432 40.9333 4 27.6765 4C14.4197 4 3.67651 14.7432 3.67651 28C3.67651 41.2568 14.4197 52 27.6765 52Z" stroke="#FEFEF2" stroke-width="7" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+					<path d="M27.7104 32.0452C20.3158 32.0452 13.9414 36.2934 10.7133 42.6678C14.9615 47.1528 21.0992 49.6707 27.7104 49.6707C34.3216 49.6707 40.4593 46.916 44.7075 42.6678C41.4794 36.5301 35.1049 32.0452 27.7104 32.0452Z" fill="#FEFEF2" />
+					<path d="M27.7105 33.6591C21.2327 33.6979 15.1854 37.7309 12.4436 43.5415C12.4436 43.5415 12.1165 41.3291 12.1251 41.3378C20.2858 49.9719 35.0964 49.705 43.3389 41.299C43.3475 41.2904 42.9946 43.5673 42.9946 43.5673C42.6201 41.9619 41.7292 40.5415 40.6402 39.3277C37.4379 35.6606 32.5312 33.5429 27.7105 33.6591ZM27.7105 30.431C33.435 30.4913 38.8755 33.2761 42.732 37.4167C44.0147 38.794 45.1596 40.266 46.4207 41.7682C46.8167 42.2373 46.8339 42.9002 46.5111 43.3865L46.0764 44.0365C38.8282 51.3621 27.2672 53.6132 17.755 49.705C14.5957 48.4353 11.6775 46.4984 9.31021 44.002C8.72054 43.3994 8.61724 42.4999 8.9874 41.794C12.4824 34.9073 19.9716 30.2244 27.7105 30.431Z" fill="#FEFEF2" />
+					<path d="M27.692 27.8868C31.9066 27.8868 35.3232 24.4702 35.3232 20.2555C35.3232 16.0409 31.9066 12.6243 27.692 12.6243C23.4773 12.6243 20.0607 16.0409 20.0607 20.2555C20.0607 24.4702 23.4773 27.8868 27.692 27.8868Z" fill="#FEFEF2" />
+					<path d="M27.6918 25.9931C32.7276 25.9027 35.2972 19.8252 31.7205 16.2269C29.5985 14.0189 25.7893 14.0275 23.6631 16.2226C20.0648 19.7994 22.6215 25.9802 27.6918 25.9931ZM27.6918 29.7807C19.2169 29.7678 14.9644 19.5024 20.9299 13.4895C24.4981 9.77502 30.8855 9.77932 34.4579 13.4852C40.4407 19.4852 36.1968 29.8453 27.6918 29.7807Z" fill="#FEFEF2" />
 				</svg>
 			</a>
 			<input type="checkbox" id="nav-bouton" aria-label="icone menu mobile">
 		</div>
 	</div>
 	<nav class="navigation-principale">
-		<h4><a href="{{base}}/enchere/catalogue">Enchères</a></h4>
+		<h4><a href="{{base}}/enchere/catalogue" {% if navActive=="enchere" %} class="actif" {% endif %}>Enchères</a></h4>
 		<h4><a href="actualite.html">Actualité</a></h4>
 		<h4><a href="FAQ.html">FAQ</a></h4>
 		<h4><a href="apropos.html">À Propos</a></h4>
@@ -73,7 +75,7 @@
 	<div class="filtre-recherche" data-ecran="mobile">
 		<label for="recherche" data-ecran="mobile">Recherche</label>
 		<div>
-			<input type="text" name="recherche" id="recherche" >
+			<input type="text" name="recherche" id="recherche">
 			<button class="bouton-reset">
 				<picture class="icone bouton-reset" data-format="moyenne">
 					<img src="{{asset}}/img/icones/loupe_ivory.svg" alt="recherche">

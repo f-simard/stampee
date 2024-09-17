@@ -1,16 +1,8 @@
-{{ include('layouts/entete.php' , {titre: 'Vitrine'}) }}
+{{ include('layouts/entete.php' , {titre: 'Vitrine', 'navActive':'enchere'}) }}
 
-<section class="banniere">
-	<picture>
-		<img src="assets/img/stamp_banner.jpg" alt="image banniere">
-	</picture>
-	<section class="banniere-description">
-		<h3>Vitrine</h3>
-		<p>Description lore Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nemo, cupiditate aliquid cum facilis error rerum distinctio tempora impedit aspernatur molestias. Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium nulla nostrum harum quos officiis aut facilis a repellendus. Dolorum, eligendi?</p>
-	</section>
-</section>
 <main>
-	<aside class="filtre">
+	<h1>Vitrine</h1>
+	<!-- <aside class="filtre">
 		<div class="filtre__check">
 			<input type="checkbox" id="filtre-bouton" aria-label="icone filtre en vue mobile">
 		</div>
@@ -144,7 +136,7 @@
 			<button class="bouton" data-couleur="primaire-inverse">Réinitialiser</button>
 			<button class="bouton" data-couleur="primaire">Appliquer</button>
 		</div>
-	</aside>
+	</aside> -->
 	<div class="principal">
 		<div class="tri-catalogue">
 			<label for="tri">Tri</label>
@@ -159,7 +151,7 @@
 			</select>
 			<button class="bouton-reset">
 				<picture>
-					<img class="icone" data-format="mini" src="assets/img/icones/sort_noir.svg" alt="tri">
+					<img class="icone" data-format="mini" src="{{asset}}/img/icones/sort_noir.svg" alt="tri">
 				</picture>
 			</button>
 			<div class="choix-mode">
@@ -188,37 +180,39 @@
 		</div>
 		<div class="catalogue-conteneur liste" data-enchere="active">
 			{% for enchere in encheres %}
-			<a href="details.html">
+			<a href="{{base}}/enchere/voir?idEnchere={{enchere.idEnchere}}">
 				<article class="carte-lot" data-mode="liste">
 					<picture class="media-cadre">
-						<img src="assets/img/pinkstamp1.jpg" alt="timbre">
+						<img src="{{upload}}{{enchere.chemin}}" alt="timbre">
 					</picture>
 					<div>
 						<section class="info-lot">
 							<div>
 								<div class="info-lot__sous-entete">
-									<h5 data-info="lot">Lot 001</h5>
+									<h5 data-info="lot">Enchere {{ enchere.idEnchere }}</h5>
+									{% if enchere.lord == 1 %}
 									<i class="fa-solid fa-award fa-gl"></i>
+									{% endif %}
 								</div>
 								<i class="icone-favori fa-regular fa-bookmark fa-2xl"></i>
 							</div>
-							<h3 data-info="nom">Nom du timbre</h3>
-							<h5 data-info="date">Date de production</h5>
-							<p data-info="description">DESCRIPTION MAX 120- Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellendus voluptates, nobis quisquam nostrum repudiandae [...] <span class="lien">Plus d'information &#10095; </span>
+							<h3 data-info="nom">{% if enchere.nbTimbre > 1 %} Lot de plusieurs timbres ({{enchere.nbTimbre}}) {% else %} {{enchere.titre}} {% endif %}</h3>
+							<h5 data-info="date">{{enchere.anneeProd}}</h5>
+							<p data-info="description"><span class="lien">Plus d'information &#10095; </span>
 							</p>
 						</section>
 						<div class="info-enchere">
 							<div>
 								<p>Temps restant</p>
-								<p data-enchere="temps">3J 4H 57M</p>
+								<p data-enchere="temps">XX</p>
 							</div>
 							<div>
 								<p>Estimation</p>
-								<p data-enchere="estimation">$ 60.00</p>
+								<p data-enchere="estimation">{% if enchere.estimation == 0 %} N/A {% else %} {{enchere.devise}} {{enchere.estimation}} {% endif %}</p>
 							</div>
 							<div>
-								<p>Mise courante (4 mises)</p>
-								<p data-enchere="miseCourante">$ 23.54</p>
+								<p>Mise courante (X mises)</p>
+								<p data-enchere="miseCourante">{{enchere.devise}}</p>
 							</div>
 							<button class="bouton" data-couleur="secondaire">Miser</button>
 						</div>
@@ -226,16 +220,6 @@
 				</article>
 			</a>
 			{% endfor %}
-		</div>
-		<div class="pagination">
-			<a href="#" data-direction>&laquo;</a>
-			<a href="#">1</a>
-			<a class="active" href="#">2</a>
-			<a href="#">3</a>
-			<a href="#">4</a>
-			<a href="#">5</a>
-			<a href="#">6</a>
-			<a href="#" data-direction>&raquo;</a>
 		</div>
 	</div>
 </main>
