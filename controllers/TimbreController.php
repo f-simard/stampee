@@ -4,12 +4,18 @@ namespace App\Controllers;
 
 use App\Providers\View;
 use App\Providers\Validator;
+use App\Providers\Auth;
 
 use App\Models\Timbre;
 use App\Models\Image;
 
 class TimbreController
 {
+
+	public function __construct()
+	{
+		Auth::session();
+	}
 
 	public function creer()
 	{

@@ -15,6 +15,8 @@ Route::post('/timbre/creer', 'TimbreController@sauvegarder');
 
 Route::get('/enchere/creer', 'EnchereController@creer');
 Route::post('/enchere/creer', 'EnchereController@sauvegarder');
+Route::get('/enchere/catalogue', 'EnchereController@afficherTous');
+Route::get('/enchere/voir', 'EnchereController@afficherUn');
 
 Route::get('/connexion', 'AuthController@index');
 Route::post('/connexion', 'AuthController@sauvegarder');

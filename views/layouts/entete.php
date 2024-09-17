@@ -59,7 +59,7 @@
 		</div>
 	</div>
 	<nav class="navigation-principale">
-		<h4><a href="encheres.html">Enchères</a></h4>
+		<h4><a href="{{base}}/enchere/catalogue">Enchères</a></h4>
 		<h4><a href="actualite.html">Actualité</a></h4>
 		<h4><a href="FAQ.html">FAQ</a></h4>
 		<h4><a href="apropos.html">À Propos</a></h4>

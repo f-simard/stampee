@@ -66,8 +66,16 @@ class EnchereController
 	public function afficherSelonMembre()
 	{
 		$enchere = new Enchere();
-		$encheres = $enchere->selectMultipleByField($_SESSION['idMembre'], 'idMembre');
+		$encheres = $enchere->selectionnerSelonMembre($_SESSION['idMembre']);
 
 		return View::render('enchere/parMembre', ['encheres' => $encheres]);
+	}
+
+	public function afficherTous(){
+
+	}
+
+	public function afficherUn(){
+
 	}
 }
