@@ -21,7 +21,7 @@
 					{% endif %}
 					<p>Temps restant: <span>XX</span></p>
 				</div>
-				<button class="bouton" data-couleur="secondaire">MISER</button>
+				<a  href="{{base}}/mise/creer?idEnchere={{enchere.idEnchere}}" class="bouton" data-couleur="secondaire">MISER</a>
 			</div>
 		</div>
 	</section>

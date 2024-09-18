@@ -206,20 +206,20 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `e2396414`.`Mise` ;
 
 CREATE TABLE IF NOT EXISTS `e2396414`.`Mise` (
-  `Membre_idMembre` INT NOT NULL,
-  `Enchere_idEnchere` INT NOT NULL,
+  `idMembre` INT NOT NULL,
+  `idEnchere` INT NOT NULL,
   `montant` FLOAT NOT NULL,
   `dateCreation` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`Membre_idMembre`, `Enchere_idEnchere`),
-  INDEX `fk_Membre_has_Enchere_Enchere2_idx` (`Enchere_idEnchere` ASC) VISIBLE,
-  INDEX `fk_Membre_has_Enchere_Membre2_idx` (`Membre_idMembre` ASC) VISIBLE,
+  INDEX `fk_Membre_has_Enchere_Enchere2_idx` (`idEnchere` ASC) VISIBLE,
+  INDEX `fk_Membre_has_Enchere_Membre2_idx` (`idMembre` ASC) VISIBLE,
   CONSTRAINT `fk_Membre_has_Enchere_Membre2`
-    FOREIGN KEY (`Membre_idMembre`)
+    FOREIGN KEY (`idMembre`)
     REFERENCES `e2396414`.`Membre` (`idMembre`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Membre_has_Enchere_Enchere2`
-    FOREIGN KEY (`Enchere_idEnchere`)
+    FOREIGN KEY (`idEnchere`)
     REFERENCES `e2396414`.`Enchere` (`idEnchere`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
