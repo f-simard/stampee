@@ -59,6 +59,13 @@
 			{% endif %}
 		</fieldset>
 
+		{% if session.estAdmin == 1%}
+		<div>
+			<input type="checkbox" name="lord" id="lord">
+			<label for="lord">Coup de coeur du Lord</label>
+		</div>
+		{% endif %}
+
 		<input type="submit" value="Sauvegarder" class="bouton" data-couleur="secondaire">
 	</form>
 </main>

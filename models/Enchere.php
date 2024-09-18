@@ -14,7 +14,8 @@ class Enchere extends CRUD
 		'dateFin',
 		'prixPlancher',
 		'estimation',
-		'idDevise'
+		'idDevise',
+		'lord'
 	];
 
 	public function selectionnerSelonMembre($idMembre)

@@ -59,12 +59,6 @@ class TimbreController
 			$data['certifie'] = 0;
 		}
 
-		if (isset($data['lord'])) {
-			$data['lord'] = 1;
-		} else {
-			$data['lord'] = 0;
-		}
-
 		$data['idMembre'] = $_SESSION['idMembre'];
 
 

@@ -26,7 +26,8 @@ CREATE TABLE IF NOT EXISTS `e2396414`.`Enchere` (
   `prixPlancher` FLOAT NOT NULL,
   `estimation` FLOAT NOT NULL,
   `idDevise` VARCHAR(3) NOT NULL,
-  `statut` VARCHAR(6) NOT NULL,
+  `statut` VARCHAR(6) NOT NULL DEFAULT 'CREE',
+  `lord` TINYINT NULL,
   PRIMARY KEY (`idEnchere`),
   INDEX `fk_Enchere_Devise1_idx` (`idDevise` ASC) VISIBLE,
   CONSTRAINT `fk_Enchere_Devise1`
@@ -119,7 +120,6 @@ CREATE TABLE IF NOT EXISTS `e2396414`.`Timbre` (
   `hauteur` DOUBLE NOT NULL,
   `largeur` DOUBLE NOT NULL,
   `certifie` TINYINT NOT NULL,
-  `lord` TINYINT NULL,
   `datePublication` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `idMembre` INT NOT NULL,
   PRIMARY KEY (`idTimbre`),

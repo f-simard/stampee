@@ -16,7 +16,6 @@ class Timbre extends CRUD
 		'hauteur',
 		'largeur',
 		'certifie',
-		'lord',
 		'idMembre'
 	];
 	

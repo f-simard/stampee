@@ -42,7 +42,12 @@ class EnchereController
 
 		//ajouter et manipuler data
 		$data['idDevise'] = $_SESSION['idDevise'];
-
+		
+		if (isset($data['lord'])) {
+			$data['lord'] = 1;
+		} else {
+			$data['lord'] = 0;
+		}
 
 		if ($validateur->estSucces()) {
 

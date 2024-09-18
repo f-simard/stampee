@@ -40,6 +40,8 @@ CREATE TABLE IF NOT EXISTS `stampee`.`Enchere` (
   `estimation` FLOAT NOT NULL,
   `idDevise` VARCHAR(3) NOT NULL,
   `statut` VARCHAR(6) NOT NULL,
+    `lord` TINYINT DEFAULT 0,
+	`statut` VARCHAR(6) DEFAULT 'CREE',
   PRIMARY KEY (`idEnchere`),
   INDEX `fk_Enchere_Devise1_idx` (`idDevise` ASC) VISIBLE,
   CONSTRAINT `fk_Enchere_Devise1`
@@ -133,7 +135,6 @@ CREATE TABLE IF NOT EXISTS `stampee`.`Timbre` (
   `hauteur` DOUBLE NOT NULL,
   `largeur` DOUBLE NOT NULL,
   `certifie` TINYINT NOT NULL,
-  `lord` TINYINT NULL,
   `datePublication` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `idMembre` INT NOT NULL,
   PRIMARY KEY (`idTimbre`),
