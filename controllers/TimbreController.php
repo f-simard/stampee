@@ -8,6 +8,7 @@ use App\Providers\Auth;
 
 use App\Models\Timbre;
 use App\Models\Image;
+use App\Models\Enchere_has_Timbre;
 
 class TimbreController
 {
@@ -119,5 +120,6 @@ class TimbreController
 		}
 
 		return View::render('timbre/parMembre', ['timbres' => $timbres]);
+
 	}
 }

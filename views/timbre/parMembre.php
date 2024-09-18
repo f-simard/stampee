@@ -1,7 +1,9 @@
 {{ include('layouts/entete.php' , {titre: 'Timbres personnels'}) }}
 <main>
 	<section>
-		<h2>Timbres personnels</h2>
+		<section class="titre-bouton">
+			<h2>Timbres personnels</h2>
+		</section>
 		<div class="principal">
 			<div class="catalogue-conteneur liste" data-enchere="active">
 				{% for timbre in timbres %}
@@ -15,7 +17,9 @@
 								<div>
 									<div class="info-lot__sous-entete">
 										<h5 data-info="lot">Lot {{timbre.idTimbre}}</h5>
+										{% if timbre.lord == 1 %}
 										<i class="fa-solid fa-award fa-gl"></i>
+										{% endif %}
 									</div>
 								</div>
 								<h3 data-info="nom">{{timbre.titre}}</h3>
