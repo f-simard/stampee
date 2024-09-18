@@ -2,12 +2,6 @@
 <main>
 	<section class="details-timbre">
 		<div>
-			<!-- <div class="medias-timbre">
-				<picture class="medias-timbre-principal">
-					<!-- <img class="icone agrandir" data-format="moyenne" src="assets/img/icones/agrandir_icon.svg" alt="icone pour agrandir image"> -->
-					<!-- <img class="" src="{{upload}}{{images|first}}" alt="image de timbre">
-				</picture>
-			</div> -->
 			<div class="info-timbre">
 				<div>
 					<header>
@@ -25,7 +19,6 @@
 					{% else %}
 					<p>Mise courante: <span>{{enchere.idDevise}}</span></p>
 					{% endif %}
-
 					<p>Temps restant: <span>XX</span></p>
 				</div>
 				<button class="bouton" data-couleur="secondaire">MISER</button>
@@ -37,7 +30,7 @@
 	</section>
 	<div class="catalogue-conteneur liste" data-enchere="active">
 		{% for timbre in timbres %}
-		<a href="{{base}}/timbre/voir?idEnchere={{enchere.idEnchere}}">
+		<a href="{{base}}/timbre/voir?idTimbre={{timbre.idTimbre}}">
 			<article class="carte-lot" data-mode="liste">
 				<picture class="media-cadre">
 					<img src="{{upload}}{{timbre.imageSrc}}" alt="timbre">

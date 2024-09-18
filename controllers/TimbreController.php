@@ -117,7 +117,20 @@ class TimbreController
 
 	}
 
-	public function afficherUn(){
-		
+	public function afficherUn($data=[]){
+
+		$idTimbre = $data['idTimbre'];
+
+		$timbre = new Timbre();
+		$timbreInfo = $timbre->selectByField($idTimbre, 'idTimbre');
+
+		$image = new Image();
+		$images = $image->selectMultipleByField($idTimbre, 'idTimbre');
+
+		foreach ($images as $img) {
+			$chemins[] = $img['chemin'];
+		}
+
+		return View::render('timbre/voir', ['timbre' => $timbreInfo, 'images' => $chemins]);
 	}
 }
