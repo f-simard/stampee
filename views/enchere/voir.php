@@ -14,14 +14,18 @@
 				</div>
 				<div class="info-timbre-enchere">
 					<p>Estimation <span>{% if enchere.estimation == 0 %} N/A {% else %} {{enchere.estimation}} {{enchere.devise}} {% endif %}</span></p>
-					{% if enchere.statut ==  "CREE" %}
+					{% if enchere.statut != TERMINEE %}
 					<p>Mise minimale: <span>{{enchere.idDevise}} {{enchere.prixPlancher}}</span></p>
-					{% else %}
 					<p>Mise courante: <span>{{enchere.idDevise}}</span></p>
+					{% if enchere.temps.avantDebut is defined %}
+					<p>Début de l'enchère dans : <span>{{enchere.temps.avantDebut}}</span></p>
 					{% endif %}
-					<p>Temps restant: <span>XX</span></p>
+					{% if enchere.temps.avantFin is defined %}
+					<p>Fin de l'enchère dans : <span>{{enchere.temps.avantFin}}</span></p>
+					{% endif %}
+					{% endif %}
 				</div>
-				<a  href="{{base}}/mise/creer?idEnchere={{enchere.idEnchere}}" class="bouton" data-couleur="secondaire">MISER</a>
+				<a href="{{base}}/mise/creer?idEnchere={{enchere.idEnchere}}" class="bouton" data-couleur="secondaire">MISER</a>
 			</div>
 		</div>
 	</section>

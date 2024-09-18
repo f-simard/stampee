@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\CRUD;
+use DateTime;
 
 class Enchere extends CRUD
 {
@@ -62,6 +63,30 @@ class Enchere extends CRUD
 		} else {
 			return false;
 		}
+	}
+
+	public function tempsRestant($idEnchere){
+
+		$maintenant = new DateTime();
+
+		$enchereInfo = $this->selectByField($idEnchere, 'idEnchere');
+
+		$dateDebut = new DateTime($enchereInfo['dateDebut']);
+		$dateFin = new DateTime($enchereInfo['dateFin']);
+
+		if($maintenant < $dateDebut){
+			$diff = $maintenant->diff($dateDebut);
+			$temps['avantDebut'] = $diff->format('%a jours %HH');
+			return $temps;
+		} if ($maintenant < $dateFin){
+			$diff = $maintenant->diff($dateFin);
+			$temps['avantFin'] = $diff->format('%a jours %HH');
+			return $temps;
+		} else {
+			$temps['terminee'] = null;
+			return $temps;
+		}
+
 	}
 
 }

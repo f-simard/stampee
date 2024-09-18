@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models;
+use DateTime;
 
 class Validator
 {
@@ -205,6 +206,26 @@ class Validator
 	public function auMoinsUn(){
 		if($this->valeur == null){
 			$this->erreurs[$this->cle] = "Sélectionner au moins un $this->nom ";
+		}
+		return $this;
+	}
+
+	public function future(){
+		$dateSoumise = new DateTime($this->valeur);
+		$maintenant = new DateTime();
+		if ($dateSoumise < $maintenant) {
+			return $this->erreurs[$this->cle] = "La date doit être dans le future";
+		}
+
+		return $this;
+	}
+
+	public function avantDebut($debut){
+		$dateFin = new DateTime($this->valeur);
+		$dateDebut = new DateTime($debut);
+
+		if ($dateFin < $dateDebut) {
+			return $this->erreurs[$this->cle] = "La date de fin doit être plus grande que la date de debut";
 		}
 		return $this;
 	}

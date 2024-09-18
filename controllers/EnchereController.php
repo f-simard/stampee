@@ -33,13 +33,16 @@ class EnchereController
 		/*TODO: ameliorer avec boucle pour $_FILES*/
 		$validateur = new Validator();
 
-		$validateur->champ('dateDebut', $data['dateDebut'], "date de début")->requis()->formatDate();
-		$validateur->champ('dateFin', $data['dateFin'], "date de fin")->requis()->formatDate();
+		$validateur->champ('dateDebut', $data['dateDebut'], "date de début")->requis()->formatDate()->future();
+		$validateur->champ('dateFin', $data['dateFin'], "date de fin")->requis()->formatDate()->future()->avantDebut($data['dateDebut']);
 		$validateur->champ('prixPlancher', $data['prixPlancher'], "mise minimum")->requis()->toutNumeric()->plusGrand(0);
 		$validateur->champ('estimation', $data['estimation'])->toutNumeric()->plusGrand(0);
 		if (!isset($data['timbres'])) {
 			$validateur->champ('timbre', null, "timbre")->auMoinsUn();
 		}
+
+		print_r($validateur->obtenirErreur());
+		die();
 
 		//ajouter et manipuler data
 		$data['idDevise'] = $_SESSION['idDevise'];
@@ -78,7 +81,6 @@ class EnchereController
 
 	public function afficherSelonMembre($data=[])
 	{
-
 		Auth::session();
 
 		$msg = View::msg($data);
@@ -94,6 +96,18 @@ class EnchereController
 		$enchere = new Enchere();
 		$encheres = $enchere->selectionnerCatalogue();
 
+		foreach ($encheres as &$e) {
+			$mise = new Mise();
+			$miseMax = $mise->miseMax($e['idEnchere'], 'idEnchere');
+			$nbMise = $mise->compte($e['idEnchere'], 'idEnchere');
+
+			if($miseMax && $nbMise){
+				$e['miseMax'] = $miseMax['montant'];
+				$e['nbMise'] = $nbMise['compte'];
+			}
+
+		}
+
 		return View::render('enchere/catalogue', ['encheres'=> $encheres] );
 	}
 
@@ -102,7 +116,10 @@ class EnchereController
 		$idEnchere = $data['idEnchere'];
 
 		$enchere = new Enchere();
-		$enchere = $enchere->selectByField($idEnchere, 'idEnchere');
+		$enchereInfo = $enchere->selectByField($idEnchere, 'idEnchere');
+		$diff = $enchere->tempsRestant($idEnchere);
+
+		$enchereInfo['temps']=$diff;
 
 		$enchere_has_timbre = new Enchere_has_Timbre();
 		$nbTimbre = $enchere_has_timbre->compte($idEnchere, 'idEnchere');
@@ -120,7 +137,7 @@ class EnchereController
 			}
 		}
 		
-		return View::render('enchere/voir', ['enchere'=>$enchere, 'nbTimbre' => $nbTimbre, 'timbres'=> $timbres, 'images'=>$toutesImages] );
+		return View::render('enchere/voir', ['enchere'=> $enchereInfo, 'nbTimbre' => $nbTimbre, 'timbres'=> $timbres, 'images'=>$toutesImages] );
 	}
 
 	public function supprimer($data = []){
@@ -135,7 +152,6 @@ class EnchereController
 
 			$enchere = new enchere();
 			$supprEnchere = $enchere->delete($idEnchere);
-
 
 			if ($supprEnchere && $supprET) {
 				return View::redirect('membre/enchere?succesSuppr');

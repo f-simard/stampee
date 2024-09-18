@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Providers\View;
 use App\Providers\Validator;
+use App\Providers\Auth;
 
 use App\Models\Membre;
 use App\Models\Langue;
@@ -30,6 +31,8 @@ class MembreController
 	public function voir($data = [])
 
 	{
+		Auth::session();
+
 		if (isset($data['idMembre']) && $data['idMembre'] != null) {
 
 			$idMembre = $data['idMembre'];
@@ -94,6 +97,7 @@ class MembreController
 			$membreAjoute = $membre->insert($data);
 
 			return View::redirect('connexion');
+			
 		} else {
 
 			$erreurs = $validateur->obtenirErreur();
@@ -110,5 +114,4 @@ class MembreController
 			return View::render('membre/creer', ['erreurs' => $erreurs, 'membre' => $data, 'devises' => $devises, 'pays_liste' => $pays_liste, 'langues' => $langues]);
 		}
 	}
-
 }

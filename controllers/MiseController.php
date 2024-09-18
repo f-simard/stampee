@@ -37,7 +37,7 @@ class MiseController
 		$infoEnchere = $enchere->selectByField($idEnchere, 'idEnchere');
 
 		$mise = new Mise();
-		$miseMax = $mise->miseMax($idEnchere, 'idEnchere');
+		$miseMax = $mise->miseMax($idEnchere, 'idEnchere')['montant'];
 		$min = $miseMax;
 
 		if (!$miseMax ){

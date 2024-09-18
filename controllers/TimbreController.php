@@ -91,6 +91,7 @@ class TimbreController
 			}
 			
 			return View::redirect('timbre/voir?idTimbre=' . $timbreAjoute);
+			
 		} else {
 			
 			$erreurs = $validateur->obtenirErreur();
