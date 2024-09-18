@@ -21,9 +21,9 @@ class Enchere extends CRUD
 	{
 
 		/*$sql = "SELECT * FROM $table WHERE $field = ?";*/
-		$sql = "SELECT DISTINCT e.*, count(t.idTimbre) as nbTimbre FROM `enchere` as e
-		INNER JOIN enchere_has_timbre AS et ON et.idEnchere = e.idEnchere
-		INNER JOIN timbre AS t ON t.idTimbre = et.idTimbre
+		$sql = "SELECT DISTINCT e.*, count(t.idTimbre) as nbTimbre FROM `Enchere` as e
+		INNER JOIN Enchere_has_Timbre AS et ON et.idEnchere = e.idEnchere
+		INNER JOIN Timbre AS t ON t.idTimbre = et.idTimbre
 		WHERE t.idMembre = ?
 		GROUP BY e.idEnchere;";
 
@@ -43,10 +43,10 @@ class Enchere extends CRUD
 	{
 
 		/*$sql = "SELECT * FROM $table WHERE $field = ?";*/
-		$sql = "SELECT DISTINCT e.*, count(t.idTimbre) as nbTimbre, t.*, img.chemin FROM `enchere` as e
-		INNER JOIN enchere_has_timbre AS et ON et.idEnchere = e.idEnchere
-		INNER JOIN timbre AS t ON t.idTimbre = et.idTimbre
-		INNER JOIN image AS img ON img.idTimbre = t.idTimbre
+		$sql = "SELECT DISTINCT e.*, count(t.idTimbre) as nbTimbre, t.*, img.chemin FROM `Enchere` as e
+		INNER JOIN Enchere_has_Timbre AS et ON et.idEnchere = e.idEnchere
+		INNER JOIN Timbre AS t ON t.idTimbre = et.idTimbre
+		INNER JOIN Image AS img ON img.idTimbre = t.idTimbre
 		WHERE img.principale = 1
 		AND e.statut <> 'TERMINEE'
 		GROUP BY e.idEnchere;";

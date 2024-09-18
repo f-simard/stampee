@@ -2,7 +2,7 @@
 
 <main>
 	<section>
-		<h2>Se Connecter</h2>
+		<h2>Déja membre?</h2>
 		<form class="formulaire formulaire_etroit"" method="post" novalidate>
 
 			{% if erreur.message is defined %}
@@ -28,6 +28,11 @@
 			<input type="submit" value="Connecter" class="bouton" data-couleur="primaire">
 
 		</form>
+	</section>
+
+	<section>
+		<h2>Nouveau membre ?</h2>
+		<a href="{{base}}/membre/creer" class="bouton" data-couleur="primaire-inverse">Créer un compte</a>
 	</section>
 
 </main>

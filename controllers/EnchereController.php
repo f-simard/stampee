@@ -70,7 +70,7 @@ class EnchereController
 		}
 	}
 
-	public function afficherSelonMembre($data)
+	public function afficherSelonMembre($data=[])
 	{
 
 		Auth::session();

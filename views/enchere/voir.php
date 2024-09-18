@@ -2,19 +2,12 @@
 <main>
 	<section class="details-timbre">
 		<div>
-			<div class="medias-timbre">
+			<!-- <div class="medias-timbre">
 				<picture class="medias-timbre-principal">
 					<!-- <img class="icone agrandir" data-format="moyenne" src="assets/img/icones/agrandir_icon.svg" alt="icone pour agrandir image"> -->
-					<img class="" src="{{upload}}{{images|first}}" alt="image de timbre">
+					<!-- <img class="" src="{{upload}}{{images|first}}" alt="image de timbre">
 				</picture>
-				<div class="medias-timbre-addionnels">
-					{% for image in images|slice(1, 9) %}
-					<picture>
-						<img class="" src="{{upload}}{{image}}" alt="image de timbre">
-					</picture>
-					{% endfor %}
-				</div>
-			</div>
+			</div> -->
 			<div class="info-timbre">
 				<div>
 					<header>

@@ -8,3 +8,14 @@ DROP table if exists `stampee`.`enchere`;
 DROP table if exists `stampee`.`devise`;
 DROP table if exists `stampee`.`pays`;
 DROP table if exists `stampee`.`langue`;
+
+DROP table if exists `e2396414`.`Mise`;
+DROP table if exists `e2396414`.`Image`;
+DROP table if exists `e2396414`.`Favori`;
+DROP table if exists `e2396414`.`Enchere_has_Timbre`;
+DROP table if exists `e2396414`.`Timbre`;
+DROP table if exists `e2396414`.`Membre`;
+DROP table if exists `e2396414`.`Enchere`;
+DROP table if exists `e2396414`.`Devise`;
+DROP table if exists `e2396414`.`Pays`;
+DROP table if exists `e2396414`.`Langue`;
