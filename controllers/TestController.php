@@ -10,4 +10,10 @@ class TestController{
 		return View::render('layouts/test');
 
 	}
+
+	public function enConstruction()
+	{
+
+		return View::render('enConstruction');
+	}
 }

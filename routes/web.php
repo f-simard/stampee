@@ -24,4 +24,6 @@ Route::post('/connexion', 'AuthController@sauvegarder');
 Route::get('/deconnexion', 'AuthController@supprimer');
 Route::get('/accesRefuse', 'AuthController@accesRefuse');
 
+Route::get('/enConstruction', 'TestController@enConstruction');
+
 Route::dispatch();

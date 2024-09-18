@@ -1,9 +1,9 @@
 {{ include('layouts/entete.php' , {titre: 'Connexion'}) }}
 
-<main>
-	<section>
+<main class="grille grille--2 grille--top">
+	<div>
 		<h2>Déja membre?</h2>
-		<form class="formulaire formulaire_etroit"" method="post" novalidate>
+		<form class="formulaire formulaire_etroit"" method=" post" novalidate>
 
 			{% if erreur.message is defined %}
 			<span class="erreur">{{erreurs.message}}</span>
@@ -28,12 +28,12 @@
 			<input type="submit" value="Connecter" class="bouton" data-couleur="primaire">
 
 		</form>
-	</section>
+	</div>
 
-	<section>
+	<div>
 		<h2>Nouveau membre ?</h2>
 		<a href="{{base}}/membre/creer" class="bouton" data-couleur="primaire-inverse">Créer un compte</a>
-	</section>
+	</div>
 
 </main>
 
