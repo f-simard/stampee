@@ -17,7 +17,7 @@ class Image extends CRUD
 	final public function imagePrincipale($value){
 
 		/*$sql = "SELECT * FROM $table WHERE $field = ?";*/
-		$sql = "SELECT * FROM `Image` WHERE `idTimbre` = ? AND `principale` = 1;";
+		$sql = "SELECT * FROM $this->table WHERE `idTimbre` = ? AND `principale` = 1;";
 		$stmt = $this->prepare($sql);
 		$stmt->execute(array($value));
 

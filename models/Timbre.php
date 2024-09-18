@@ -23,8 +23,8 @@ class Timbre extends CRUD
 	{
 		
 		/*$sql = "SELECT * FROM $table WHERE $field = ?";*/
-		$sql = "SELECT t.titre, t.idTimbre FROM `timbre` AS t
-		LEFT JOIN `enchere_has_timbre` AS et ON t.idTimbre = et.idTimbre
+		$sql = "SELECT t.titre, t.idTimbre FROM $this->table AS t
+		LEFT JOIN `Enchere_has_Timbre` AS et ON t.idTimbre = et.idTimbre
 		WHERE t.idMembre = ?
 		AND et.idEnchere IS NULL";
 		$stmt = $this->prepare($sql);

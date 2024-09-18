@@ -7,7 +7,7 @@
 		<div class="principal">
 			<div class="catalogue-conteneur liste" data-enchere="active">
 				{% for timbre in timbres %}
-				<a href="details.html">
+				<a href="{{base}}/timbre/voir?idTimbre={{timbre.idTimbre}}">
 					<article class="carte-lot" data-mode="liste">
 						<picture class="media-cadre">
 							<img src="{{upload}}{{timbre.imageSrc}}" alt="timbre">
