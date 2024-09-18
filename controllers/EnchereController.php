@@ -10,6 +10,7 @@ use App\Models\Enchere;
 use App\Models\Timbre;
 use App\Models\Enchere_has_Timbre;
 use App\Models\Image;
+use App\Models\Mise;
 
 class EnchereController
 {
@@ -118,12 +119,7 @@ class EnchereController
 				$toutesImages[] = $img['chemin'];
 			}
 		}
-
-		// echo "<pre>";
-		// print_r($toutesImages);
-		// echo "</pre>";
-		// die();
-
+		
 		return View::render('enchere/voir', ['enchere'=>$enchere, 'nbTimbre' => $nbTimbre, 'timbres'=> $timbres, 'images'=>$toutesImages] );
 	}
 

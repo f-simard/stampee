@@ -55,7 +55,7 @@ abstract class CRUD extends \PDO
 		}
 
 		/*$sql = "SELECT * FROM $table WHERE $field = ?";*/
-		$sql = "SELECT * FROM $this->table WHERE $field = :$field";
+		$sql = "SELECT * FROM $this->table WHERE $field = :$field;";
 		$stmt = $this->prepare($sql);
 		$stmt->bindValue(":$field", $value);
 		$stmt->execute();

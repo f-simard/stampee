@@ -1,5 +1,8 @@
 {{ include('layouts/entete.php' , {titre: 'Details'}) }}
 <main>
+	<section>
+		<h2>Timbre {{timbre.idTimbre}}</h2>
+	</section>
 	<section class="details-timbre">
 		<div>
 			<div class="medias-timbre">
@@ -16,14 +19,9 @@
 			</div>
 			<div class="info-timbre">
 				<div>
-					<header>
-						<p>Timbre {{timbre.idTimbre}}</p>
-					</header>
-					<div>
-						<h3>{{timbre.titre}}</h3>
-						<p data-info="description">{{timbre.largeur}} x {{timbre.hauteur}}</p>
-						<p>{{timbre.description}}</p>
-					</div>
+					<h3>{{timbre.titre}}</h3>
+					<p data-info="description">{{timbre.largeur}} x {{timbre.hauteur}}</p>
+					<p>{{timbre.description}}</p>
 				</div>
 			</div>
 			<div class="info-enchere">

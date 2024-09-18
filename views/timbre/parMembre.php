@@ -27,6 +27,7 @@
 								{% if timbre.description is not empty %}
 								<p data-info="description">{{timbre.description}} <span class="lien">Plus d'information &#10095; </span></p>
 								{% endif %}
+								<h5>Enchere: {{timbre.statutEnchere}}</h5>
 							</section>
 						</div>
 					</article>

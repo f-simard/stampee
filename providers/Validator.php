@@ -180,7 +180,7 @@ class Validator
 	public function plusPetit($limite)
 	{
 		if (!empty($this->valeur) && $this->valeur >= $limite) {
-			$this->erreurs[$this->cle] = "$this->nom must be less than or equal to $limite.";
+			$this->erreurs[$this->cle] = "$this->nom doit être plus petit ou égal à $limite.";
 		}
 		return $this;
 	}
@@ -188,7 +188,7 @@ class Validator
 	public function plusGrand($limite)
 	{
 		if (!empty($this->valeur) && $this->valeur <= $limite) {
-			$this->erreurs[$this->cle] = "$this->nom must be bigger than or equal to $limite.";
+			$this->erreurs[$this->cle] = "$this->nom doit être plus grand ou equal à $limite.";
 		}
 		return $this;
 	}

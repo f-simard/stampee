@@ -3,6 +3,8 @@
 <main>
 	<section>
 		<h1>Placer une offre</h1>
+	</section>
+	<div class="grille grille--2">
 		<section>
 			<h2>Info enchère</h2>
 			<div>
@@ -15,7 +17,7 @@
 					<p>{{enchere.dateFin}}</p>
 				</div>
 				<div class="paire">
-					<p>Estimatio:</p>
+					<p>Estimation:</p>
 					<p>{{enchere.estimation}}</p>
 				</div>
 				<div class="paire">
@@ -28,11 +30,11 @@
 				</div>
 				<div class="paire">
 					<p>Nombre de mise:</p>
-					<p>TBD</p>
+					<p>{% if miseCompte.compte %} {{miseCompte.compte}} {% else %} Aucune mise {% endif %}</p>
 				</div>
 				<div class="paire">
 					<p>Mise courante:</p>
-					<p>TBD</p>
+					<p>{% if miseMax.montant %} {{miseMax.montant}} {% else %} Aucune mise {% endif %}</p>
 				</div>
 			</div>
 		</section>
@@ -41,13 +43,16 @@
 			<form method="post" novalidate>
 				<div>
 					<label for="montant">Mise*</label>
-					<input type="number" name="montant" id="montant" min={{enchere.prixPlancer}}/>
+					<input type="hidden" name="idEnchere" value="{{enchere.idEnchere}}">
+					<input type="number" name="montant" id="montant" min={{enchere.prixPlancer}} />
 					{% if erreurs.montant is defined %}
 					<span class="erreur">{{erreurs.montant}}</span>
 					{% endif %}
+					<input type="submit" value="Miser" class="bouton" data-couleur="secondaire">
 				</div>
 			</form>
 		</section>
+	</div>
 	</section>
 </main>
 

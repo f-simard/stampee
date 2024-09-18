@@ -39,3 +39,10 @@ main > .succes {
 	margin-top: 5vw;
     width: 100%;
 }
+
+.paire {
+	display: flex;
+	gap: var(--spacing-thinnest);
+	align-items: start;
+	justify-content: space-between;
+}

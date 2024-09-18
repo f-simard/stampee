@@ -22,6 +22,7 @@ Route::get('/enchere/voir', 'EnchereController@afficherUn');
 Route::post('/enchere/supprimer', 'EnchereController@supprimer');
 
 Route::get('/mise/creer', 'MiseController@creer');
+Route::post('/mise/creer', 'MiseController@sauvegarder');
 
 Route::get('/connexion', 'AuthController@index');
 Route::post('/connexion', 'AuthController@sauvegarder');
