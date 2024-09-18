@@ -116,4 +116,8 @@ class TimbreController
 		return View::render('timbre/parMembre', ['timbres' => $timbres]);
 
 	}
+
+	public function afficherUn(){
+		
+	}
 }

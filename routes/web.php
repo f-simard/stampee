@@ -12,6 +12,7 @@ Route::get('/membre/enchere', 'EnchereController@afficherSelonMembre');
 
 Route::get('/timbre/creer', 'TimbreController@creer');
 Route::post('/timbre/creer', 'TimbreController@sauvegarder');
+Route::get('/enchere/voir', 'TimbreController@afficherUn');
 
 Route::get('/enchere/creer', 'EnchereController@creer');
 Route::post('/enchere/creer', 'EnchereController@sauvegarder');

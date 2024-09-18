@@ -3,7 +3,7 @@
 <main class="grille grille--2 grille--top">
 	<div>
 		<h2>Déja membre?</h2>
-		<form class="formulaire formulaire_etroit"" method=" post" novalidate>
+		<form class="formulaire formulaire_etroit" method="post" novalidate>
 
 			{% if erreur.message is defined %}
 			<span class="erreur">{{erreurs.message}}</span>
