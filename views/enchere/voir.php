@@ -6,7 +6,18 @@
 				<div>
 					<header>
 						<p>Enchere {{enchere.idEnchere}}</p>
-						<i class="icone-favori fa-regular fa-bookmark fa-lg"></i>
+						{% if enchere.estFavori is defined %}
+						<form action="{{base}}/favori/supprimer" method="post">
+							<input type="submit" value="Retirer favori">
+							<input type="hidden" name='idEnchere' value="{{enchere.idEnchere}}">
+						</form>
+						{% else %}
+						<form action="{{base}}/favori/creer" method="post">
+							<input type="submit" value="Ajouter favori">
+							<input type="hidden" name='idEnchere' value="{{enchere.idEnchere}}">
+						</form>
+						{% endif %}
+						<!-- <i class="icone-favori fa-regular fa-bookmark fa-lg"></i> -->
 					</header>
 					<div>
 						<h3>{% if nbTimbre.compte > 1 %} Lot de plusieurs timbres ({{nbTimbre.compte}}) {% else %} {{timbres|first.titre}} {% endif %}</h3>

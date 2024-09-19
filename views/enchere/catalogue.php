@@ -194,7 +194,18 @@
 									<i class="fa-solid fa-award fa-gl"></i>
 									{% endif %}
 								</div>
-								<i class="icone-favori fa-regular fa-bookmark fa-2xl"></i>
+								{% if enchere.estFavori is defined %}
+								<form action="{{base}}/favori/supprimer" method="post">
+									<input type="submit" value="Retirer favori">
+									<input type="hidden" name='idEnchere' value="{{enchere.idEnchere}}">
+								</form>
+								{% else %}
+								<form action="{{base}}/favori/creer" method="post">
+									<input type="submit" value="Ajouter favori">
+									<input type="hidden" name='idEnchere' value="{{enchere.idEnchere}}">
+								</form>
+								{% endif %}
+								<!-- <i class="icone-favori fa-regular fa-bookmark fa-lg"></i> -->
 							</div>
 							<h3 data-info="nom">{% if enchere.nbTimbre > 1 %} Lot de plusieurs timbres ({{enchere.nbTimbre}}) {% else %} {{enchere.titre}} {% endif %}</h3>
 							<h5 data-info="date">{{enchere.anneeProd}}</h5>

@@ -11,6 +11,7 @@ use App\Models\Timbre;
 use App\Models\Enchere_has_Timbre;
 use App\Models\Image;
 use App\Models\Mise;
+use App\Models\Favori;
 
 class EnchereController
 {
@@ -106,6 +107,15 @@ class EnchereController
 				$e['nbMise'] = $nbMise['compte'];
 			}
 
+			$favori = new Favori();
+			$conditions['idMembre'] = $_SESSION['idMembre'];
+			$conditions['idEnchere'] = $e['idEnchere'];
+			$estFavori = $favori->selectionner($conditions);
+
+			if ($estFavori) {
+				$e['estFavori'] = 1;
+			}
+
 		}
 
 		return View::render('enchere/catalogue', ['encheres'=> $encheres] );
@@ -124,6 +134,15 @@ class EnchereController
 		$enchere_has_timbre = new Enchere_has_Timbre();
 		$nbTimbre = $enchere_has_timbre->compte($idEnchere, 'idEnchere');
 		$timbres = $enchere_has_timbre->selectionnerDetails($idEnchere, 'idEnchere');
+
+		$favori = new Favori();
+		$conditions['idMembre']=$_SESSION['idMembre'];
+		$conditions['idEnchere'] = $idEnchere;
+		$estFavori = $favori->selectionner($conditions);
+
+		if($estFavori){
+			$enchereInfo['estFavori'] = 1;
+		}
 
 		foreach ($timbres as &$timbre) {
 			$image = new Image();

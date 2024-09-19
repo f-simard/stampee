@@ -1,5 +1,5 @@
-import Site from "../classes/Site,js"; 
+import Site from "../classes/Site.js";
 
-(function(){
-
-})()
+(function () {
+	new Site();
+})();

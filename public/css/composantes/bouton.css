@@ -84,3 +84,8 @@
 	color: color-mix(in lch, var(--sombre) 80%, white 20%);
 
 }
+
+.bouton-icone{
+	width: max-content;
+	height: max-content;
+}

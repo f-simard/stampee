@@ -10,7 +10,7 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="{{asset}}css/main.css">
-	{% if titre == 'Vitrine' %} <script src="{{asset}}js/pages/catalogue.js" type="module"></script> {% endif%}
+	{% if titre == 'Vitrine' %} <script src="{{asset}}js/pages/index.js" type="module"></script> {% endif%}
 	<title>{{titre}}</title>
 </head>
 <header class="entete-site">
