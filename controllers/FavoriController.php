@@ -6,6 +6,11 @@ use App\Providers\View;
 use App\Providers\Validator;
 use App\Providers\Auth;
 
+use App\Models\Enchere;
+use App\Models\Timbre;
+use App\Models\Enchere_has_Timbre;
+use App\Models\Image;
+use App\Models\Mise;
 use App\Models\Favori;
 
 class FavoriController{
@@ -52,7 +57,32 @@ class FavoriController{
 		}
 	}
 
-	public function afficherSelonMembre() {}
+	public function afficherSelonMembre() {
+		$enchere = new Enchere();
+		$encheres = $enchere->selectionnerSelonFavori();
+
+		foreach ($encheres as &$e) {
+			$mise = new Mise();
+			$miseMax = $mise->miseMax($e['idEnchere'], 'idEnchere');
+			$nbMise = $mise->compte($e['idEnchere'], 'idEnchere');
+
+			if ($miseMax && $nbMise) {
+				$e['miseMax'] = $miseMax['montant'];
+				$e['nbMise'] = $nbMise['compte'];
+			}
+
+			$favori = new Favori();
+			$conditions['idMembre'] = $_SESSION['idMembre'];
+			$conditions['idEnchere'] = $e['idEnchere'];
+			$estFavori = $favori->selectionner($conditions);
+
+			if ($estFavori) {
+				$e['estFavori'] = 1;
+			}
+		}
+
+		return View::render('favori/parMembre', ['encheres' => $encheres]);
+	}
 
 
 }

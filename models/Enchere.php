@@ -89,4 +89,26 @@ class Enchere extends CRUD
 
 	}
 
+	public function selectionnerSelonFavori($data=[]){
+		/*$sql = "SELECT * FROM $table WHERE $field = ?";*/
+		$sql = "SELECT DISTINCT e.*, count(t.idTimbre) as nbTimbre, t.*, img.chemin FROM `Enchere` as e
+		INNER JOIN Enchere_has_Timbre AS et ON et.idEnchere = e.idEnchere
+		INNER JOIN Timbre AS t ON t.idTimbre = et.idTimbre
+		INNER JOIN Image AS img ON img.idTimbre = t.idTimbre
+		INNER JOIN Favori AS f ON f.idEnchere = e.idEnchere
+		WHERE img.principale = 1
+		GROUP BY e.idEnchere;";
+
+		$stmt = $this->prepare($sql);
+		$stmt->execute();
+
+		$count = $stmt->rowCount();
+
+		if ($count >= 1) {
+			return $stmt->fetchAll();
+		} else {
+			return false;
+		}
+	}
+
 }
