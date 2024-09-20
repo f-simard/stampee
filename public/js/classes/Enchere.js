@@ -8,7 +8,7 @@ class Enchere {
 		this.#btnFavori = elementHTML.querySelector(".icone-favori");
 		this.#btnLord = elementHTML.querySelector(".icone-lord");
 
-		console.log(this.#btnLord);
+		console.log(this);
 
 		//ecouteur d'evenement
 		this.#btnFavori.addEventListener(
@@ -16,10 +16,12 @@ class Enchere {
 			this.#modifierFavori.bind(this)
 		);
 
-		this.#btnLord.addEventListener(
-			"click",
-			this.#modifierLord.bind(this)
-		);
+		if (this.#btnLord) {
+			this.#btnLord.addEventListener(
+				"click",
+				this.#modifierLord.bind(this)
+			);
+		}
 	}
 
 	async #modifierFavori(evenement) {

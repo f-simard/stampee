@@ -46,9 +46,9 @@
 		<div class="catalogue-conteneur liste" data-enchere="active">
 			{% for enchere in encheres %}
 			<a href="{{base}}/enchere/voir?idEnchere={{enchere.idEnchere}}">
-				<article class="carte-lot" data-mode="liste">
-					<picture class="media-cadre">
-						<img src="{{upload}}{{enchere.chemin}}" alt="timbre">
+				<article class="carte-lot" data-mode="liste" data-idenchere="{{enchere.idEnchere}}">
+					<picture class=" media-cadre">
+					<img src="{{upload}}{{enchere.chemin}}" alt="timbre">
 					</picture>
 					<div>
 						<section class="info-lot">
@@ -59,18 +59,8 @@
 									<i class="fa-solid fa-award fa-gl"></i>
 									{% endif %}
 								</div>
-								{% if enchere.estFavori is defined %}
-								<form action="{{base}}/favori/supprimer" method="post">
-									<input type="submit" value="Retirer favori">
-									<input type="hidden" name='idEnchere' value="{{enchere.idEnchere}}">
-								</form>
-								{% else %}
-								<form action="{{base}}/favori/creer" method="post">
-									<input type="submit" value="Ajouter favori">
-									<input type="hidden" name='idEnchere' value="{{enchere.idEnchere}}">
-								</form>
-								{% endif %}
-								<!-- <i class="icone-favori fa-regular fa-bookmark fa-lg"></i> -->
+								<i class="icone-favori {% if enchere.estFavori is defined %}fa-solid {% else %}fa-regular {% endif %} fa-bookmark fa-lg"
+									data-favori="{% if enchere.estFavori is defined %}true {% else %}false {% endif %}"></i>
 							</div>
 							<h3 data-info="nom">{% if enchere.nbTimbre > 1 %} Lot de plusieurs timbres ({{enchere.nbTimbre}}) {% else %} {{enchere.titre}} {% endif %}</h3>
 							<h5 data-info="date">{{enchere.anneeProd}}</h5>
