@@ -50,7 +50,7 @@ class Enchere extends CRUD
 		INNER JOIN Timbre AS t ON t.idTimbre = et.idTimbre
 		INNER JOIN Image AS img ON img.idTimbre = t.idTimbre
 		WHERE img.principale = 1
-		AND e.statut <> 'TERMINEE'
+		AND e.statut <> 'FERMEE'
 		GROUP BY e.idEnchere;";
 
 		$stmt = $this->prepare($sql);
@@ -83,7 +83,7 @@ class Enchere extends CRUD
 			$temps['avantFin'] = $diff->format('%a jours %HH');
 			return $temps;
 		} else {
-			$temps['terminee'] = null;
+			$temps['fermee'] = null;
 			return $temps;
 		}
 

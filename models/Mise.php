@@ -10,7 +10,8 @@ class Mise extends CRUD
 	protected $fillable = [
 		'idMembre',
 		'idEnchere',
-		'montant'
+		'montant',
+		'idEnchere'
 	];
 
 	public function miseMax($valeur, $champ){

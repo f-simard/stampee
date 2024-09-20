@@ -42,9 +42,21 @@
 			<h2>Mon offre</h2>
 			<form method="post" novalidate>
 				<div>
+					<div>
+						<label for="idDevise">Devise *</label>
+						<select name="idDevise" id="idDevise" disabled>
+							<option value="">Sélectionner une devise</option>
+							{% for devise in devises %}
+							<option value="{{devise.idDevise}}" {% if devise.idDevise == enchere.idDevise %} selected {% endif %}>{{devise.idDevise}}</option>
+							{% endfor %}
+						</select>
+						{% if erreurs.devise is defined %}
+						<span class="erreur">{{erreurs.devise}}</span>
+						{% endif %}
+					</div>
 					<label for="montant">Mise*</label>
 					<input type="hidden" name="idEnchere" value="{{enchere.idEnchere}}">
-					<input type="number" name="montant" id="montant" min={{enchere.prixPlancer}} />
+					<input type="number" name="montant" id="montant" min={{enchere.prixPlancher}} />
 					{% if erreurs.montant is defined %}
 					<span class="erreur">{{erreurs.montant}}</span>
 					{% endif %}

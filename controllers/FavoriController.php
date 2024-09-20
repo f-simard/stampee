@@ -25,7 +25,9 @@ class FavoriController{
 			$favori = new Favori();
 			$favoriAjoute = $favori->insert($data);
 
-			View::redirect('enchere/voir?idEnchere=' . $data['idEnchere']);
+			View::render('enchere/voir', ['idEnchere'=>$data['idEnchere']]);
+
+			// View::redirect('enchere/voir?idEnchere=' . $data['idEnchere']);
 		} catch(\Exception $e){
 			View::render('erreur',['msg'=> $e->getMessage()]);
 		}

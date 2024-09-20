@@ -2,8 +2,9 @@
 use App\Controllers;
 use App\Routes\Route;
 
-Route::get('', 'TestController@index');
 Route::get('/enConstruction', 'TestController@enConstruction');
+
+Route::get('','HomeController@index');
 
 Route::get('/membre/creer', 'MembreController@creer');
 Route::post('/membre/creer', 'MembreController@sauvegarder');
@@ -21,6 +22,7 @@ Route::post('/enchere/creer', 'EnchereController@sauvegarder');
 Route::get('/enchere/catalogue', 'EnchereController@afficherTous');
 Route::get('/enchere/voir', 'EnchereController@afficherUn');
 Route::post('/enchere/supprimer', 'EnchereController@supprimer');
+Route::post('/enchere/lord', 'EnchereController@lord');
 
 Route::get('/mise/creer', 'MiseController@creer');
 Route::post('/mise/creer', 'MiseController@sauvegarder');

@@ -31,6 +31,7 @@ class View
 	static public function redirect($url)
 	{
 		header('location:' . BASE . '/' . $url);
+		exit();
 	}
 
 	static public function msg($data = [])

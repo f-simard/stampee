@@ -15,7 +15,7 @@
 </head>
 <header class="entete-site">
 	<div>
-		<a href="{{base}}/enConstruction">
+		<a href="{{base}}/">
 			<picture class="logo">
 				<img src="{{asset}}/img/logoStampee-ivory.png" alt="Logo Lord Stampee">
 			</picture>

@@ -21,11 +21,14 @@
 					</header>
 					<div>
 						<h3>{% if nbTimbre.compte > 1 %} Lot de plusieurs timbres ({{nbTimbre.compte}}) {% else %} {{timbres|first.titre}} {% endif %}</h3>
+						{% if enchere.lord == 1 %}
+						<i class="fa-solid fa-award fa-gl"></i>
+						{% endif %}
 					</div>
 				</div>
 				<div class="info-timbre-enchere">
 					<p>Estimation <span>{% if enchere.estimation == 0 %} N/A {% else %} {{enchere.estimation}} {{enchere.devise}} {% endif %}</span></p>
-					{% if enchere.statut != TERMINEE %}
+					{% if enchere.statut != FERMEE %}
 					<p>Mise minimale: <span>{{enchere.idDevise}} {{enchere.prixPlancher}}</span></p>
 					<p>Mise courante: <span>{{enchere.idDevise}}</span></p>
 					{% if enchere.temps.avantDebut is defined %}

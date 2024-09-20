@@ -182,6 +182,19 @@
 			{% for enchere in encheres %}
 			<a href="{{base}}/enchere/voir?idEnchere={{enchere.idEnchere}}">
 				<article class="carte-lot" data-mode="liste">
+					{% if session.estAdmin == 1%}
+					{% if enchere.lord == 1 %}
+					<form action="{{base}}/enchere/lord?retirer" method="post">
+						<input type="submit" value="Retirer lord">
+						<input type="hidden" name='idEnchere' value="{{enchere.idEnchere}}">
+					</form>
+					{% else %}
+					<form action="{{base}}/enchere/lord?ajouter" method="post">
+						<input type="submit" value="Ajouter lord">
+						<input type="hidden" name='idEnchere' value="{{enchere.idEnchere}}">
+					</form>
+					{% endif %}
+					{% endif %}
 					<picture class="media-cadre">
 						<img src="{{upload}}{{enchere.chemin}}" alt="timbre">
 					</picture>
@@ -194,18 +207,18 @@
 									<i class="fa-solid fa-award fa-gl"></i>
 									{% endif %}
 								</div>
-						{% if enchere.estFavori is defined %}
-						<form action="{{base}}/favori/supprimer" method="post">
-							<input type="submit" value="Retirer favori">
-							<input type="hidden" name='idEnchere' value="{{enchere.idEnchere}}">
-						</form>
-						{% else %}
-						<form action="{{base}}/favori/creer" method="post">
-							<input type="submit" value="Ajouter favori">
-							<input type="hidden" name='idEnchere' value="{{enchere.idEnchere}}">
-						</form>
-						{% endif %}
-						<!-- <i class="icone-favori fa-regular fa-bookmark fa-lg"></i> -->
+								{% if enchere.estFavori is defined %}
+								<form action="{{base}}/favori/supprimer" method="post">
+									<input type="submit" value="Retirer favori">
+									<input type="hidden" name='idEnchere' value="{{enchere.idEnchere}}">
+								</form>
+								{% else %}
+								<form action="{{base}}/favori/creer" method="post">
+									<input type="submit" value="Ajouter favori">
+									<input type="hidden" name='idEnchere' value="{{enchere.idEnchere}}">
+								</form>
+								{% endif %}
+								<!-- <i class="icone-favori fa-regular fa-bookmark fa-lg"></i> -->
 							</div>
 							<h3 data-info="nom">{% if enchere.nbTimbre > 1 %} Lot de plusieurs timbres ({{enchere.nbTimbre}}) {% else %} {{enchere.titre}} {% endif %}</h3>
 							<h5 data-info="date">{{enchere.anneeProd}}</h5>
@@ -214,8 +227,14 @@
 						</section>
 						<div class="info-enchere">
 							<div>
+								{% if enchere.temps.avantDebut is defined %}
+								<p>Temps avant l'enchere</p>
+								<p data-enchere="temps">{{enchere.temps.avantDebut}}</p>
+								{% endif %}
+								{% if enchere.temps.avantFin is defined %}
 								<p>Temps restant</p>
-								<p data-enchere="temps">XX</p>
+								<p data-enchere="temps">{{enchere.temps.avantFin}}</p>
+								{% endif %}
 							</div>
 							<div>
 								<p>Estimation</p>

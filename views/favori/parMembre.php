@@ -1,7 +1,7 @@
 {{ include('layouts/entete.php' , {titre: 'Vitrine', 'navActive':'Favoris'}) }}
 
 <main>
-	<h1>Vitrine</h1>
+	<h1>Enchères Favories</h1>
 	<div class="principal">
 		<div class="tri-catalogue">
 			<label for="tri">Tri</label>

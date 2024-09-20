@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\Mise;
 use App\Models\Enchere;
+use App\Models\Devise;
 
 use App\Providers\View;
 use App\Providers\Validator;
@@ -24,7 +25,10 @@ class MiseController
 		$miseMax = $mise->miseMax($idEnchere, 'idEnchere');
 		$miseCompte = $mise->compte($idEnchere, 'idEnchere');
 
-		return View::render('mise/creer', ['enchere' => $infoEnchere, 'miseMax' => $miseMax, 'miseCompte' => $miseCompte]);
+		$devise = new Devise;
+		$devises = $devise->select('nom');
+
+		return View::render('mise/creer', ['enchere' => $infoEnchere, 'miseMax' => $miseMax, 'miseCompte' => $miseCompte, 'devises' => $devises]);
 	}
 
 	public function sauvegarder($data = [])
