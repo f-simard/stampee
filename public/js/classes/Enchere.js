@@ -17,22 +17,49 @@ class Enchere {
 
 	async #modifierFavori(evenement) {
 		const bouton = evenement.currentTarget;
-		const favori = bouton.dataset.favori
+		const favori = bouton.dataset.favori;
 
-		this.#btnFavori.classList.toggle("fa-regular");
-		this.#btnFavori.classList.toggle("fa-solid");
+		const data = new URLSearchParams();
+		data.append("idEnchere", this.#idEnchere);
 
-		if (favori == 'true') {
-			bouton.dataset.favori = false;
-			bouton.classList.remove('fa-solid');
-			bouton.classList.add('fa-regular')
+		console.log(data.toString());
+
+		if (favori == "true") {
+			try {
+				const reponse = await fetch(
+					"http://localhost:8080/stampee/favori/supprimer",
+					{
+						method: "POST",
+						body: data,
+					}
+				);
+
+				console.log(reponse.text());
+
+				bouton.dataset.favori = false;
+				bouton.classList.remove("fa-solid");
+				bouton.classList.add("fa-regular");
+			} catch (erreur) {
+				console.log(erreur);
+			}
 		} else {
-			console.log('false');
-			bouton.dataset.favori = true;
-			bouton.classList.remove("fa-regular");
-			bouton.classList.add("fa-solid");
-		}
+			try {
+				const reponse = await fetch(
+					"http://localhost:8080/stampee/favori/creer",
+					{
+						method: "POST",
+						body: data,
+					}
+				);
 
+				console.log(reponse.text());
+				bouton.dataset.favori = true;
+				bouton.classList.remove("fa-regular");
+				bouton.classList.add("fa-solid");
+			} catch (erreur) {
+				console.log(erreur);
+			}
+		}
 
 		// 	bouton.setAttribute("data-favori", "");
 		// }

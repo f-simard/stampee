@@ -25,7 +25,7 @@ class FavoriController{
 			$favori = new Favori();
 			$favoriAjoute = $favori->insert($data);
 
-			View::render('enchere/voir', ['idEnchere'=>$data['idEnchere']]);
+			echo 'a ajouté';
 
 			// View::redirect('enchere/voir?idEnchere=' . $data['idEnchere']);
 		} catch(\Exception $e){
@@ -51,7 +51,9 @@ class FavoriController{
 				$favori = new Favori();
 				$favoriSupprime = $favori->supprimerFavori($data);
 
-				View::redirect('enchere/voir?idEnchere=' . $data['idEnchere']);
+				echo 'a retiré';
+
+				//View::redirect('enchere/voir?idEnchere=' . $data['idEnchere']);
 			} catch (\Exception $e) {
 				View::render('erreur', ['msg' => $e->getMessage()]);
 			}
