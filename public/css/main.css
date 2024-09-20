@@ -15,6 +15,7 @@
 @import url("./composition/apropos.css");
 @import url("./composition/section-centrale.css");
 @import url("./composition/champ-etiquette.css");
+@import url("./composition/principal.css");
 
 @import url("./composantes/navigation-principale.css");
 @import url("./composantes/navigation-secondaire.css");

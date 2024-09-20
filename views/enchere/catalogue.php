@@ -2,7 +2,7 @@
 
 <main>
 	<h1>Vitrine</h1>
-	<!-- <aside class="filtre">
+	<aside class="filtre">
 		<div class="filtre__check">
 			<input type="checkbox" id="filtre-bouton" aria-label="icone filtre en vue mobile">
 		</div>
@@ -14,7 +14,7 @@
 					<input type="text" name="recherche-filtre" id="recherche-filtre">
 					<button class="bouton-reset">
 						<picture class="icone bouton-reset" data-format="mini">
-							<img src="assets/img/icones/loupe_noire.svg" alt="recherche">
+							<img src="{{asset}}/img/icones/loupe_noire.svg" alt="recherche">
 						</picture>
 					</button>
 				</div>
@@ -136,7 +136,7 @@
 			<button class="bouton" data-couleur="primaire-inverse">Réinitialiser</button>
 			<button class="bouton" data-couleur="primaire">Appliquer</button>
 		</div>
-	</aside> -->
+	</aside>
 	<div class="principal">
 		<div class="tri-catalogue">
 			<label for="tri">Tri</label>

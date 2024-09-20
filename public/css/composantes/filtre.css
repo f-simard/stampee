@@ -1,12 +1,14 @@
 .filtre {
+	position: relative;
+
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
 	gap: var(--spacing-broad);
 	align-items: flex-start;
 	justify-content: flex-start;
 
-	@media screen and (max-width:480px){
-		flex-direction: column;
+	@media screen and (min-width: 480px) {
+		flex-direction: row;
 	}
 }
 
@@ -15,6 +17,8 @@
 }
 
 .filtre__contenu {
+	position: sticky;
+	bottom: 0;
 	font-family: var(--font-sans-serif);
 }
 
@@ -23,7 +27,7 @@
 	flex-direction: column;
 }
 
-.filtre__contenu > details > *{
+.filtre__contenu > details > * {
 	margin: var(--spacing-nano);
 }
 
@@ -43,20 +47,21 @@
 	padding: var(--spacing-nano);
 }
 
-.filtre__contenu > section > *+*{
+.filtre__contenu > section > * + * {
 	margin-top: var(--spacing-micro);
 }
 
-.filtre__contenu > *:is(div, section)+* {
+.filtre__contenu > *:is(div, section) + * {
 	margin-top: var(--spacing-thinner);
 }
 
 .filtre__contenu .paire {
 	display: flex;
 	gap: var(--spacing-micro);
+	justify-content: initial;
 
-	&.text{
-		justify-content:space-between;
+	&.text {
+		justify-content: space-between;
 	}
 }
 
@@ -75,8 +80,7 @@
 }
 
 @media (max-width: 1024px) {
-
-	.filtre__check{
+	.filtre__check {
 		font-family: var(--font-sans-serif);
 
 		display: flex;
@@ -86,7 +90,7 @@
 		min-width: 12ch;
 	}
 
-	.filtre__contenu h4{
+	.filtre__contenu h4 {
 		display: none;
 	}
 
@@ -97,10 +101,10 @@
 	.filtre__contenu .paire {
 		display: flex;
 		gap: var(--spacing-micro);
-	
-		&.text{
+
+		&.text {
 			flex-wrap: wrap;
-			justify-content:space-between;
+			justify-content: space-between;
 		}
 	}
 
@@ -118,9 +122,9 @@
 		max-height: 100%;
 
 		transform: translateX(1rem);
-	  }
+	}
 
-	.filtre__contenu > :is(section, div){
+	.filtre__contenu > :is(section, div) {
 		max-width: 30ch;
 	}
 
@@ -139,7 +143,6 @@
 		content: "Filtres ❱";
 		font-size: var(--font-tall);
 		font-weight: 600;
-
 	}
 
 	[id="filtre-bouton"]:checked::after {

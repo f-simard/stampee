@@ -6,17 +6,6 @@
 				<div>
 					<header>
 						<p>Enchere {{enchere.idEnchere}}</p>
-						<!-- {% if enchere.estFavori is defined %}
-						<form action="{{base}}/favori/supprimer" method="post">
-							<input type="submit" value="Retirer favori">
-							<input type="hidden" name='idEnchere' value="{{enchere.idEnchere}}">
-						</form>
-						{% else %}
-						<form action="{{base}}/favori/creer" method="post">
-							<input type="submit" value="Ajouter favori">
-							<input type="hidden" name='idEnchere' value="{{enchere.idEnchere}}">
-						</form>
-						{% endif %} -->
 						<i class="icone-favori {% if enchere.estFavori is defined %} fa-solid {% else %} fa-regular {% endif %} fa-bookmark fa-lg"
 							{% if enchere.estFavori is defined %} data-favori {% endif %}></i>
 					</header>

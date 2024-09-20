@@ -116,13 +116,13 @@
 			<!-- <picture><img src="assets/img/icones/carrousel-right.svg" alt="carrousel right icon"></picture> -->
 		</div>
 	</div>
-	<aside>
+	<div>
 		<div class="carrousel-items">
 			<picture><img src="{{asset}}/img/icones/circle-jaune.svg" alt="carousel item"></picture>
 			<picture><img src="{{asset}}/img/icones/circle-blank.svg" alt="carousel item"></picture>
 			<picture><img src="{{asset}}/img/icones/circle-blank.svg" alt="carousel item"></picture>
 		</div>
-	</aside>
+</div>
 	</section>
 </main>
 

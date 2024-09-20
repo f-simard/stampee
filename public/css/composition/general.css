@@ -1,7 +1,7 @@
 html {
 	background-color: var(--clair);
 
-	@media screen and (max-width:768px) {
+	@media screen and (max-width: 768px) {
 		font-size: 14px;
 	}
 }
@@ -14,56 +14,55 @@ main {
 	margin-inline: auto;
 	padding-inline: 4vw;
 
-	@media screen and (min-width:1440px) {
+	@media screen and (min-width: 1440px) {
 		max-width: 1440px;
 	}
 }
 
-main> :is(section, .section)+section {
-	margin-top: var(--spacing-broadest);
+main > :is(section, .section) + section {
+	margin-top: var(--spacing-broad);
 
-	@media screen and (max-width:1024px) {
-		margin-top: var(--spacing-broad);
+	@media screen and (min-width: 1024px) {
+		margin-top: var(--spacing-broadest);
 	}
 }
 
-main:has(.filtre) {
-	display: flex;
-	gap: var(--spacing-broad);
+main:has(aside) {
 
-	@media screen and (max-width:1024px) {
-		flex-direction: column;
-		gap: var(--spacing-thin);
+	aside {
+		margin-block: var(--spacing-thinner);
 	}
-}
+	@media screen and (min-width: 1024px) {
+	display: grid;
+	grid-template-areas:
+		"titre titre"
+		"filtre contenu";
+	grid-template-columns: 40ch auto;
 
-
-main>.filtre {
-
-	@media screen and (min-width:768px) {
-		max-width: 40ch;
-	}
-
-}
-
-.bouton-container+main:has(.filtre) {
-	margin-top: 0;
-}
-
-
-main .principal {
-	flex-basis: 0;
-	flex-grow: 5;
-
-	display: flex;
-	flex-direction: column;
 	gap: var(--spacing-thin);
+
+	h1{
+		grid-area: titre;
+	}
+
+	.filtre{
+		grid-area: filtre;
+	}
+
+	.principal{
+		grid-area: contenu;
+		overflow: auto;
+	}
+	}
+}
+
+.bouton-container + main:has(.filtre) {
+	margin-top: 0;
 }
 
 footer {
 	margin-top: var(--spacing-broadest);
 }
-
 
 h1 {
 	font-size: var(--font-mega);
