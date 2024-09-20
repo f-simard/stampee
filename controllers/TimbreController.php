@@ -53,6 +53,7 @@ class TimbreController
 		$validateur->champ('tirage', $data['tirage'])->toutNumeric()->plusGrand(0);
 		$validateur->champ('hauteur', $data['hauteur'])->requis()->toutNumeric()->plusGrand(0)->plusPetit(25);
 		$validateur->champ('largeur', $data['largeur'])->requis()->toutNumeric()->plusGrand(0)->plusPetit(25);
+		$validateur->champ('idPays', $data['idPays'], 'Pays')->requis()->existe('Pays', 'idPays');
 		
 		//ajouter et manipuler data
 		if (isset($data['certifie'])) {
