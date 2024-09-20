@@ -60,7 +60,10 @@ class Catalogue {
 
 	#prevenirRedirection(evenement){
 
-		if (evenement.target.classList.contains('icone-favori')){
+		if (
+			evenement.target.classList.contains("icone-favori") ||
+			evenement.target.classList.contains("icone-lord")
+		) {
 			evenement.preventDefault();
 		}
 	}

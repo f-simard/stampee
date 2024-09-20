@@ -12,9 +12,7 @@
 		object-fit: cover;
 	}
 
-	transition-property: background-color,
-	fill,
-	stroke;
+	transition-property: background-color, fill, stroke;
 	transition-duration: var(--duration-faster);
 	transition-timing-function: ease-in-out;
 }
@@ -23,7 +21,6 @@
 	width: var(--font-tall);
 	height: var(--font-tall);
 }
-
 
 .icone[data-format="moyenne"] {
 	width: var(--font-medium);
@@ -58,7 +55,7 @@
 	background-color: var(--secondaire);
 }
 
-[class^='fa']{
+[class^="fa"] {
 	padding-right: var(--spacing-micro);
 }
 
@@ -79,6 +76,15 @@
 	}
 }
 
-.fa-circle-play{
+.icone-lord {
+	padding: var(--spacing-micro);
+	color: var(--primaire);
+
+	&:hover {
+		color: var(--secondaire);
+	}
+}
+
+.fa-circle-play {
 	color: var(--secondaire);
 }

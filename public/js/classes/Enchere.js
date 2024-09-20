@@ -6,12 +6,19 @@ class Enchere {
 	constructor(idEnchere, elementHTML) {
 		this.#idEnchere = idEnchere;
 		this.#btnFavori = elementHTML.querySelector(".icone-favori");
-		this.#btnLord;
+		this.#btnLord = elementHTML.querySelector(".icone-lord");
+
+		console.log(this.#btnLord);
 
 		//ecouteur d'evenement
 		this.#btnFavori.addEventListener(
 			"click",
 			this.#modifierFavori.bind(this)
+		);
+
+		this.#btnLord.addEventListener(
+			"click",
+			this.#modifierLord.bind(this)
 		);
 	}
 
@@ -19,10 +26,9 @@ class Enchere {
 		const bouton = evenement.currentTarget;
 		const favori = bouton.dataset.favori;
 
-		const data = new URLSearchParams();
+		/*src: https://rapidapi.com/guides/query-parameters-fetch*/
+		let data = new URLSearchParams();
 		data.append("idEnchere", this.#idEnchere);
-
-		console.log(data.toString());
 
 		if (favori == "true") {
 			try {
@@ -33,9 +39,6 @@ class Enchere {
 						body: data,
 					}
 				);
-
-				console.log(reponse.text());
-
 				bouton.dataset.favori = false;
 				bouton.classList.remove("fa-solid");
 				bouton.classList.add("fa-regular");
@@ -51,8 +54,6 @@ class Enchere {
 						body: data,
 					}
 				);
-
-				console.log(reponse.text());
 				bouton.dataset.favori = true;
 				bouton.classList.remove("fa-regular");
 				bouton.classList.add("fa-solid");
@@ -60,23 +61,47 @@ class Enchere {
 				console.log(erreur);
 			}
 		}
+	}
 
-		// 	bouton.setAttribute("data-favori", "");
-		// }
+	async #modifierLord(evenement) {
+		const bouton = evenement.currentTarget;
+		const lord = bouton.dataset.lord;
 
-		// if (favori) {
-		// 	const reponse = await fetch(
-		// 		"http://localhost:8080/stampee/favori/supprimer"
-		// 	);
+		/*src: https://rapidapi.com/guides/query-parameters-fetch*/
+		let data = new URLSearchParams();
+		data.append("idEnchere", this.#idEnchere);
 
-		// 	delete bouton.dataset.favori;
-		// } else {
-		// 	const reponse = await fetch(
-		// 		"http://localhost:8080/stampee/favori/creer"
-		// 	);
-
-		// 	bouton.setAttribute("data-favori", "");
-		// }
+		if (lord == "true") {
+			try {
+				const reponse = await fetch(
+					"http://localhost:8080/stampee/enchere/lord?retirer",
+					{
+						method: "POST",
+						body: data,
+					}
+				);
+				bouton.dataset.lord = false;
+				bouton.classList.remove("fa-solid");
+				bouton.classList.add("fa-regular");
+			} catch (erreur) {
+				console.log(erreur);
+			}
+		} else {
+			try {
+				const reponse = await fetch(
+					"http://localhost:8080/stampee/enchere/lord?ajouter",
+					{
+						method: "POST",
+						body: data,
+					}
+				);
+				bouton.dataset.lord = true;
+				bouton.classList.remove("fa-regular");
+				bouton.classList.add("fa-solid");
+			} catch (erreur) {
+				console.log(erreur);
+			}
+		}
 	}
 }
 

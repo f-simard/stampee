@@ -183,17 +183,8 @@
 			<a href="{{base}}/enchere/voir?idEnchere={{enchere.idEnchere}}">
 				<article class="carte-lot" data-mode="liste" data-idenchere="{{enchere.idEnchere}}">
 					{% if session.estAdmin == 1%}
-					{% if enchere.lord == 1 %}
-					<form action="{{base}}/enchere/lord?retirer" method="post">
-						<input type="submit" value="Retirer lord">
-						<input type="hidden" name='idEnchere' value="{{enchere.idEnchere}}">
-					</form>
-					{% else %}
-					<form action="{{base}}/enchere/lord?ajouter" method="post">
-						<input type="submit" value="Ajouter lord">
-						<input type="hidden" name='idEnchere' value="{{enchere.idEnchere}}">
-					</form>
-					{% endif %}
+					<i class="icone-lord {% if enchere.lord == 1 %}fa-solid {% else %}fa-regular {% endif %} fa-star"
+						data-lord="{% if enchere.lord == 1 is defined %}true {% else %}false {% endif %}">Lord</i>
 					{% endif %}
 					<picture class="media-cadre">
 						<img src="{{upload}}{{enchere.chemin}}" alt="timbre">
@@ -207,17 +198,6 @@
 									<i class="fa-solid fa-award fa-gl"></i>
 									{% endif %}
 								</div>
-								<!-- {% if enchere.estFavori is defined %}
-								<form action="{{base}}/favori/supprimer" method="post">
-									<input type="submit" value="Retirer favori">
-									<input type="hidden" name='idEnchere' value="{{enchere.idEnchere}}">
-								</form>
-								{% else %}
-								<form action="{{base}}/favori/creer" method="post">
-									<input type="submit" value="Ajouter favori">
-									<input type="hidden" name='idEnchere' value="{{enchere.idEnchere}}">
-								</form>
-								{% endif %} -->
 								<i class="icone-favori {% if enchere.estFavori is defined %}fa-solid {% else %}fa-regular {% endif %} fa-bookmark fa-lg"
 									data-favori="{% if enchere.estFavori is defined %}true {% else %}false {% endif %}"></i>
 							</div>
