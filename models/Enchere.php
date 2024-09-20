@@ -51,7 +51,7 @@ class Enchere extends CRUD
 		INNER JOIN Image AS img ON img.idTimbre = t.idTimbre
 		WHERE img.principale = 1
 		AND e.statut <> 'FERMEE'
-		GROUP BY e.idEnchere;";
+		GROUP BY e.idEnchere";
 
 		$stmt = $this->prepare($sql);
 		$stmt->execute();
@@ -98,6 +98,32 @@ class Enchere extends CRUD
 		INNER JOIN Favori AS f ON f.idEnchere = e.idEnchere
 		WHERE img.principale = 1
 		GROUP BY e.idEnchere;";
+
+		$stmt = $this->prepare($sql);
+		$stmt->execute();
+
+		$count = $stmt->rowCount();
+
+		if ($count >= 1) {
+			return $stmt->fetchAll();
+		} else {
+			return false;
+		}
+	}
+
+	public function selectionner4Lord()
+	{
+
+		/*$sql = "SELECT * FROM $table WHERE $field = ?";*/
+		$sql = "SELECT DISTINCT e.*, count(t.idTimbre) as nbTimbre, t.*, img.chemin FROM `Enchere` as e
+		INNER JOIN Enchere_has_Timbre AS et ON et.idEnchere = e.idEnchere
+		INNER JOIN Timbre AS t ON t.idTimbre = et.idTimbre
+		INNER JOIN Image AS img ON img.idTimbre = t.idTimbre
+		WHERE img.principale = 1
+		AND e.statut <> 'FERMEE'
+		AND e.lord = 1
+		GROUP BY e.idEnchere
+		LIMIT 4";
 
 		$stmt = $this->prepare($sql);
 		$stmt->execute();

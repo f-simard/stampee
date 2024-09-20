@@ -38,54 +38,24 @@
 			</button>
 		</section>
 		<div class="grille">
-			<a href="details.html">
+			{% if encheres!= 0 %}
+			{% for enchere in encheres %}
+			<a href="{{base}}/enchere/voir?idEnchere={{enchere.idEnchere}}">
 				<article class="carte-coup-coeur">
 					<picture>
-						<img src="assets/img/coup-coeur/coup1.jpg" alt="coup de coeur du lord">
+						<img src="{{upload}}{{enchere.chemin}}" alt="timbre">
 					</picture>
 					<section>
-						<h5>Leaders autochtones – Bloc-feuillet de trois timbres (2024)</h5>
-						<p>Mise courante: <span>$ 15.65</span></p>
+						<h5>{{enchere.titre}}</h5>
+						<p>Mise courante: <span>{% if enchere.nbMise %} ({{enchere.nbMise}} mises) {% endif %}</span></p>
 						<span class="lien">Plus d'information &#10095; </span>
 					</section>
 				</article>
 			</a>
-			<a href="details.html">
-				<article class="carte-coup-coeur">
-					<picture>
-						<img src="assets/img/coup-coeur/coup2.jpg" alt="coup de coeur du lord">
-					</picture>
-					<section>
-						<h5>Carte postale port payé Terre de nos aïeux (quatrième volet) : Rivière Restigouche (NB)</h5>
-						<p>Mise courante: <span>$ 22.10</span></p>
-						<span class="lien">Plus d'information &#10095; </span>
-					</section>
-				</article>
-			</a>
-			<a href="details.html">
-				<article class="carte-coup-coeur">
-					<picture>
-						<img src="assets/img/coup-coeur/coup3.jpg" alt="coup de coeur du lord">
-					</picture>
-					<section>
-						<h5>King Edward VII</h5>
-						<p>Mise courante: <span>$ 65.70</span></p>
-						<span class="lien">Plus d'information &#10095; </span>
-					</section>
-				</article>
-			</a>
-			<a href="details.html">
-				<article class="carte-coup-coeur">
-					<picture>
-						<img src="assets/img/coup-coeur/coup4.jpg" alt="coup de coeur du lord">
-					</picture>
-					<section>
-						<h5>Grande Bretagne Première journée</h5>
-						<p>Mise courante: <span>$ 47.00</span></p>
-						<span class="lien">Plus d'information &#10095; </span>
-					</section>
-				</article>
-			</a>
+			{% endfor %}
+			{% else %}
+			<h3>Aucun coup de coeur en ce moment</h3>
+			{% endif %}
 		</div>
 	</section>
 	<section class="titre-bouton">
