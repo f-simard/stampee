@@ -1,11 +1,10 @@
-import CarteLot from "./CarteLot.js";
+import Enchere from './Enchere.js';
 
 class Catalogue {
 	static #instance;
 	#checkboxFiltre;
 	#filtres;
 	#iconeMode;
-	#iconeModeGrille;
 	#boutonPassee;
 	#boutonActive;
 	#mode;
@@ -39,6 +38,31 @@ class Catalogue {
 		this.#filtres = document.querySelector(".filtre");
 
 		//ecouteur d'evenement
+
+		//execution de code
+		this.#instancierCarte();
+	}
+
+	#instancierCarte(){
+
+		const encheres = document.querySelectorAll(".carte-lot");
+
+		encheres.forEach(function(enchere){
+			const idEnchere = enchere.dataset.idenchere
+			const e = new Enchere(idEnchere, enchere);
+
+			enchere.addEventListener(
+				"click",
+				this.#prevenirRedirection.bind(this)
+			);
+		}.bind(this))
+	}
+
+	#prevenirRedirection(evenement){
+
+		if (evenement.target.classList.contains('icone-favori')){
+			evenement.preventDefault();
+		}
 	}
 
 	#changerMode(evenement) {
