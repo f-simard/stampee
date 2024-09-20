@@ -26,6 +26,10 @@
 			</div>
 			<div class="info-enchere">
 				<div class="paire">
+					<p>Pays d'origine</p>
+					<p data-enchere="temps">{{pays.nom}}</p>
+				</div>
+				<div class="paire">
 					<p>Année de production</p>
 					<p data-enchere="temps">{{timbre.anneeProd}}</p>
 				</div>
@@ -37,6 +41,7 @@
 					<p>Certifié</p>
 					<p data-enchere="temps">{% if timbre.certifie == 1 %} Oui {% else %} Non {% endif %}</p>
 				</div>
+
 			</div>
 		</div>
 	</section>

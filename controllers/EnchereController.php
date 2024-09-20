@@ -95,36 +95,38 @@ class EnchereController
 		$enchere = new Enchere();
 		$encheres = $enchere->selectionnerCatalogue();
 
-		foreach ($encheres as &$e) {
-			//mise
-			$mise = new Mise();
-			$miseMax = $mise->miseMax($e['idEnchere'], 'idEnchere');
-			$nbMise = $mise->compte($e['idEnchere'], 'idEnchere');
+		if ($encheres) {
+			foreach ($encheres as &$e) {
+				//mise
+				$mise = new Mise();
+				$miseMax = $mise->miseMax($e['idEnchere'], 'idEnchere');
+				$nbMise = $mise->compte($e['idEnchere'], 'idEnchere');
 
-			if ($miseMax && $nbMise) {
-				$e['miseMax'] = $miseMax['montant'];
-				$e['nbMise'] = $nbMise['compte'];
-			}
-
-			//favori
-			if(isset($_SESSION['idMembre']))
-			{
-				$favori = new Favori();
-				$conditions['idMembre'] = $_SESSION['idMembre'];
-				$conditions['idEnchere'] = $e['idEnchere'];
-				$estFavori = $favori->selectionner($conditions);
-
-				if ($estFavori) {
-					$e['estFavori'] = 1;
+				if ($miseMax && $nbMise) {
+					$e['miseMax'] = $miseMax['montant'];
+					$e['nbMise'] = $nbMise['compte'];
 				}
+
+				//favori
+				if (isset($_SESSION['idMembre'])) {
+					$favori = new Favori();
+					$conditions['idMembre'] = $_SESSION['idMembre'];
+					$conditions['idEnchere'] = $e['idEnchere'];
+					$estFavori = $favori->selectionner($conditions);
+
+					if ($estFavori) {
+						$e['estFavori'] = 1;
+					}
+				}
+
+				//temps
+				$enchereInfo = $enchere->selectByField($e['idEnchere'], 'idEnchere');
+				$diff = $enchere->tempsRestant($e['idEnchere']);
+
+				$e['temps'] = $diff;
 			}
-
-			//temps
-			$enchereInfo = $enchere->selectByField($e['idEnchere'], 'idEnchere');
-			$diff = $enchere->tempsRestant($e['idEnchere']);
-
-			$e['temps'] = $diff;
 		}
+
 
 		return View::render('enchere/catalogue', ['encheres' => $encheres]);
 	}
@@ -207,5 +209,4 @@ class EnchereController
 
 		return $this->afficherTous();
 	}
-
 }

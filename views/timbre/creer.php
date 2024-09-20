@@ -61,6 +61,19 @@
 		</div>
 
 		<div>
+			<label for="idPays">Pays d'origine*</label>
+			<select name="idPays" id="idPays">
+				<option value="">Sélectionner un pays</option>
+				{% for pays in pays_liste %}
+				<option value="{{pays.idPays}}" {% if pays.idPays == timbre.idPays %} selected {% endif %}>{{pays.nom}}</option>
+				{% endfor  %}
+			</select>
+			{% if erreurs.pays is defined %}
+			<span class="erreur">{{erreurs.pays}}</span>
+			{% endif %}
+		</div>
+
+		<div>
 			<label for="anneeProd">Année de production</label>
 			<input required type="number" name="anneeProd" id="anneeProd" value="{{timbre.anneeProd}}">
 			{% if erreurs.anneeProd is defined %}

@@ -10,6 +10,7 @@ use App\Models\Timbre;
 use App\Models\Image;
 use App\Models\Enchere_has_Timbre;
 use App\Models\Enchere;
+use App\Models\Pays;
 
 class TimbreController
 {
@@ -17,7 +18,11 @@ class TimbreController
 	public function creer()
 	{
 		Auth::session();
-		return View::render('timbre/creer');
+
+		$pays = new Pays;
+		$pays_liste = $pays->select('nom');
+
+		return View::render('timbre/creer',['pays_liste' => $pays_liste]);
 	}
 	
 	public function sauvegarder($data = [])
@@ -138,11 +143,14 @@ class TimbreController
 		
 		$image = new Image();
 		$images = $image->selectMultipleByField($idTimbre, 'idTimbre');
+
+		$pays = new Pays();
+		$origine = $pays->selectByField($timbreInfo['idPays'],'idPays');
 		
 		foreach ($images as $img) {
 			$chemins[] = $img['chemin'];
 		}
 		
-		return View::render('timbre/voir', ['timbre' => $timbreInfo, 'images' => $chemins]);
+		return View::render('timbre/voir', ['timbre' => $timbreInfo, 'images' => $chemins, 'pays'=>$origine]);
 	}
 }
