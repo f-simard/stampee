@@ -47,7 +47,10 @@
 					</picture>
 					<section>
 						<h5>{{enchere.titre}}</h5>
-						<p>Mise courante: <span>{% if enchere.nbMise %} ({{enchere.nbMise}} mises) {% endif %}</span></p>
+						<dive class="paire">
+							<p>Mise courante {% if enchere.nbMise %} ({{enchere.nbMise}} mises) {% endif %}</p>
+							<p data-enchere="miseCourante">{% if enchere.miseMax %}{{enchere.idDevise}} {{enchere.miseMax}} {% else %} Aucune mise {% endif %}</p>
+						</dive>
 						<span class="lien">Plus d'information &#10095; </span>
 					</section>
 				</article>
@@ -122,7 +125,7 @@
 			<picture><img src="{{asset}}/img/icones/circle-blank.svg" alt="carousel item"></picture>
 			<picture><img src="{{asset}}/img/icones/circle-blank.svg" alt="carousel item"></picture>
 		</div>
-</div>
+	</div>
 	</section>
 </main>
 

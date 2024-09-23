@@ -34,7 +34,7 @@
 				</div>
 				<div class="paire">
 					<p>Mise courante:</p>
-					<p>{% if miseMax.montant %} {{miseMax.montant}} {% else %} Aucune mise {% endif %}</p>
+					<p>{% if miseMax.montant %}{{enchere.idDevise}}{{enchere.idDevise}} {{miseMax.montant}} {% else %} Aucune mise {% endif %}</p>
 				</div>
 			</div>
 		</section>

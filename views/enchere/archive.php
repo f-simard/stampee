@@ -195,11 +195,11 @@
 						<div class="info-enchere">
 							<div>
 								<p>Estimation</p>
-								<p data-enchere="estimation">{% if enchere.estimation == 0 %} N/A {% else %} {{enchere.devise}} {{enchere.estimation}} {% endif %}</p>
+								<p data-enchere="estimation">{% if enchere.estimation == 0 %} N/A {% else %} {{enchere.idDevise}} {{enchere.estimation}} {% endif %}</p>
 							</div>
 							<div>
 								<p>Mise gagnante</p>
-								<p data-enchere="miseCourante">{% if enchere.miseMax %}{{enchere.miseMax}} {% else %} Aucune mise {% endif %}</p>
+								<p data-enchere="miseCourante">{% if enchere.miseMax %}{{enchere.idDevise}} {{enchere.idDevise}}{{enchere.miseMax}} {% else %} Aucune mise {% endif %}</p>
 							</div>
 							<button class="bouton" data-couleur="secondaire">Miser</button>
 						</div>
