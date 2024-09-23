@@ -39,10 +39,6 @@
 	}
 }
 
-.details-timbre .medias-timbre-principal:hover {
-	cursor: zoom-in;
-}
-
 .details-timbre .medias-timbre-addionnels {
 	display: flex;
 	gap: var(--spacing-thinner);

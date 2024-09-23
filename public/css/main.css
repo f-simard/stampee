@@ -34,11 +34,12 @@
 @import url("./composantes/filtre-recherche.css");
 @import url("./composantes/timbre-similaire.css");
 @import url("./composantes/logo.css");
-@import url("./composantes/modale.css");
 @import url("./composantes/pagination.css");
 @import url("./composantes/balise-details.css");
 @import url("./composantes/lien-details.css");
 @import url("./composantes/formulaire.css");
 @import url("./composantes/medaillon.css");
+@import url("./composantes/agrandir.css");
+
 
 @import url("./base/utilitaire.css")

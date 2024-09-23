@@ -6,8 +6,8 @@
 	<section class="details-timbre">
 		<div>
 			<div class="medias-timbre">
-				<picture class="medias-timbre-principal">
-					<img class="" src="{{upload}}{{images|first}}" alt="image de timbre">
+				<picture class="medias-timbre-principal agrandir">
+					<img src="{{upload}}{{images|first}}" alt="image de timbre">
 				</picture>
 				<div class="medias-timbre-addionnels">
 					{% for image in images|slice(1, 9) %}
