@@ -12,6 +12,7 @@ use App\Models\Enchere_has_Timbre;
 use App\Models\Image;
 use App\Models\Mise;
 use App\Models\Favori;
+use App\Models\Pays;
 
 class EnchereController
 {
@@ -92,43 +93,51 @@ class EnchereController
 
 	public function afficherTous()
 	{
+		$pays = new Pays;
+		$pays_liste = $pays->select('nom');
+
 		$enchere = new Enchere();
 		$encheres = $enchere->selectionnerCatalogue();
 
 		if ($encheres) {
-			foreach ($encheres as &$e) {
-				//mise
-				$mise = new Mise();
-				$miseMax = $mise->miseMax($e['idEnchere'], 'idEnchere');
-				$nbMise = $mise->compte($e['idEnchere'], 'idEnchere');
+			$encheresInfo = $this->completerDonnee($encheres);
+		}
 
-				if ($miseMax && $nbMise) {
-					$e['miseMax'] = $miseMax['montant'];
-					$e['nbMise'] = $nbMise['compte'];
-				}
+		$encheresInfo = $this->completerDonnee($encheres);
 
-				//favori
-				if (isset($_SESSION['idMembre'])) {
-					$favori = new Favori();
-					$conditions['idMembre'] = $_SESSION['idMembre'];
-					$conditions['idEnchere'] = $e['idEnchere'];
-					$estFavori = $favori->selectionner($conditions);
+		//echo json_encode($encheres);
+		return View::render('enchere/catalogue', ['encheres' => $encheresInfo, 'pays_liste' => $pays_liste]);
+	}
 
-					if ($estFavori) {
-						$e['estFavori'] = 1;
-					}
-				}
+	public function afficherArchive()
+	{
+		$pays = new Pays;
+		$pays_liste = $pays->select('nom');
 
-				//temps
-				$enchereInfo = $enchere->selectByField($e['idEnchere'], 'idEnchere');
-				$diff = $enchere->tempsRestant($e['idEnchere']);
+		$enchere = new Enchere();
+		$encheres = $enchere->selectionnerArchive();
 
-				$e['temps'] = $diff;
-			}
+		$encheresInfo = [];
+
+		if ($encheres) {
+			$encheresInfo = $this->completerDonnee($encheres);
 		}
 
 		//echo json_encode($encheres);
-		return View::render('enchere/catalogue', ['encheres' => $encheres]);
+		return View::render('enchere/archive', ['encheres' => $encheresInfo, 'pays_liste' => $pays_liste]);
+	}
+
+	public function afficherFiltre()
+	{
+		$pays = new Pays;
+		$pays_liste = $pays->select('nom');
+
+		$enchere = new Enchere();
+		$encheres = $enchere->filtreCatalogue()->conditionEnchere('lord', 1)->executerFiltre();
+
+
+		//echo json_encode($encheres);
+		return View::redirect('enchere/catalogue', ['encheres' => $encheres, 'pays_liste' => $pays_liste]);
 	}
 
 	public function afficherUn($data = [])
@@ -210,4 +219,39 @@ class EnchereController
 		return $this->afficherTous();
 	}
 
+	public function completerDonnee($encheres)
+	{
+		$enchere = new Enchere();
+
+		foreach ($encheres as &$e) {
+			//mise
+			$mise = new Mise();
+			$miseMax = $mise->miseMax($e['idEnchere'], 'idEnchere');
+			$nbMise = $mise->compte($e['idEnchere'], 'idEnchere');
+
+			if ($miseMax && $nbMise) {
+				$e['miseMax'] = $miseMax['montant'];
+				$e['nbMise'] = $nbMise['compte'];
+			}
+
+			//favori
+			if (isset($_SESSION['idMembre'])) {
+				$favori = new Favori();
+				$conditions['idMembre'] = $_SESSION['idMembre'];
+				$conditions['idEnchere'] = $e['idEnchere'];
+				$estFavori = $favori->selectionner($conditions);
+
+				if ($estFavori) {
+					$e['estFavori'] = 1;
+				}
+			}
+
+			//temps
+			$diff = $enchere->tempsRestant($e['idEnchere']);
+
+			$e['temps'] = $diff;
+		}
+
+		return $encheres;
+	}
 }

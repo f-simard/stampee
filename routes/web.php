@@ -20,6 +20,8 @@ Route::get('/timbre/voir', 'TimbreController@afficherUn');
 Route::get('/enchere/creer', 'EnchereController@creer');
 Route::post('/enchere/creer', 'EnchereController@sauvegarder');
 Route::get('/enchere/catalogue', 'EnchereController@afficherTous');
+Route::post('/enchere/catalogue', 'EnchereController@afficherFiltre');
+Route::get('/enchere/archive', 'EnchereController@afficherArchive');
 Route::get('/enchere/voir', 'EnchereController@afficherUn');
 Route::post('/enchere/supprimer', 'EnchereController@supprimer');
 Route::post('/enchere/lord', 'EnchereController@lord');

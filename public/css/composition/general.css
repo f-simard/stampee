@@ -28,31 +28,35 @@ main > :is(section, .section) + section {
 }
 
 main:has(aside) {
-
 	aside {
 		margin-block: var(--spacing-thinner);
 	}
 	@media screen and (min-width: 1024px) {
-	display: grid;
-	grid-template-areas:
-		"titre titre"
-		"filtre contenu";
-	grid-template-columns: 40ch auto;
+		display: grid;
+		grid-template-areas:
+			"titre titre"
+			"bouton bouton"
+			"filtre contenu";
+		grid-template-columns: 40ch auto;
 
-	gap: var(--spacing-thin);
+		gap: var(--spacing-thin);
 
-	h1{
-		grid-area: titre;
-	}
+		h1 {
+			grid-area: titre;
+		}
 
-	.filtre{
-		grid-area: filtre;
-	}
+		.filtre {
+			grid-area: filtre;
+		}
 
-	.principal{
-		grid-area: contenu;
-		overflow: auto;
-	}
+		.principal {
+			grid-area: contenu;
+			overflow: auto;
+		}
+
+		.bouton-container {
+			grid-area: bouton;
+		}
 	}
 }
 

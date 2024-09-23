@@ -11,11 +11,11 @@ class Mise extends CRUD
 		'idMembre',
 		'idEnchere',
 		'montant',
-		'idEnchere'
+		'idDevise'
 	];
 
 	public function miseMax($valeur, $champ){
-		$sql = "SELECT $this->table.montant FROM $this->table WHERE $champ = :$champ ORDER BY 'dateCreation' LIMIT 1;";
+		$sql = "SELECT MAX($this->table.montant) as montant FROM $this->table WHERE $champ = :$champ";
 		$stmt = $this->prepare($sql);
 		$stmt->bindValue(":$champ", $valeur);
 		$stmt->execute();

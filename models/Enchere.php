@@ -18,6 +18,8 @@ class Enchere extends CRUD
 		'idDevise',
 		'lord'
 	];
+	private $sql;
+	private $conditions;
 
 	public function selectionnerSelonMembre($idMembre)
 	{
@@ -65,7 +67,85 @@ class Enchere extends CRUD
 		}
 	}
 
-	public function tempsRestant($idEnchere){
+	public function selectionnerArchive()
+	{
+
+		/*$sql = "SELECT * FROM $table WHERE $field = ?";*/
+		$sql = "SELECT DISTINCT e.*, count(t.idTimbre) as nbTimbre, t.*, img.chemin FROM `Enchere` as e
+		INNER JOIN Enchere_has_Timbre AS et ON et.idEnchere = e.idEnchere
+		INNER JOIN Timbre AS t ON t.idTimbre = et.idTimbre
+		INNER JOIN Image AS img ON img.idTimbre = t.idTimbre
+		WHERE img.principale = 1
+		AND e.statut = 'FERMEE'
+		GROUP BY e.idEnchere";
+
+		$stmt = $this->prepare($sql);
+		$stmt->execute();
+
+		$count = $stmt->rowCount();
+
+		if ($count >= 1) {
+			return $stmt->fetchAll();
+		} else {
+			return false;
+		}
+	}
+
+	public function filtreCatalogue()
+	{
+		$this->sql  = "SELECT DISTINCT e.*, count(t.idTimbre) as nbTimbre, t.*, img.chemin FROM `Enchere` as e
+		INNER JOIN Enchere_has_Timbre AS et ON et.idEnchere = e.idEnchere
+		INNER JOIN Timbre AS t ON t.idTimbre = et.idTimbre
+		INNER JOIN Image AS img ON img.idTimbre = t.idTimbre
+		WHERE img.principale = 1
+		AND e.statut <> 'FERMEE'";
+
+		return $this;
+	}
+
+	public function conditionEnchere($cle, $valeur)
+	{
+		if($cle && $valeur)
+		$this->sql = $this->sql . " AND e.$cle = ?";
+		$this->conditions = [$valeur];
+
+		return $this;
+	}
+
+	public function conditionMise($cle, $valeur)
+	{
+		$this->sql = $this->sql . " AND e.$cle = ?";
+		$this->conditions = [$valeur];
+
+		return $this;
+	}
+
+	public function conditionTimbre($cle, $valeur)
+	{
+		$this->sql = $this->sql . " AND e.$cle = ?";
+		$this->conditions = [$valeur];
+
+		return $this;
+	}
+
+	public function executerFiltre()
+	{
+		$this->sql = $this->sql . "GROUP BY e.idEnchere";
+
+		$stmt = $this->prepare($this->sql);
+		$stmt->execute($this->conditions);
+
+		$count = $stmt->rowCount();
+
+		if ($count >= 1) {
+			return $stmt->fetchAll();
+		} else {
+			return false;
+		}
+	}
+
+	public function tempsRestant($idEnchere)
+	{
 
 		$maintenant = new DateTime();
 
@@ -74,11 +154,12 @@ class Enchere extends CRUD
 		$dateDebut = new DateTime($enchereInfo['dateDebut']);
 		$dateFin = new DateTime($enchereInfo['dateFin']);
 
-		if($maintenant < $dateDebut){
+		if ($maintenant < $dateDebut) {
 			$diff = $maintenant->diff($dateDebut);
 			$temps['avantDebut'] = $diff->format('%a jours %HH');
 			return $temps;
-		} if ($maintenant < $dateFin){
+		}
+		if ($maintenant < $dateFin) {
 			$diff = $maintenant->diff($dateFin);
 			$temps['avantFin'] = $diff->format('%a jours %HH');
 			return $temps;
@@ -86,10 +167,10 @@ class Enchere extends CRUD
 			$temps['fermee'] = null;
 			return $temps;
 		}
-
 	}
 
-	public function selectionnerSelonFavori($data=[]){
+	public function selectionnerSelonFavori($data = [])
+	{
 		$sql = "SELECT DISTINCT e.*, count(t.idTimbre) as nbTimbre, t.*, img.chemin FROM `Enchere` as e
 		INNER JOIN Enchere_has_Timbre AS et ON et.idEnchere = e.idEnchere
 		INNER JOIN Timbre AS t ON t.idTimbre = et.idTimbre
@@ -136,5 +217,4 @@ class Enchere extends CRUD
 			return false;
 		}
 	}
-
 }

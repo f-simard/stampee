@@ -41,10 +41,17 @@ class MiseController
 		$infoEnchere = $enchere->selectByField($idEnchere, 'idEnchere');
 
 		$mise = new Mise();
-		$miseMax = $mise->miseMax($idEnchere, 'idEnchere')['montant'];
-		$min = $miseMax;
+		try {
+			$miseMax = $mise->miseMax($idEnchere, 'idEnchere');
+			if ($miseMax) {
+				$min = $miseMax['montant'];
+			}
+		} finally {
+			$min = $infoEnchere['prixPlancher'];
+		}
 
-		if (!$miseMax ){
+
+		if (!$miseMax) {
 			$min = $infoEnchere['prixPlancher'];
 		}
 
@@ -54,6 +61,7 @@ class MiseController
 
 		//ajuster data
 		$data['idMembre'] = $_SESSION['idMembre'];
+		$data['idDevise'] = $infoEnchere['idDevise'];
 
 		if ($validateur->estSucces()) {
 

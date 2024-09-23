@@ -3,8 +3,8 @@
 <main>
 	<h1>Vitrine</h1>
 	<div class="bouton-container section">
-		<a href="{{base}}/enchere/catalogue" class="bouton" data-couleur="sombre" data-enchere="active" data-selected="true">Encheres actives</a>
-		<a href="{{base}}/enchere/archive" class="bouton" data-couleur="sombre" data-enchere="passee" data-selected="false">Enchere passées</a>
+		<a href="{{base}}/enchere/catalogue" class="bouton" data-couleur="sombre" data-enchere="active" data-selected="false">Encheres actives</a>
+		<a href="{{base}}/enchere/archive" class="bouton" data-couleur="sombre" data-enchere="passee" data-selected="true">Enchere passées</a>
 	</div>
 	<aside class="filtre">
 		<div class="filtre__check">
@@ -194,21 +194,11 @@
 						</section>
 						<div class="info-enchere">
 							<div>
-								{% if enchere.temps.avantDebut is defined %}
-								<p>Temps avant l'enchere</p>
-								<p data-enchere="temps">{{enchere.temps.avantDebut}}</p>
-								{% endif %}
-								{% if enchere.temps.avantFin is defined %}
-								<p>Temps restant</p>
-								<p data-enchere="temps">{{enchere.temps.avantFin}}</p>
-								{% endif %}
-							</div>
-							<div>
 								<p>Estimation</p>
 								<p data-enchere="estimation">{% if enchere.estimation == 0 %} N/A {% else %} {{enchere.devise}} {{enchere.estimation}} {% endif %}</p>
 							</div>
 							<div>
-								<p>Mise courante {% if enchere.nbMise %} ({{enchere.nbMise}} mises) {% endif %}</p>
+								<p>Mise gagnante</p>
 								<p data-enchere="miseCourante">{% if enchere.miseMax %}{{enchere.miseMax}} {% else %} Aucune mise {% endif %}</p>
 							</div>
 							<button class="bouton" data-couleur="secondaire">Miser</button>

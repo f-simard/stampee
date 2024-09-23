@@ -58,6 +58,7 @@
 .filtre__contenu .paire {
 	display: flex;
 	gap: var(--spacing-micro);
+	align-items: center;
 	justify-content: initial;
 
 	&.text {

@@ -64,7 +64,6 @@ class Catalogue {
 
 	#instancierCarte() {
 		const encheres = document.querySelectorAll(".js-enchere");
-		console.log("instancier");
 
 		encheres.forEach(
 			function (enchere) {
@@ -121,7 +120,10 @@ class Catalogue {
 	async #AppliquerFiltre() {
 		try {
 			const reponse = await fetch(
-				"http://localhost:8080/stampee/enchere/catalogue"
+				"http://localhost:8080/stampee/enchere/catalogue",
+				{
+					method: "POST",
+				}
 			);
 			console.log("appliquer");
 		} catch (erreur) {
