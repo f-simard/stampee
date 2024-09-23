@@ -46,9 +46,9 @@
 		<div class="catalogue-conteneur liste" data-enchere="active">
 			{% for enchere in encheres %}
 			<a href="{{base}}/enchere/voir?idEnchere={{enchere.idEnchere}}">
-				<article class="carte-lot" data-mode="liste" data-idenchere="{{enchere.idEnchere}}">
+				<article class="carte-lot js-enchere" data-mode="liste" data-idenchere="{{enchere.idEnchere}}">
 					<picture class=" media-cadre">
-					<img src="{{upload}}{{enchere.chemin}}" alt="timbre">
+						<img src="{{upload}}{{enchere.chemin}}" alt="timbre">
 					</picture>
 					<div>
 						<section class="info-lot">

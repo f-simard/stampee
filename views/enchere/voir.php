@@ -4,10 +4,10 @@
 		<div>
 			<div class="info-timbre">
 				<div>
-					<header>
+					<header class="js-enchere" data-idenchere="{{enchere.idEnchere}}">
 						<p>Enchere {{enchere.idEnchere}}</p>
-						<i class="icone-favori {% if enchere.estFavori is defined %} fa-solid {% else %} fa-regular {% endif %} fa-bookmark fa-lg"
-							{% if enchere.estFavori is defined %} data-favori {% endif %}></i>
+						<i class="icone-favori {% if enchere.estFavori is defined %}fa-solid {% else %}fa-regular {% endif %} fa-bookmark fa-lg"
+							data-favori="{% if enchere.estFavori is defined %}true {% else %}false {% endif %}"></i>
 					</header>
 					<div>
 						<h3>{% if nbTimbre.compte > 1 %} Lot de plusieurs timbres ({{nbTimbre.compte}}) {% else %} {{timbres|first.titre}} {% endif %}</h3>

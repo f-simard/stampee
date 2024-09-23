@@ -8,8 +8,6 @@ class Enchere {
 		this.#btnFavori = elementHTML.querySelector(".icone-favori");
 		this.#btnLord = elementHTML.querySelector(".icone-lord");
 
-		console.log(this);
-
 		//ecouteur d'evenement
 		this.#btnFavori.addEventListener(
 			"click",

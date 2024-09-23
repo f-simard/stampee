@@ -1,10 +1,11 @@
-import Enchere from './Enchere.js';
+import Enchere from "./Enchere.js";
 
 class Catalogue {
 	static #instance;
 	#checkboxFiltre;
 	#filtres;
 	#iconeMode;
+	#btnAppliquerFiltre;
 	#boutonPassee;
 	#boutonActive;
 	#mode;
@@ -31,35 +32,54 @@ class Catalogue {
 
 		//changer mode de vue (liste ou grille)
 		this.#iconeMode = document.querySelector(".choix-mode");
-		this.#iconeMode.addEventListener("click", this.#changerMode.bind(this));
+		if (this.#iconeMode){
+			this.#iconeMode.addEventListener(
+				"click",
+				this.#changerMode.bind(this)
+			);
+		}
 
 		// changer de mode pour les filtres
 		this.#checkboxFiltre = document.querySelector("input#filtre-bouton");
-		this.#filtres = document.querySelector(".filtre");
+		if (this.#checkboxFiltre){
+			this.#filtres = document.querySelector(".filtre");
+		}
 
-		//ecouteur d'evenement
+
+		// appliquer les filtres
+		this.#btnAppliquerFiltre = document.querySelector(
+			"[data-action='appliquer']"
+		);
+		if (this.#btnAppliquerFiltre){
+			this.#btnAppliquerFiltre.addEventListener(
+				"click",
+				this.#AppliquerFiltre.bind(this)
+			);
+		}
 
 		//execution de code
 		this.#instancierCarte();
+		//ecouteur d'evenement
 	}
 
-	#instancierCarte(){
+	#instancierCarte() {
+		const encheres = document.querySelectorAll(".js-enchere");
+		console.log("instancier");
 
-		const encheres = document.querySelectorAll(".carte-lot");
+		encheres.forEach(
+			function (enchere) {
+				const idEnchere = enchere.dataset.idenchere;
+				const e = new Enchere(idEnchere, enchere);
 
-		encheres.forEach(function(enchere){
-			const idEnchere = enchere.dataset.idenchere
-			const e = new Enchere(idEnchere, enchere);
-
-			enchere.addEventListener(
-				"click",
-				this.#prevenirRedirection.bind(this)
-			);
-		}.bind(this))
+				enchere.addEventListener(
+					"click",
+					this.#prevenirRedirection.bind(this)
+				);
+			}.bind(this)
+		);
 	}
 
-	#prevenirRedirection(evenement){
-
+	#prevenirRedirection(evenement) {
 		if (
 			evenement.target.classList.contains("icone-favori") ||
 			evenement.target.classList.contains("icone-lord")
@@ -81,7 +101,7 @@ class Catalogue {
 			this.#conteneurCatalogue.classList.remove("remove");
 		}
 
-		let articles = this.#conteneurCatalogue.querySelectorAll(".carte-lot");
+		let articles = this.#conteneurCatalogue.querySelectorAll(".js-enchere");
 
 		articles.forEach(
 			function (article) {
@@ -95,6 +115,17 @@ class Catalogue {
 			this.#filtres.dataset.ecran = "mobile";
 		} else {
 			this.#filtres.dataset.ecran = "bureau";
+		}
+	}
+
+	async #AppliquerFiltre() {
+		try {
+			const reponse = await fetch(
+				"http://localhost:8080/stampee/enchere/catalogue"
+			);
+			console.log("appliquer");
+		} catch (erreur) {
+			console.log(erreur);
 		}
 	}
 }

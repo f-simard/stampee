@@ -133,8 +133,8 @@
 					<label for="nonCertifie">Non</label>
 				</div>
 			</details>
-			<button class="bouton" data-couleur="primaire-inverse">Réinitialiser</button>
-			<button class="bouton" data-couleur="primaire">Appliquer</button>
+			<button class="bouton" data-couleur="primaire-inverse" data-action="reinitialiser">Réinitialiser</button>
+			<button class="bouton" data-couleur="primaire" data-action="appliquer">Appliquer</button>
 		</div>
 	</aside>
 	<div class="principal">
@@ -181,7 +181,7 @@
 		<div class="catalogue-conteneur liste" data-enchere="active">
 			{% for enchere in encheres %}
 			<a href="{{base}}/enchere/voir?idEnchere={{enchere.idEnchere}}">
-				<article class="carte-lot" data-mode="liste" data-idenchere="{{enchere.idEnchere}}">
+				<article class="carte-lot js-enchere" data-mode="liste" data-idenchere="{{enchere.idEnchere}}">
 					{% if session.estAdmin == 1%}
 					<i class="icone-lord {% if enchere.lord == 1 %}fa-solid {% else %}fa-regular {% endif %} fa-star"
 						data-lord="{% if enchere.lord == 1 is defined %}true {% else %}false {% endif %}">Lord</i>

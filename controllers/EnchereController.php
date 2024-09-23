@@ -127,7 +127,7 @@ class EnchereController
 			}
 		}
 
-
+		//echo json_encode($encheres);
 		return View::render('enchere/catalogue', ['encheres' => $encheres]);
 	}
 
@@ -209,4 +209,5 @@ class EnchereController
 
 		return $this->afficherTous();
 	}
+
 }

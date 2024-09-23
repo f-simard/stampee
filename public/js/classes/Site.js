@@ -3,9 +3,6 @@ import Catalogue from "./Catalogue.js";
 class Site {
 	static #instance;
 	#catalogue;
-	#enchere;
-	#favoriBtns;
-	#lordBtns;
 
 	//Permet d'accéder à l'instance de la classe de n'importe où dans le code en utilisant App.instance
 	static get instance() {
