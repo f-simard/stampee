@@ -11,6 +11,7 @@ use App\Models\Image;
 use App\Models\Enchere_has_Timbre;
 use App\Models\Enchere;
 use App\Models\Pays;
+use App\Models\Condition;
 
 class TimbreController
 {
@@ -22,7 +23,10 @@ class TimbreController
 		$pays = new Pays;
 		$pays_liste = $pays->select('nom');
 
-		return View::render('timbre/creer',['pays_liste' => $pays_liste]);
+		$condition = new Condition();
+		$conditions = $condition->select();
+
+		return View::render('timbre/creer',['pays_liste' => $pays_liste, 'conditions'=>$conditions]);
 	}
 	
 	public function sauvegarder($data = [])
@@ -54,6 +58,7 @@ class TimbreController
 		$validateur->champ('hauteur', $data['hauteur'])->requis()->toutNumeric()->plusGrand(0)->plusPetit(25);
 		$validateur->champ('largeur', $data['largeur'])->requis()->toutNumeric()->plusGrand(0)->plusPetit(25);
 		$validateur->champ('idPays', $data['idPays'], 'Pays')->requis()->existe('Pays', 'idPays');
+		$validateur->champ('idCondition', $data['idCondition'], 'Condition')->requis()->existe('Condition', 'idCondition');
 		
 		//ajouter et manipuler data
 		if (isset($data['certifie'])) {
@@ -101,8 +106,14 @@ class TimbreController
 		} else {
 			
 			$erreurs = $validateur->obtenirErreur();
+
+			$pays = new Pays;
+			$pays_liste = $pays->select('nom');
+
+			$condition = new Condition();
+			$conditions = $condition->select();
 			
-			return View::render('timbre/creer', ['erreurs' => $erreurs, 'timbre' => $data]);
+			return View::render('timbre/creer', ['erreurs'=> $erreurs, 'timbre'=> $data,'pays_liste'=> $pays_liste, 'conditions'=> $conditions]);
 		}
 	}
 	
@@ -147,11 +158,14 @@ class TimbreController
 
 		$pays = new Pays();
 		$origine = $pays->selectByField($timbreInfo['idPays'],'idPays');
+
+		$condition = new Condition();
+		$conditions = $condition->selectByField($timbreInfo['idCondition'], 'idCondition');
 		
 		foreach ($images as $img) {
 			$chemins[] = $img['chemin'];
 		}
 		
-		return View::render('timbre/voir', ['timbre' => $timbreInfo, 'images' => $chemins, 'pays'=>$origine]);
+		return View::render('timbre/voir', ['timbre' => $timbreInfo, 'images' => $chemins, 'pays'=>$origine, 'condition'=>$conditions]);
 	}
 }

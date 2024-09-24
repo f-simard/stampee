@@ -17,7 +17,7 @@ abstract class CRUD extends \PDO
 			$field = $this->primaryKey;
 		}
 
-		$sql = "SELECT * FROM $this->table ORDER BY $field $order";
+		$sql = "SELECT * FROM `$this->table` ORDER BY $field $order";
 		$stmt = $this->query($sql);
 		return $stmt->fetchAll();
 	}
@@ -31,7 +31,7 @@ abstract class CRUD extends \PDO
 
 
 		/*$sql = "SELECT * FROM $table WHERE $field = ?";*/
-		$sql = "SELECT * FROM $this->table WHERE $field = :$field";
+		$sql = "SELECT * FROM `$this->table` WHERE $field = :$field";
 		$stmt = $this->prepare($sql);
 		/*$stmt->execute(array($value));*/
 		$stmt->bindValue(":$field", $value);
@@ -54,7 +54,7 @@ abstract class CRUD extends \PDO
 		}
 
 		/*$sql = "SELECT * FROM $table WHERE $field = ?";*/
-		$sql = "SELECT * FROM $this->table WHERE $field = :$field;";
+		$sql = "SELECT * FROM `$this->table` WHERE $field = :$field;";
 		$stmt = $this->prepare($sql);
 		$stmt->bindValue(":$field", $value);
 		$stmt->execute();
@@ -77,7 +77,7 @@ abstract class CRUD extends \PDO
 		$fieldName = implode(', ', array_keys($data));
 		$fieldValues = ':' . implode(', :', array_keys($data));
 
-		$sql = "INSERT INTO $this->table ($fieldName) values ($fieldValues)";
+		$sql = "INSERT INTO `$this->table` ($fieldName) values ($fieldValues)";
 
 		$stmt = $this->prepare($sql);
 		foreach ($data as $key => $value) {
@@ -107,7 +107,7 @@ abstract class CRUD extends \PDO
 
 			$fieldName = rtrim($fieldName, ', ');
 
-			$sql = "UPDATE $this->table SET $fieldName WHERE $this->primaryKey = :$this->primaryKey";
+			$sql = "UPDATE `$this->table` SET $fieldName WHERE $this->primaryKey = :$this->primaryKey";
 
 			$stmt = $this->prepare($sql);
 			foreach ($data as $key => $value) {
@@ -131,7 +131,7 @@ abstract class CRUD extends \PDO
 		}
 
 
-		$sql = "DELETE FROM $this->table WHERE $field = :$field";
+		$sql = "DELETE FROM `$this->table` WHERE $field = :$field";
 		$stmt = $this->prepare($sql);
 		$stmt->bindValue(":$field", $value);
 		$stmt->execute();
@@ -148,9 +148,9 @@ abstract class CRUD extends \PDO
 	{
 
 		if ($fieldException && $valueException) {
-			$sql = "SELECT * FROM $this->table WHERE $field = :$field AND $fieldException <> :$fieldException";
+			$sql = "SELECT * FROM `$this->table` WHERE $field = :$field AND $fieldException <> :$fieldException";
 		} else {
-			$sql = "SELECT * FROM $this->table WHERE $field = :$field";
+			$sql = "SELECT * FROM `$this->table` WHERE $field = :$field";
 		}
 
 		$stmt = $this->prepare($sql);

@@ -26,6 +26,10 @@
 			</div>
 			<div class="info-enchere">
 				<div class="paire">
+					<p>Condition</p>
+					<p data-enchere="temps">{{condition.nom}}</p>
+				</div>
+				<div class="paire">
 					<p>Pays d'origine</p>
 					<p data-enchere="temps">{{pays.nom}}</p>
 				</div>

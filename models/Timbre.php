@@ -17,7 +17,8 @@ class Timbre extends CRUD
 		'largeur',
 		'certifie',
 		'idMembre',
-		'idPays'
+		'idPays',
+		'idCondition',
 	];
 	
 	final public function selectionnerTimbresDispo($idMembre)

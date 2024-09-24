@@ -13,6 +13,7 @@ use App\Models\Image;
 use App\Models\Mise;
 use App\Models\Favori;
 use App\Models\Pays;
+use App\Models\Condition;
 
 class EnchereController
 {
@@ -96,6 +97,10 @@ class EnchereController
 		$pays = new Pays;
 		$pays_liste = $pays->select('nom');
 
+		$condition = new Condition();
+		$conditions = $condition->select();
+
+
 		$enchere = new Enchere();
 		$encheres = $enchere->selectionnerCatalogue();
 
@@ -106,7 +111,7 @@ class EnchereController
 		$encheresInfo = $this->completerDonnee($encheres);
 
 		//echo json_encode($encheres);
-		return View::render('enchere/catalogue', ['encheres' => $encheresInfo, 'pays_liste' => $pays_liste]);
+		return View::render('enchere/catalogue', ['encheres' => $encheresInfo, 'pays_liste' => $pays_liste, 'conditions' => $conditions]);
 	}
 
 	//returne de json
@@ -115,6 +120,9 @@ class EnchereController
 	{
 		$pays = new Pays;
 		$pays_liste = $pays->select('nom');
+
+		$condition = new Condition();
+		$conditions = $condition->select();
 
 		$enchere = new Enchere();
 		$encheres = $enchere->selectionnerArchive();
@@ -126,7 +134,7 @@ class EnchereController
 		}
 
 		//echo json_encode($encheres);
-		return View::render('enchere/archive', ['encheres' => $encheresInfo, 'pays_liste' => $pays_liste]);
+		return View::render('enchere/archive', ['encheres' => $encheresInfo, 'pays_liste' => $pays_liste, 'conditions' => $conditions]);
 	}
 
 	public function recupererActiveFiltre()
@@ -177,6 +185,10 @@ class EnchereController
 			foreach ($imgs as $img) {
 				$toutesImages[] = $img['chemin'];
 			}
+
+			$condition = new Condition;
+			$timbreCondition = $condition->selectByField($timbre['idCondition'], 'idCondition');
+			$timbre['nomCondition'] = $timbreCondition['nom'];
 		}
 
 		return View::render('enchere/voir', ['enchere' => $enchereInfo, 'nbTimbre' => $nbTimbre, 'timbres' => $timbres, 'images' => $toutesImages]);

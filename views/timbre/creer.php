@@ -60,6 +60,20 @@
 			{% endif %}
 		</div>
 
+
+		<div>
+			<label for="idCondition">Condition*</label>
+			<select name="idCondition" id="idCondition">
+				<option value="">Sélectionner une condition</option>
+				{% for condition in conditions %}
+				<option value="{{condition.idCondition}}" {% if condition.idCondition == timbre.idCondition %} selected {% endif %}>{{condition.nom}}</option>
+				{% endfor  %}
+			</select>
+			{% if erreurs.idCondition is defined %}
+			<span class="erreur">{{erreurs.idCondition}}</span>
+			{% endif %}
+		</div>
+
 		<div>
 			<label for="idPays">Pays d'origine*</label>
 			<select name="idPays" id="idPays">
@@ -68,8 +82,8 @@
 				<option value="{{pays.idPays}}" {% if pays.idPays == timbre.idPays %} selected {% endif %}>{{pays.nom}}</option>
 				{% endfor  %}
 			</select>
-			{% if erreurs.pays is defined %}
-			<span class="erreur">{{erreurs.pays}}</span>
+			{% if erreurs.idPays is defined %}
+			<span class="erreur">{{erreurs.idPays}}</span>
 			{% endif %}
 		</div>
 

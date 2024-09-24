@@ -84,26 +84,12 @@
 				<summary>
 					<label for="details-conditions" class="details__label">Conditions</label>
 				</summary>
+			{% for condition in conditions %}
 				<div class="paire">
-					<input type="checkbox" name="parfaite" id="parfaite">
-					<label for="parfaite">Parfaite</label>
+					<input type="checkbox" name="condition[]" id="{{condition.idCondition}}">
+					<label for="{{condition.idCondition}}">{{condition.nom}}</label>
 				</div>
-				<div class="paire">
-					<input type="checkbox" name="execellente" id="excellente">
-					<label for="excellente">Excellente</label>
-				</div>
-				<div class="paire">
-					<input type="checkbox" name="bonne" id="bonne">
-					<label for="bonne">Bonne</label>
-				</div>
-				<div class="paire">
-					<input type="checkbox" name="moyenne" id="moyenne">
-					<label for="moyenne">Moyenne</label>
-				</div>
-				<div class="paire">
-					<input type="checkbox" name="endommage" id="endommage">
-					<label for="endommage">Endommagé</label>
-				</div>
+				{% endfor %}
 			</details>
 			<input type="checkbox" name="details-certifie" id="details-certifie" class="details__checkbox">
 			<details open>

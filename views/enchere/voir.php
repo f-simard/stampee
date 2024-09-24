@@ -58,15 +58,19 @@
 						<p data-info="description">{{timbre.description}}</p>
 					</section>
 					<div class="info-enchere">
-						<div>
+						<div class="paire">
+							<p>Condition</p>
+							<p data-enchere="temps">{{timbre.nomCondition}}</p>
+						</div>
+						<div class="paire">
 							<p>Année de production</p>
 							<p data-enchere="temps">{{timbre.anneeProd}}</p>
 						</div>
-						<div>
+						<div class="paire">
 							<p>Tirage</p>
 							<p data-enchere="temps">{{timbre.tirage}}</p>
 						</div>
-						<div>
+						<div class="paire">
 							<p>Certifié</p>
 							<p data-enchere="temps">{% if timbre.certifie == 1 %} Oui {% else %} Non {% endif %}</p>
 						</div>
