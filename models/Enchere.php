@@ -108,6 +108,20 @@ class Enchere extends CRUD
 		return $this;
 	}
 
+	public function filtreCatalogueArchive()
+	{
+		$this->sql  = "SELECT DISTINCT e.*, count(t.idTimbre) as nbTimbre, t.*, img.chemin , MAX(m.montant) as misecourante FROM `Enchere` as e
+		INNER JOIN Enchere_has_Timbre AS et ON et.idEnchere = e.idEnchere
+		INNER JOIN Timbre AS t ON t.idTimbre = et.idTimbre
+		INNER JOIN Image AS img ON img.idTimbre = t.idTimbre
+        LEFT JOIN Mise as m on m.idEnchere = e.idEnchere
+		WHERE img.principale = 1
+		AND e.statut = 'FERMEE'";
+
+		return $this;
+	}
+
+
 	public function conditions($data = [])
 	{
 		if (empty($data)) {

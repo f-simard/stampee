@@ -22,7 +22,7 @@ Route::post('/enchere/creer', 'EnchereController@sauvegarder');
 Route::get('/enchere/catalogue', 'EnchereController@afficherTous');
 Route::get('/enchere/activeFiltre', 'EnchereController@recupererActiveFiltre');
 Route::get('/enchere/archive', 'EnchereController@afficherArchive');
-Route::get('/enchere/archiveFiltre', 'EnchereController@afficherArchiveFiltre');
+Route::get('/enchere/archiveFiltre', 'EnchereController@recupererArchiveFiltre');
 Route::get('/enchere/voir', 'EnchereController@afficherUn');
 Route::post('/enchere/supprimer', 'EnchereController@supprimer');
 Route::post('/enchere/lord', 'EnchereController@lord');

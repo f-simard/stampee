@@ -6,13 +6,13 @@
 		<a href="{{base}}/enchere/catalogue" class="bouton" data-couleur="sombre" data-enchere="active" data-selected="false">Encheres actives</a>
 		<a href="{{base}}/enchere/archive" class="bouton" data-couleur="sombre" data-enchere="passee" data-selected="true">Enchere passées</a>
 	</div>
-	<!-- <aside class="filtre">
+	<aside class="filtre">
 		<div class="filtre__check">
 			<input type="checkbox" id="filtre-bouton" aria-label="icone filtre en vue mobile">
 		</div>
-		<div class="filtre__contenu">
+		<form method='get' class="filtre__contenu">
 			<h4>Filtres</h4>
-			<div class="filtre-recherche">
+			<!-- <div class="filtre-recherche">
 				<label for="recherche-filtre">Recherche</label>
 				<div>
 					<input type="text" name="recherche-filtre" id="recherche-filtre">
@@ -22,15 +22,15 @@
 						</picture>
 					</button>
 				</div>
-			</div>
+			</div> -->
 			<input type="checkbox" name="details-lord" id="details-lord" class="details__checkbox">
 			<details open>
 				<summary>
 					<label for="details-lord" class="details__label"><i class="fa-solid fa-award"></i>Coup de cœur du Lord</label>
 				</summary>
 				<div class="paire">
-					<input type="checkbox" name="coeur-lord" id="coeur-lord">
-					<label for="coeur-lord">Exclusivement</label>
+					<input type="checkbox" name="e|lord|E" id="enchere|lord" value="1">
+					<label for="enchere|lord">Exclusivement</label>
 				</div>
 			</details>
 			<input type="checkbox" name="details-prix" id="details-prix" class="details__checkbox">
@@ -39,12 +39,12 @@
 					<label for="details-prix" class="details__label">Prix</label>
 				</summary>
 				<div class="paire text">
-					<label for="min">Minimum</label>
-					<input type="text" name="min" id="min">
+					<label for="mise|min">Minimum</label>
+					<input type="number" name="|misecourante|PGE" id="mise|min" min=0>
 				</div>
 				<div class="paire text">
-					<label for="max">Maximum</label>
-					<input type="text" name="max" id="max">
+					<label for="mise|max">Maximum</label>
+					<input type="number" name="|misecourante|PPE" id="mise|max" min=0>
 				</div>
 			</details>
 			<input type="checkbox" name="details-date" id="details-date" class="details__checkbox">
@@ -54,17 +54,11 @@
 				</summary>
 				<div class="paire text">
 					<label for="debut">Début</label>
-					<select name="debut" id="debut">
-						<option value="2024">2024</option>
-						<option value="2025">2025</option>
-					</select>
+					<input type="date" name="e|dateDebut|PGE" id="debut" min={{aujourdhui}}>
 				</div>
 				<div class="paire text">
 					<label for="fin">Fin</label>
-					<select name="fin" id="fin">
-						<option value="2024">2024</option>
-						<option value="2025">2025</option>
-					</select>
+					<input type="date" name="e|dateFin|PPE" id="fin" min={{aujourdhui}}>
 				</div>
 			</details>
 			<input type="checkbox" name="details-pays" id="details-pays" class="details__checkbox">
@@ -74,7 +68,7 @@
 				</summary>
 				{% for pays in pays_liste %}
 				<div class="paire">
-					<input type="checkbox" name="pays[]" id="{{pays.idPays}}">
+					<input type="checkbox" name="t|pays[]|I" id="{{pays.idPays}}" value="{{pays.idPays}}">
 					<label for="{{pays.idPays}}">{{pays.nom}}</label>
 				</div>
 				{% endfor %}
@@ -84,9 +78,9 @@
 				<summary>
 					<label for="details-conditions" class="details__label">Conditions</label>
 				</summary>
-			{% for condition in conditions %}
+				{% for condition in conditions %}
 				<div class="paire">
-					<input type="checkbox" name="condition[]" id="{{condition.idCondition}}">
+					<input type="checkbox" name="t|condition[]|I" id="{{condition.idCondition}}" value="{{condition.idCondition}}">
 					<label for="{{condition.idCondition}}">{{condition.nom}}</label>
 				</div>
 				{% endfor %}
@@ -97,18 +91,18 @@
 					<label for="details-certifie" class="details__label">Certifié</label>
 				</summary>
 				<div class="paire">
-					<input type="radio" name="certification" id="certifie">
+					<input type="radio" name="t|certifie|E" id="certifie" value="1">
 					<label for="certifie">Oui</label>
 				</div>
 				<div class="paire">
-					<input type="radio" name="certification" id="nonCertifie">
+					<input type="radio" name="t|certifie|E" id="nonCertifie" value="0">
 					<label for="nonCertifie">Non</label>
 				</div>
 			</details>
 			<button class="bouton" data-couleur="primaire-inverse" data-action="reinitialiser">Réinitialiser</button>
 			<button class="bouton" data-couleur="primaire" data-action="appliquer">Appliquer</button>
-		</div>
-	</aside> -->
+		</form>
+	</aside>
 	<div class="principal">
 		<div class="tri-catalogue">
 			<label for="tri">Tri</label>
@@ -150,7 +144,10 @@
 				</svg>
 			</div>
 		</div>
-		<div class="catalogue-conteneur liste" data-enchere="active">
+		<div class="catalogue-conteneur liste" data-enchere="archive">
+			{% if encheres is empty %}
+			<h3>Aucune enchere</h3>
+			{% endif %}
 			{% for enchere in encheres %}
 			<a href="{{base}}/enchere/voir?idEnchere={{enchere.idEnchere}}">
 				<article class="carte-lot js-enchere" data-mode="liste" data-idenchere="{{enchere.idEnchere}}">
@@ -185,7 +182,7 @@
 							</div>
 							<div>
 								<p>Mise gagnante</p>
-								<p data-enchere="miseCourante">{% if enchere.miseMax %}{{enchere.idDevise}} {{enchere.idDevise}}{{enchere.miseMax}} {% else %} Aucune mise {% endif %}</p>
+								<p data-enchere="miseCourante">{% if enchere.miseMax %}{{enchere.idDevise}} {{enchere.miseMax}} {% else %} Aucune mise {% endif %}</p>
 							</div>
 							<button class="bouton" data-couleur="secondaire">Miser</button>
 						</div>
@@ -194,6 +191,43 @@
 			</a>
 			{% endfor %}
 		</div>
+		<template class="js-template-enchere">
+			<a href="{{base}}/enchere/voir?idEnchere={{enchere.idEnchere}}">
+				<article class="carte-lot js-enchere" data-mode="liste" data-idenchere="">
+					<i class="icone-lord fa-star" data-lord="">Lord</i>
+					<picture class="media-cadre">
+						<img src="" alt="timbre">
+					</picture>
+					<div>
+						<section class="info-lot">
+							<div>
+								<div class="info-lot__sous-entete">
+									<h5 data-info="lot">Enchere <span data-render="idEnchere"></span></h5>
+									<i class="fa-solid fa-award fa-gl"></i>
+								</div>
+								<i class="icone-favori fa-bookmark fa-lg"
+									data-favori=""></i>
+							</div>
+							<h3 data-info="nom" data-render="titre">{{titre}}</h3>
+							<h5 data-info="date" data-render="anneeProd">{{anneeProd}}</h5>
+							<p data-info="description"><span class="lien">Plus d'information &#10095; </span>
+							</p>
+						</section>
+						<div class="info-enchere">
+							<div>
+								<p>Estimation</p>
+								<p data-enchere="estimation" data-render="estimation">{{estimation}}</p>
+							</div>
+							<div>
+								<p>Mise courante <span data-render="nbMise">{{nbMise}}</span></p>
+								<p data-enchere="miseCourante" data-render="miseCourante">{{miseCourante}}</p>
+							</div>
+							<button class="bouton" data-couleur="secondaire">Miser</button>
+						</div>
+					</div>
+				</article>
+			</a>
+		</template>
 	</div>
 </main>
 {{ include('layouts/pied.php') }}

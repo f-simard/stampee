@@ -163,21 +163,24 @@ class Enchere {
 
 		//TODO: lordAdmin
 
-		let tempsEtiquette;
-		let temps;
-		if (this.#temps.avantDebut) {
-			tempsEtiquette = "Temps avant l'enchère";
-			temps = this.#temps.avantDebut;
-		} else {
-			tempsEtiquette = "Temps restant";
-			temps = this.#temps.avantFin;
-		}
-		this.#elementHTML.querySelector(
-			"[data-render='tempEtiquette']"
-		).textContent = tempsEtiquette;
+		if (this.#elementHTML.querySelector("[data-render='tempEtiquette']")) {
+			let tempsEtiquette;
+			let temps;
+			if (this.#temps.avantDebut) {
+				tempsEtiquette = "Temps avant l'enchère";
+				temps = this.#temps.avantDebut;
+			} else {
+				tempsEtiquette = "Temps restant";
+				temps = this.#temps.avantFin;
+			}
+			this.#elementHTML.querySelector(
+				"[data-render='tempEtiquette']"
+			).textContent = tempsEtiquette;
 
-		this.#elementHTML.querySelector("[data-render='temps']").textContent =
-			temps;
+			this.#elementHTML.querySelector(
+				"[data-render='temps']"
+			).textContent = temps;
+		}
 
 		let nbmise;
 		if (this.#nbMise > 0) {

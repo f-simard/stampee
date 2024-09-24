@@ -146,6 +146,7 @@
 		</div>
 		<div class="catalogue-conteneur liste" data-enchere="active">
 			{% if encheres is empty %}
+			<h3>Aucune enchere</h3>
 			{% endif %}
 			{% for enchere in encheres %}
 			<a href="{{base}}/enchere/voir?idEnchere={{enchere.idEnchere}}">

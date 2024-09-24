@@ -9,6 +9,7 @@ class Catalogue {
 	#btnAppliquerFiltre;
 	#btnReinitialiser;
 	#mode;
+	#enchereStatut;
 	#conteneurCatalogue;
 	#champsAlphaNumDate;
 	#champsCondition;
@@ -52,6 +53,7 @@ class Catalogue {
 
 		// appliquer les filtres
 		this.#formulaireFiltre = document.querySelector(".filtre__contenu");
+		this.#enchereStatut = this.#conteneurCatalogue.dataset.enchere;
 		if (this.#formulaireFiltre) {
 			this.#formulaireFiltre.addEventListener(
 				"submit",
@@ -67,7 +69,7 @@ class Catalogue {
 		if (this.#btnAppliquerFiltre) {
 			this.#btnAppliquerFiltre.addEventListener(
 				"click",
-				this.#AppliquerFiltre.bind(this)
+				this.#appliquerFiltre.bind(this)
 			);
 		}
 
@@ -125,9 +127,7 @@ class Catalogue {
 		}
 	}
 
-	async #AppliquerFiltre(evenement) {
-		evenement.preventDefault();
-
+	#parseFiltre() {
 		this.#champsAlphaNumDate = this.#formulaireFiltre.querySelectorAll(
 			".paire :is([type='text'], [type='number'], [type='date'])"
 		);
@@ -194,16 +194,32 @@ class Catalogue {
 
 		const queryString = new URLSearchParams(formData).toString();
 
-		console.log(
-			"http://localhost:8080/stampee/enchere/activeFiltre?" + queryString
-		);
+		return queryString;
+	}
+
+	async #appliquerFiltre(evenement) {
+		evenement.preventDefault();
+
+		const queryString = this.#parseFiltre();
+
+		console.log(queryString);
 
 		try {
-			const reponse = await fetch(
-				"http://localhost:8080/stampee/enchere/activeFiltre?" +
-					queryString
-			);
-			const data = await reponse.json();
+			let reponse;
+			let data;
+			if (this.#enchereStatut == "active") {
+				const reponse = await fetch(
+					"http://localhost:8080/stampee/enchere/activeFiltre?" +
+						queryString
+				);
+				data = await reponse.json();
+			} else if (this.#enchereStatut == "archive") {
+				reponse = await fetch(
+					"http://localhost:8080/stampee/enchere/archiveFiltre?" +
+						queryString
+				);
+				data = await reponse.json();
+			}
 
 			if ("msg" in data) {
 				this.#conteneurCatalogue.innerHTML = "<h3>Aucune enchère</h3>";
@@ -230,10 +246,20 @@ class Catalogue {
 		this.#formulaireFiltre.reset();
 
 		try {
-			const reponse = await fetch(
-				"http://localhost:8080/stampee/enchere/activeFiltre"
-			);
-			const data = await reponse.json();
+			let reponse;
+			let data;
+			console.log(this.#enchereStatut);
+			if (this.#enchereStatut == "active") {
+				const reponse = await fetch(
+					"http://localhost:8080/stampee/enchere/activeFiltre?"
+				);
+				data = await reponse.json();
+			} else if (this.#enchereStatut == "archive") {
+				reponse = await fetch(
+					"http://localhost:8080/stampee/enchere/archiveFiltre?"
+				);
+				data = await reponse.json();
+			}
 
 			if ("msg" in data) {
 				this.#conteneurCatalogue.innerHTML = "<h3>Aucune enchère</h3>";
