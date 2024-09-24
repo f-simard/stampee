@@ -219,5 +219,49 @@
 			{% endfor %}
 		</div>
 	</div>
+	<template class="js-template-enchere">
+		<a href="{{base}}/enchere/voir?idEnchere={{enchere.idEnchere}}">
+			<article class="carte-lot js-enchere" data-mode="liste" data-idenchere="">
+				{% if session.estAdmin == 1%}
+				<i class="icone-lord fa-star"
+					data-lord="">Lord</i>
+				{% endif %}
+				<picture class="media-cadre">
+					<img src="" alt="timbre">
+				</picture>
+				<div>
+					<section class="info-lot">
+						<div>
+							<div class="info-lot__sous-entete">
+								<h5 data-info="lot">Enchere <span data-render="idEnchere"></span></h5>
+								<i class="fa-solid fa-award fa-gl"></i>
+							</div>
+							<i class="icone-favori fa-bookmark fa-lg"
+								data-favori=""></i>
+						</div>
+						<h3 data-info="nom" data-render="titre">{{titre}}</h3>
+						<h5 data-info="date" data-render="anneeProd">{{anneeProd}}</h5>
+						<p data-info="description"><span class="lien">Plus d'information &#10095; </span>
+						</p>
+					</section>
+					<div class="info-enchere">
+						<div class="js-temp">
+							<p data-render="tempEtiquette">Temps etiquette</p>
+							<p data-enchere="temps" data-render="temps">temps Enchere</p>
+						</div>
+						<div>
+							<p>Estimation</p>
+							<p data-enchere="estimation" data-render="estimation">{{estimation}}</p>
+						</div>
+						<div>
+							<p>Mise courante <span data-render="nbMise">{{nbMise}}</span></p>
+							<p data-enchere="miseCourante" data-render="miseCourante">{{miseCourante}}</p>
+						</div>
+						<button class="bouton" data-couleur="secondaire">Miser</button>
+					</div>
+				</div>
+			</article>
+		</a>
+	</template>
 </main>
 {{ include('layouts/pied.php') }}

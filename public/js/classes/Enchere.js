@@ -1,12 +1,101 @@
+import Site from "./Site.js";
+
 class Enchere {
 	#idEnchere;
 	#btnFavori;
 	#btnLord;
+	#conteneurHTML;
+	#elementHTML;
+	#template;
+	#dateDebut;
+	#dateFin;
+	#prixPlancher;
+	#estimation;
+	#idDevise;
+	#statut;
+	#lord;
+	#estFavori;
+	#nbTimbre;
+	#idTimbre;
+	#titre;
+	#description;
+	#anneeProd;
+	#tirage;
+	#hauteur;
+	#largeur;
+	#datePublication;
+	#idMembre;
+	#idPays;
+	#chemin;
+	#temps;
+	#nbMise;
+	#miseMax;
 
-	constructor(idEnchere, elementHTML) {
+	constructor(idEnchere, elementHTML = null, conteneur = null, enchereInfo) {
 		this.#idEnchere = idEnchere;
-		this.#btnFavori = elementHTML.querySelector(".icone-favori");
-		this.#btnLord = elementHTML.querySelector(".icone-lord");
+		this.#elementHTML = elementHTML;
+		this.#conteneurHTML = conteneur;
+
+		if (elementHTML == null) {
+			this.#template = document.querySelector(".js-template-enchere");
+
+			const {
+				idEnchere,
+				dateDebut,
+				dateFin,
+				prixPlancher,
+				estimation,
+				idDevise,
+				statut,
+				lord,
+				nbTimbre,
+				idTimbre,
+				titre,
+				description,
+				anneeProd,
+				tirage,
+				hauteur,
+				largeur,
+				datePublication,
+				idMembre,
+				idPays,
+				chemin,
+				estFavori,
+				temps,
+				nbMise,
+				miseMax,
+			} = enchereInfo;
+
+			this.#idEnchere = idEnchere;
+			this.#dateDebut = dateDebut;
+			this.#dateFin = dateFin;
+			this.#prixPlancher = prixPlancher;
+			this.#estimation = estimation;
+			this.#idDevise = idDevise;
+			this.#statut = statut;
+			this.#lord = lord;
+			this.#estFavori = estFavori ? estFavori : 0;
+			this.#nbTimbre = nbTimbre;
+			this.#idTimbre = idTimbre;
+			this.#titre = titre;
+			this.#description = description;
+			this.#anneeProd = anneeProd;
+			this.#tirage = tirage;
+			this.#hauteur = hauteur;
+			this.#largeur = largeur;
+			this.#datePublication = datePublication;
+			this.#idMembre = idMembre;
+			this.#idPays = idPays;
+			this.#chemin = chemin;
+			this.#nbMise = nbMise;
+			this.#miseMax = miseMax;
+			this.#temps = temps;
+
+			this.#injecterHTML();
+		}
+
+		this.#btnFavori = this.#elementHTML.querySelector(".icone-favori");
+		this.#btnLord = this.#elementHTML.querySelector(".icone-lord");
 
 		//ecouteur d'evenement
 		this.#btnFavori.addEventListener(
@@ -22,7 +111,120 @@ class Enchere {
 		}
 	}
 
+	#injecterHTML() {
+		const clone = this.#template.content.cloneNode(true);
+
+		this.#conteneurHTML.append(clone);
+		this.#elementHTML = this.#conteneurHTML.lastElementChild;
+
+		//remplacer data
+		this.#elementHTML.querySelector(
+			"[data-render='idEnchere']"
+		).textContent = this.#idEnchere;
+		this.#elementHTML.querySelector("[data-idenchere]").dataset.idenchere =
+			this.#idEnchere;
+
+		const favoriClasse = this.#estFavori == 1 ? "fa-solid" : "fa-regular";
+		this.#elementHTML
+			.querySelector(".icone-favori")
+			.classList.add(favoriClasse);
+
+		const dataFavori = this.#estFavori ? "true " : "false";
+		this.#elementHTML.querySelector("[data-favori]").dataset.favori =
+			dataFavori;
+
+		const lordClasse = this.#lord ? "fa-solid" : "fa-regular";
+		this.#elementHTML
+			.querySelector(".icone-lord")
+			.classList.add(lordClasse);
+
+		const dataLord = this.#lord ? "true " : "false";
+		this.#elementHTML.querySelector("[data-lord]").dataset.lord = dataLord;
+
+		if (!this.#lord) {
+			this.#elementHTML
+				.querySelector(".fa-award")
+				.classList.add("invisible");
+		}
+
+		this.#elementHTML.querySelector(".media-cadre > img").src =
+			Site.instance.upload() + this.#chemin;
+		this.#elementHTML.href =
+			Site.instance.base() + "/enchere/voir?idEnchere=" + this.#idEnchere;
+
+		let titre;
+		if (this.#nbTimbre > 1) {
+			titre = `Lot de plusieurs timbres (${this.#nbTimbre})`;
+		} else {
+			titre = this.#titre;
+		}
+		this.#elementHTML.querySelector("[data-render='titre']").textContent =
+			titre;
+
+		//TODO: lordAdmin
+
+		let tempsEtiquette;
+		let temps;
+		if (this.#temps.avantDebut) {
+			tempsEtiquette = "Temps avant l'enchère";
+			temps = this.#temps.avantDebut;
+		} else {
+			tempsEtiquette = "Temps restant";
+			temps = this.#temps.avantFin;
+		}
+		this.#elementHTML.querySelector(
+			"[data-render='tempEtiquette']"
+		).textContent = tempsEtiquette;
+
+		this.#elementHTML.querySelector("[data-render='temps']").textContent =
+			temps;
+
+		let nbmise;
+		if (this.#nbMise > 0) {
+			nbmise = `(${this.#nbMise} mises)`;
+		} else {
+			nbmise = ``;
+		}
+		this.#elementHTML.querySelector("[data-render='nbMise']").textContent =
+			nbmise;
+
+		let miseCourante;
+		if (this.#nbMise > 0) {
+			miseCourante = `${this.#idDevise} ${this.#miseMax}`;
+		} else {
+			miseCourante = `Aucune mise`;
+		}
+		this.#elementHTML.querySelector(
+			"[data-render='miseCourante']"
+		).textContent = miseCourante;
+
+		let estimation;
+		if (this.#estimation) {
+			estimation = `${this.#idDevise} ${this.#estimation}`;
+		} else {
+			estimation = "N/A";
+		}
+		this.#elementHTML.querySelector(
+			"[data-render='estimation']"
+		).textContent = estimation;
+
+		this.#elementHTML.querySelector(
+			"[data-render='anneeProd']"
+		).textContent = this.#anneeProd;
+	}
+
+	#prevenirRedirection(evenement) {
+		if (
+			evenement.target.classList.contains("icone-favori") ||
+			evenement.target.classList.contains("icone-lord")
+		) {
+			evenement.preventDefault();
+		}
+	}
+
 	async #modifierFavori(evenement) {
+		this.#prevenirRedirection(evenement);
+
 		const bouton = evenement.currentTarget;
 		const favori = bouton.dataset.favori;
 
@@ -64,6 +266,8 @@ class Enchere {
 	}
 
 	async #modifierLord(evenement) {
+		this.#prevenirRedirection(evenement);
+
 		const bouton = evenement.currentTarget;
 		const lord = bouton.dataset.lord;
 

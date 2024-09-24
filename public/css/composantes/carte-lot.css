@@ -135,7 +135,8 @@
 	margin-top: var(--spacing-nano);
 }
 
-.carte-lot .info-enchere>div> :first-child {
+.carte-lot .info-enchere>div>:first-child,
+ .carte-lot .info-enchere>div span{
 	color: color-mix(in lch, var(--sombre) 70%, white 30%);
 	font-size: var(--font-short);
 }

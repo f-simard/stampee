@@ -109,6 +109,8 @@ class EnchereController
 		return View::render('enchere/catalogue', ['encheres' => $encheresInfo, 'pays_liste' => $pays_liste]);
 	}
 
+	//returne de json
+
 	public function afficherArchive()
 	{
 		$pays = new Pays;
@@ -127,17 +129,18 @@ class EnchereController
 		return View::render('enchere/archive', ['encheres' => $encheresInfo, 'pays_liste' => $pays_liste]);
 	}
 
-	public function afficherFiltre()
+	public function recupererActiveFiltre()
 	{
-		$pays = new Pays;
-		$pays_liste = $pays->select('nom');
 
 		$enchere = new Enchere();
 		$encheres = $enchere->filtreCatalogue()->conditionEnchere('lord', 1)->executerFiltre();
 
 
-		//echo json_encode($encheres);
-		return View::redirect('enchere/catalogue', ['encheres' => $encheres, 'pays_liste' => $pays_liste]);
+		if ($encheres) {
+			$encheresInfo = $this->completerDonnee($encheres);
+		}
+
+		echo json_encode($encheresInfo);
 	}
 
 	public function afficherUn($data = [])

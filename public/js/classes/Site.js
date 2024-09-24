@@ -4,6 +4,9 @@ class Site {
 	static #instance;
 	#catalogue;
 	#imageAgrandissable;
+	#base;
+	#asset;
+	#upload;
 
 	//Permet d'accéder à l'instance de la classe de n'importe où dans le code en utilisant App.instance
 	static get instance() {
@@ -11,6 +14,10 @@ class Site {
 	}
 
 	constructor() {
+		this.#base = "/stampee";
+		this.#asset = "/stampee/public/";
+		this.#upload = "/stampee/uploads/";
+
 		//singleton
 		if (Site.#instance) {
 			return Site.#instance;
@@ -25,12 +32,28 @@ class Site {
 			this.#imageAgrandissable = document.querySelector(
 				".medias-timbre-principal "
 			);
-			this.#imageAgrandissable.addEventListener('mouseenter', this.#agrandirImage.bind(this, 2));
-			this.#imageAgrandissable.addEventListener('mouseleave', function(){
-				const loupe = document.querySelector(".agrandir__curseur");
-				loupe.remove();
-			})
+			this.#imageAgrandissable.addEventListener(
+				"mouseenter",
+				this.#agrandirImage.bind(this, 2)
+			);
+			this.#imageAgrandissable.addEventListener(
+				"mouseleave",
+				function () {
+					const loupe = document.querySelector(".agrandir__curseur");
+					loupe.remove();
+				}
+			);
 		}
+	}
+
+	base() {
+		return this.#base;
+	}
+	asset() {
+		return this.#asset;
+	}
+	upload() {
+		return this.#upload;
 	}
 
 	//src: https://www.w3schools.com/HOWTO/howto_js_image_magnifier_glass.asp

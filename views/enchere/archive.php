@@ -6,7 +6,7 @@
 		<a href="{{base}}/enchere/catalogue" class="bouton" data-couleur="sombre" data-enchere="active" data-selected="false">Encheres actives</a>
 		<a href="{{base}}/enchere/archive" class="bouton" data-couleur="sombre" data-enchere="passee" data-selected="true">Enchere passées</a>
 	</div>
-	<aside class="filtre">
+	<!-- <aside class="filtre">
 		<div class="filtre__check">
 			<input type="checkbox" id="filtre-bouton" aria-label="icone filtre en vue mobile">
 		</div>
@@ -122,7 +122,7 @@
 			<button class="bouton" data-couleur="primaire-inverse" data-action="reinitialiser">Réinitialiser</button>
 			<button class="bouton" data-couleur="primaire" data-action="appliquer">Appliquer</button>
 		</div>
-	</aside>
+	</aside> -->
 	<div class="principal">
 		<div class="tri-catalogue">
 			<label for="tri">Tri</label>

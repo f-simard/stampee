@@ -6,8 +6,6 @@ class Catalogue {
 	#filtres;
 	#iconeMode;
 	#btnAppliquerFiltre;
-	#boutonPassee;
-	#boutonActive;
 	#mode;
 	#conteneurCatalogue;
 
@@ -66,25 +64,12 @@ class Catalogue {
 		const encheres = document.querySelectorAll(".js-enchere");
 
 		encheres.forEach(
+
 			function (enchere) {
 				const idEnchere = enchere.dataset.idenchere;
 				const e = new Enchere(idEnchere, enchere);
-
-				enchere.addEventListener(
-					"click",
-					this.#prevenirRedirection.bind(this)
-				);
-			}.bind(this)
+			}
 		);
-	}
-
-	#prevenirRedirection(evenement) {
-		if (
-			evenement.target.classList.contains("icone-favori") ||
-			evenement.target.classList.contains("icone-lord")
-		) {
-			evenement.preventDefault();
-		}
 	}
 
 	#changerMode(evenement) {
@@ -120,12 +105,15 @@ class Catalogue {
 	async #AppliquerFiltre() {
 		try {
 			const reponse = await fetch(
-				"http://localhost:8080/stampee/enchere/catalogue",
-				{
-					method: "POST",
-				}
+				"http://localhost:8080/stampee/enchere/activeFiltre",
 			);
-			console.log("appliquer");
+			const data = await reponse.json();
+
+			this.#conteneurCatalogue.innerHTML = "";
+
+			data.forEach((enchere)=>{
+				new Enchere(enchere.idEnchere, null, this.#conteneurCatalogue, enchere);
+			})
 		} catch (erreur) {
 			console.log(erreur);
 		}

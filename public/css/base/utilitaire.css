@@ -46,3 +46,7 @@ main > .succes {
 	align-items: start;
 	justify-content: space-between;
 }
+
+.invisible{
+	display: none;
+}

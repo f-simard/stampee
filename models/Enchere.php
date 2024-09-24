@@ -114,7 +114,7 @@ class Enchere extends CRUD
 
 	public function conditionMise($cle, $valeur)
 	{
-		$this->sql = $this->sql . " AND e.$cle = ?";
+		$this->sql = $this->sql . " AND m.$cle = ?";
 		$this->conditions = [$valeur];
 
 		return $this;
@@ -122,7 +122,7 @@ class Enchere extends CRUD
 
 	public function conditionTimbre($cle, $valeur)
 	{
-		$this->sql = $this->sql . " AND e.$cle = ?";
+		$this->sql = $this->sql . " AND t.$cle = ?";
 		$this->conditions = [$valeur];
 
 		return $this;
