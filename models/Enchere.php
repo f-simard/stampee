@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Models\CRUD;
 use DateTime;
 use Twig\Node\Expression\ConstantExpression;
-use Twig\Node\Expression\Test\ConstantTest;
 
 use function PHPSTORM_META\sql_injection_subst;
 
@@ -179,15 +178,26 @@ class Enchere extends CRUD
 
 		return $this;
 	}
-	
+
 	public function executerFiltre()
 	{
+		$this->sql = $this->sql . " GROUP BY e.idEnchere";
+
+		if (!empty($this->having)) {
+			foreach ($this->having as $having) {
+				$this->sql = $this->sql . $having;
+			}
+		}
+
 		$stmt = $this->prepare($this->sql);
-		if (!empty($this->conditions)) {
+		if(!empty($this->conditions)){
 			foreach ($this->conditions as $cle => $valeur) {
 				$stmt->bindValue(":$cle", $valeur);
 			}
 		}
+
+		$stmt->execute($this->conditions);
+
 		$count = $stmt->rowCount();
 
 		if ($count >= 1) {

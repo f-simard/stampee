@@ -219,7 +219,8 @@ class Catalogue {
 				});
 			}
 		} catch (erreur) {
-			this.#conteneurCatalogue.innerHTML = "<h3 class='erreur'>Erreur</h3>";
+			this.#conteneurCatalogue.innerHTML =
+				"<h3 class='erreur'>Erreur</h3>";
 			console.log(erreur);
 		}
 	}
@@ -234,17 +235,22 @@ class Catalogue {
 			);
 			const data = await reponse.json();
 
-			this.#conteneurCatalogue.innerHTML = "";
-
-			data.forEach((enchere) => {
-				new Enchere(
-					enchere.idEnchere,
-					null,
-					this.#conteneurCatalogue,
-					enchere
-				);
-			});
+			if ("msg" in data) {
+				this.#conteneurCatalogue.innerHTML = "<h3>Aucune enchère</h3>";
+			} else {
+				this.#conteneurCatalogue.innerHTML = "";
+				data.forEach((enchere) => {
+					new Enchere(
+						enchere.idEnchere,
+						null,
+						this.#conteneurCatalogue,
+						enchere
+					);
+				});
+			}
 		} catch (erreur) {
+			this.#conteneurCatalogue.innerHTML =
+				"<h3 class='erreur'>Erreur</h3>";
 			console.log(erreur);
 		}
 	}
