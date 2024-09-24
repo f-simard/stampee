@@ -9,6 +9,7 @@
 	& > div {
 		display: flex;
 		gap: var(--spacing-micro);
+
 	}
 
 	@media screen and (min-width:480px) {

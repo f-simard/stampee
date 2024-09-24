@@ -104,6 +104,10 @@ class EnchereController
 		$enchere = new Enchere();
 		$encheres = $enchere->selectionnerCatalogue();
 
+		$maintenant = new \DateTime();
+		$maintenant = $maintenant->format('Y-m-d');
+
+
 		if ($encheres) {
 			$encheresInfo = $this->completerDonnee($encheres);
 		}
@@ -111,7 +115,7 @@ class EnchereController
 		$encheresInfo = $this->completerDonnee($encheres);
 
 		//echo json_encode($encheres);
-		return View::render('enchere/catalogue', ['encheres' => $encheresInfo, 'pays_liste' => $pays_liste, 'conditions' => $conditions]);
+		return View::render('enchere/catalogue', ['encheres' => $encheresInfo, 'pays_liste' => $pays_liste, 'conditions' => $conditions, 'aujourdhui'=>$maintenant]);
 	}
 
 	//returne de json
@@ -137,17 +141,18 @@ class EnchereController
 		return View::render('enchere/archive', ['encheres' => $encheresInfo, 'pays_liste' => $pays_liste, 'conditions' => $conditions]);
 	}
 
-	public function recupererActiveFiltre()
+	public function recupererActiveFiltre($data=[])
 	{
 
 		$enchere = new Enchere();
-		$encheres = $enchere->filtreCatalogue()->conditionEnchere('lord', 1)->executerFiltre();
-
+		$encheres = $enchere->filtreCatalogue()->conditions($data)->executerFiltre();
 
 		if ($encheres) {
 			$encheresInfo = $this->completerDonnee($encheres);
-		}
 
+		} else {
+			$encheresInfo['msg']='Aucune enchere';
+		}
 		echo json_encode($encheresInfo);
 	}
 

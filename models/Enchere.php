@@ -4,6 +4,10 @@ namespace App\Models;
 
 use App\Models\CRUD;
 use DateTime;
+use Twig\Node\Expression\ConstantExpression;
+use Twig\Node\Expression\Test\ConstantTest;
+
+use function PHPSTORM_META\sql_injection_subst;
 
 class Enchere extends CRUD
 {
@@ -20,6 +24,7 @@ class Enchere extends CRUD
 	];
 	private $sql;
 	private $conditions;
+	private $having = [];
 
 	public function selectionnerSelonMembre($idMembre)
 	{
@@ -93,48 +98,96 @@ class Enchere extends CRUD
 
 	public function filtreCatalogue()
 	{
-		$this->sql  = "SELECT DISTINCT e.*, count(t.idTimbre) as nbTimbre, t.*, img.chemin FROM `Enchere` as e
+		$this->sql  = "SELECT DISTINCT e.*, count(t.idTimbre) as nbTimbre, t.*, img.chemin , MAX(m.montant) as misecourante FROM `Enchere` as e
 		INNER JOIN Enchere_has_Timbre AS et ON et.idEnchere = e.idEnchere
 		INNER JOIN Timbre AS t ON t.idTimbre = et.idTimbre
 		INNER JOIN Image AS img ON img.idTimbre = t.idTimbre
+        LEFT JOIN Mise as m on m.idEnchere = e.idEnchere
 		WHERE img.principale = 1
 		AND e.statut <> 'FERMEE'";
 
 		return $this;
 	}
 
-	public function conditionEnchere($cle, $valeur)
+	public function conditions($data = [])
 	{
-		if($cle && $valeur)
-		$this->sql = $this->sql . " AND e.$cle = ?";
-		$this->conditions = [$valeur];
+		if (empty($data)) {
+			return $this;
+		} else {
+			foreach ($data as $champ => $valeur) {
+				$tableSegment = explode('|', $champ);
+				$table = $tableSegment[0];
+				$colonne = $tableSegment[1];
+				$operateur = $tableSegment[2];
+
+				if ($table == '') {
+
+					switch ($operateur) {
+						case 'E':
+							if (count($this->having) > 0) {
+								$this->having[] = " AND $colonne = :" . $colonne;
+							} else {
+								$this->having[] = " HAVING $colonne = :" . $colonne;
+							}
+							$this->conditions[':' . $colonne] = $valeur;
+							break;
+						case 'PGE':
+							if (count($this->having) > 0) {
+								$this->having[] = " AND $colonne >= :" . $colonne . "min";
+							} else {
+								$this->having[] = " HAVING $colonne >= :" . $colonne . "min";
+							}
+							$this->conditions[':' . $colonne . "min"] = $valeur;
+							break;
+						case 'PPE':
+							if (count($this->having) > 0) {
+								$this->having[] = " AND $colonne <= :" . $colonne . "max";
+							} else {
+								$this->having[] = " HAVING $colonne <= :" . $colonne . "max";
+							}
+							$this->conditions[':' . $colonne . "max"] = $valeur;
+							break;
+					}
+				} else {
+					switch ($operateur) {
+						case 'I':
+							$valeurTableau = explode(',', $valeur);
+							$cleTableau = '';
+							foreach ($valeurTableau as $index => $valeur) {
+								$cleTableau = $cleTableau . ':' . $colonne . $index . ',';
+								$this->conditions[':' . $colonne . $index] = $valeur;
+							}
+							$cleTableau = rtrim($cleTableau, ',');
+							$this->sql = $this->sql . " AND $table.$colonne IN ( $cleTableau ) ";
+							break;
+						case 'E':
+							$this->sql = $this->sql . " AND $table.$colonne = :" . $colonne;
+							$this->conditions[':' . $colonne] = $valeur;
+							break;
+						case 'PGE':
+							$this->sql = $this->sql . " AND $table.$colonne  >=" . $colonne;
+							$this->conditions[':' . $colonne] = $valeur;
+							break;
+						case 'PPE':
+							$this->sql = $this->sql . " AND $table.$colonne  <= :" . $colonne;
+							$this->conditions[':' . $colonne] = $valeur;
+							break;
+					}
+				}
+			}
+		}
 
 		return $this;
 	}
-
-	public function conditionMise($cle, $valeur)
-	{
-		$this->sql = $this->sql . " AND m.$cle = ?";
-		$this->conditions = [$valeur];
-
-		return $this;
-	}
-
-	public function conditionTimbre($cle, $valeur)
-	{
-		$this->sql = $this->sql . " AND t.$cle = ?";
-		$this->conditions = [$valeur];
-
-		return $this;
-	}
-
+	
 	public function executerFiltre()
 	{
-		$this->sql = $this->sql . "GROUP BY e.idEnchere";
-
 		$stmt = $this->prepare($this->sql);
-		$stmt->execute($this->conditions);
-
+		if (!empty($this->conditions)) {
+			foreach ($this->conditions as $cle => $valeur) {
+				$stmt->bindValue(":$cle", $valeur);
+			}
+		}
 		$count = $stmt->rowCount();
 
 		if ($count >= 1) {
