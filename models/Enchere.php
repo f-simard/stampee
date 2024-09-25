@@ -53,7 +53,7 @@ class Enchere extends CRUD
 		INNER JOIN timbre AS t ON t.idTimbre = et.idTimbre
 		INNER JOIN image AS img ON img.idTimbre = t.idTimbre
 		WHERE img.principale = 1
-		AND e.statut <> 'FERMEE'
+		AND e.statut <> 'FERME'
 		GROUP BY e.idEnchere";
 
 		$stmt = $this->prepare($sql);
@@ -77,7 +77,7 @@ class Enchere extends CRUD
 		INNER JOIN timbre AS t ON t.idTimbre = et.idTimbre
 		INNER JOIN image AS img ON img.idTimbre = t.idTimbre
 		WHERE img.principale = 1
-		AND e.statut = 'FERMEE'
+		AND e.statut = ''
 		GROUP BY e.idEnchere";
 
 		$stmt = $this->prepare($sql);
@@ -100,7 +100,7 @@ class Enchere extends CRUD
 		INNER JOIN image AS img ON img.idTimbre = t.idTimbre
         LEFT JOIN mise as m on m.idEnchere = e.idEnchere
 		WHERE img.principale = 1
-		AND e.statut <> 'FERMEE'";
+		AND e.statut <> 'FERME'";
 
 		return $this;
 	}
@@ -113,7 +113,7 @@ class Enchere extends CRUD
 		INNER JOIN image AS img ON img.idTimbre = t.idTimbre
         LEFT JOIN mise as m on m.idEnchere = e.idEnchere
 		WHERE img.principale = 1
-		AND e.statut = 'FERMEE'";
+		AND e.statut = 'FERME'";
 
 		return $this;
 	}
@@ -275,7 +275,7 @@ class Enchere extends CRUD
 		INNER JOIN timbre AS t ON t.idTimbre = et.idTimbre
 		INNER JOIN image AS img ON img.idTimbre = t.idTimbre
 		WHERE img.principale = 1
-		AND e.statut <> 'FERMEE'
+		AND e.statut <> 'FERME'
 		AND e.lord = 1
 		GROUP BY e.idEnchere
 		LIMIT 4";

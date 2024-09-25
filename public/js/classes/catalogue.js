@@ -130,13 +130,12 @@ class Catalogue {
 					data = await reponse.json();
 				}
 
-				let encheresTriees = this.#trier(data, this.#choixTri);
-
 				if (data.hasOwnProperty("msg")) {
 					this.#conteneurCatalogue.innerHTML =
 						"<h3>Aucune enchère</h3>";
 				} else {
 					this.#conteneurCatalogue.innerHTML = "";
+					let encheresTriees = this.#trier(data, this.#choixTri);
 					encheresTriees.forEach((enchere) => {
 						const e = new Enchere(
 							null,

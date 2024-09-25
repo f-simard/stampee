@@ -18,7 +18,7 @@
 				</div>
 				<div class="info-timbre-enchere">
 					<p>Estimation <span>{% if enchere.estimation == 0 %} N/A {% else %} {{enchere.estimation}} {{enchere.devise}} {% endif %}</span></p>
-					{% if enchere.statut != FERMEE %}
+					{% if enchere.statut != FERME %}
 					<p>Mise minimale: <span>{{enchere.idDevise}} {{enchere.prixPlancher}}</span></p>
 					<p>Mise courante: <span>{{enchere.idDevise}}</span></p>
 					{% if enchere.temps.avantDebut is defined %}

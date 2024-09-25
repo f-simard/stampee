@@ -107,13 +107,13 @@
 		<div class="tri-catalogue">
 			<label for="tri">Tri</label>
 			<select name="tri" id="tri">
-				<option value="lot">Numéro de lot</option>
-				<option value="courant-asc">Mise courante ascendante</option>
-				<option value="courant-desc">Mise courante descendant</option>
-				<option value="estimation-asc">Estimation ascendant</option>
-				<option value="estimation-desc">Estimation descendant</option>
-				<option value="depart-asc">Mise de départ ascendante</option>
-				<option value="depart-desc">Mise de départ descendant</option>
+				<option value="e|idEnchere|ASC" selected>Numéro de lot</option>
+				<option value="m|misecourante|ASC">Mise courante croissante</option>
+				<option value="m|misecourante|DESC">Mise courante décroissante</option>
+				<option value="e|estimation|ASC">Estimation croissante</option>
+				<option value="e|estimation|DESC">Estimation décroissate</option>
+				<option value="e|prixPlancher|ASC">Mise de départ croissante</option>
+				<option value="e|prixPlancher|DESC">Mise de départ décroissante</option>
 			</select>
 			<button class="bouton-reset">
 				<picture>
