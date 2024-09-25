@@ -22,7 +22,7 @@
 			<label for="motDePasse">Mot de passe</label>
 			<input required type="password" name="motDePasse" id="motDePasse" value="{{membre.motDePasse}}">
 			{% if erreurs.motDePasse is defined %}
-			<span class="error">{{erreurs.motDePasse}}</span>
+			<span class="erreur">{{erreurs.motDePasse}}</span>
 			{% endif %}
 
 			<input type="submit" value="Connecter" class="bouton" data-couleur="primaire">

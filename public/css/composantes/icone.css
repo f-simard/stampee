@@ -88,3 +88,8 @@
 .fa-circle-play {
 	color: var(--secondaire);
 }
+
+.icone-membre {
+	padding: var(--spacing-micro);
+	color: tomato;
+}

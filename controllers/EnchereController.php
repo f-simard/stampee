@@ -156,45 +156,35 @@ class EnchereController
 	{
 
 		$idEnchere = $data['idEnchere'];
+		$conditions['e|idEnchere|E'] = $idEnchere;
 
 		$enchere = new Enchere();
-		$enchereInfo = $enchere->selectByField($idEnchere, 'idEnchere');
-		$diff = $enchere->tempsRestant($idEnchere);
+		$encheresInfo = $enchere->filtreCatalogue()->conditions($conditions)->executerFiltre();
 
-		$enchereInfo['temps'] = $diff;
+		$enchereInfo = $encheresInfo[0];
 
-		$enchere_has_timbre = new Enchere_has_Timbre();
-		$nbTimbre = $enchere_has_timbre->compte($idEnchere, 'idEnchere');
-		$timbres = $enchere_has_timbre->selectionnerDetails($idEnchere, 'idEnchere');
+		$mise = new Mise();
+		$miseMax = $mise->miseMax($enchereInfo['idEnchere'], 'idEnchere');
+		$nbMise = $mise->compte($enchereInfo['idEnchere'], 'idEnchere');
+
+		if ($miseMax && $nbMise) {
+			$enchereInfo['miseMax'] = $miseMax['montant'];
+			$enchereInfo['nbMise'] = $nbMise['compte'];
+		}
 
 		if (isset($_SESSION['idMembre'])) {
 			$favori = new Favori();
 			$conditions['idMembre'] = $_SESSION['idMembre'];
-			$conditions['idEnchere'] = $idEnchere;
+			$conditions['idEnchere'] = $enchereInfo['idEnchere'];
 			$estFavori = $favori->selectionner($conditions);
-		} else {
-			$estFavori = false;
-		}
 
-		if ($estFavori) {
-			$enchereInfo['estFavori'] = 1;
-		}
-
-		foreach ($timbres as &$timbre) {
-			$image = new Image();
-			$images = $image->imagePrincipale($timbre['idTimbre']);
-			$timbre['imageSrc'] = $images['chemin'];
-
-			$imgs = $image->selectMultipleByField($timbre['idTimbre'], 'idTimbre');
-
-			foreach ($imgs as $img) {
-				$toutesImages[] = $img['chemin'];
+			if ($estFavori) {
+				$enchereInfo['estFavori'] = 1;
 			}
-
-			$condition = new Condition;
-			$timbreCondition = $condition->selectByField($timbre['idCondition'], 'idCondition');
-			$timbre['nomCondition'] = $timbreCondition['nom'];
 		}
+
+		$diff = $enchere->tempsRestant($idEnchere);
+		$enchereInfo['temps'] = $diff;
 
 		echo json_encode($enchereInfo);
 	}

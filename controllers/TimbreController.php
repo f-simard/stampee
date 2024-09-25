@@ -172,4 +172,5 @@ class TimbreController
 		
 		return View::render('timbre/voir', ['timbre' => $timbreInfo, 'images' => $chemins, 'pays'=>$origine, 'condition'=>$conditions]);
 	}
+
 }

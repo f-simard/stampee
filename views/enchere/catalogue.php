@@ -183,6 +183,7 @@
 							<p data-enchere="miseCourante" data-render="miseCourante">{{miseCourante}}</p>
 						</div>
 						<button class="bouton" data-couleur="">Miser</button>
+						<i class="icone-membre fa-solid fa-user invisible"></i>
 					</div>
 				</div>
 			</article>

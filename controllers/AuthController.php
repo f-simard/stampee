@@ -68,4 +68,16 @@ class AuthController
 
 		echo json_encode($data);
 	}
+
+	public function idMembre()
+	{
+		$data = [];
+		if (isset($_SESSION['idMembre'])) {
+			$data['idMembre'] = $_SESSION['idMembre'];
+		} else {
+			$data['idMembre'] = 'guest';
+		}
+
+		echo json_encode($data);
+	}
 }

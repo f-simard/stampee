@@ -38,6 +38,7 @@ Route::post('/connexion', 'AuthController@sauvegarder');
 Route::get('/deconnexion', 'AuthController@supprimer');
 Route::get('/accesRefuse', 'AuthController@accesRefuse');
 Route::get('/Auth/estAdmin', 'AuthController@estAdmin');
+Route::get('/Auth/idMembre', 'AuthController@idMembre');
 
 //appel API
 Route::get('/enchere/activeFiltre', 'EnchereController@recupererActiveFiltre');

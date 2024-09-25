@@ -36,9 +36,7 @@ class Catalogue {
 
 		//element HTML et autres variabless
 		this.#conteneurCatalogue = document.querySelector(".js-catalogue");
-		if (this.#conteneurCatalogue) {
-			this.#enchereStatut = this.#conteneurCatalogue.dataset.enchere;
-		}
+		this.#enchereStatut = this.#conteneurCatalogue.dataset.enchere;
 		this.#mode = "liste";
 		this.#listeEnchere = [];
 		this.#choixTri = document.querySelector("option[selected]").value;
@@ -111,45 +109,39 @@ class Catalogue {
 	}
 
 	async #instancierEnchere() {
-		if (document.querySelector(".details-timbre")) {
-			const elementHTML = document.querySelector(".details-timbre");
-			new Enchere(elementHTML);
-		} else {
-			try {
-				let reponse;
-				let data;
-				if (this.#enchereStatut == "active") {
-					const reponse = await fetch(
-						"http://localhost:8080/stampee/enchere/activeFiltre"
-					);
-					data = await reponse.json();
-				} else if (this.#enchereStatut == "archive") {
-					reponse = await fetch(
-						"http://localhost:8080/stampee/enchere/archiveFiltre"
-					);
-					data = await reponse.json();
-				}
-
-				if (data.hasOwnProperty("msg")) {
-					this.#conteneurCatalogue.innerHTML =
-						"<h3>Aucune enchère</h3>";
-				} else {
-					this.#conteneurCatalogue.innerHTML = "";
-					let encheresTriees = this.#trier(data, this.#choixTri);
-					encheresTriees.forEach((enchere) => {
-						const e = new Enchere(
-							null,
-							this.#conteneurCatalogue,
-							enchere
-						);
-						this.#listeEnchere.push(e);
-					});
-				}
-			} catch (erreur) {
-				this.#conteneurCatalogue.innerHTML =
-					"<h3 class='erreur'>Erreur</h3>";
-				console.warn(erreur);
+		try {
+			let reponse;
+			let data;
+			if (this.#enchereStatut == "active") {
+				const reponse = await fetch(
+					"http://localhost:8080/stampee/enchere/activeFiltre"
+				);
+				data = await reponse.json();
+			} else if (this.#enchereStatut == "archive") {
+				reponse = await fetch(
+					"http://localhost:8080/stampee/enchere/archiveFiltre"
+				);
+				data = await reponse.json();
 			}
+
+			if (data.hasOwnProperty("msg")) {
+				this.#conteneurCatalogue.innerHTML = "<h3>Aucune enchère</h3>";
+			} else {
+				this.#conteneurCatalogue.innerHTML = "";
+				let encheresTriees = this.#trier(data, this.#choixTri);
+				encheresTriees.forEach((enchere) => {
+					const e = new Enchere(
+						null,
+						this.#conteneurCatalogue,
+						enchere
+					);
+					this.#listeEnchere.push(e);
+				});
+			}
+		} catch (erreur) {
+			this.#conteneurCatalogue.innerHTML =
+				"<h3 class='erreur'>Erreur</h3>";
+			console.warn(erreur);
 		}
 	}
 
@@ -174,7 +166,6 @@ class Catalogue {
 		let copie = data;
 		let encheresTriees;
 		let optionTri = tri.split("|");
-		const table = optionTri[0];
 		const colonne = optionTri[1];
 		const ordre = optionTri[2];
 		switch (ordre) {

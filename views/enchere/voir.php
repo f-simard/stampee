@@ -30,6 +30,7 @@
 					{% endif %}
 				</div>
 				<a href="{{base}}/mise/creer?idEnchere={{enchere.idEnchere}}" class="bouton" data-couleur="secondaire">MISER</a>
+				<i class="icone-membre fa-solid fa-user invisible"></i>
 			</div>
 		</div>
 	</section>

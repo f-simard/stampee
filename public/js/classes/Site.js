@@ -1,4 +1,5 @@
 import Catalogue from "./Catalogue.js";
+import Enchere from "./Enchere.js";
 
 class Site {
 	static #instance;
@@ -8,6 +9,7 @@ class Site {
 	#asset;
 	#upload;
 	#estAdmin;
+	#enchere;
 
 	//Permet d'accéder à l'instance de la classe de n'importe où dans le code en utilisant App.instance
 	static get instance() {
@@ -31,6 +33,11 @@ class Site {
 			this.#catalogue = new Catalogue();
 		}
 
+		//genere enchere
+		if (document.querySelector(".js-enchere")) {
+			const elementHTML = document.querySelector(".details-timbre");
+			this.#enchere = new Enchere(elementHTML);
+		}
 
 		if (document.querySelector(".medias-timbre-principal ")) {
 			this.#imageAgrandissable = document.querySelector(
@@ -50,6 +57,7 @@ class Site {
 		}
 
 		this.#setAdmin();
+		this.#setMembre();
 	}
 
 	base() {
@@ -142,7 +150,16 @@ class Site {
 			"http://localhost:8080/stampee/Auth/estAdmin"
 		);
 		const data = await reponse.json();
-		sessionStorage.setItem("estAdmin", data['estAdmin']);
+		sessionStorage.setItem("estAdmin", data["estAdmin"]);
+	}
+
+	async #setMembre() {
+		const reponse = await fetch(
+			"http://localhost:8080/stampee/Auth/idMembre"
+		);
+		const data = await reponse.json();
+		console.log(data);
+		sessionStorage.setItem("idMembre", data["idMembre"]);
 	}
 }
 

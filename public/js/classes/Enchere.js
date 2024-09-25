@@ -31,22 +31,27 @@ class Enchere {
 	#nbMise;
 	#miseMax;
 	#btnMiser;
+	#iconeMembre;
 
-	constructor(elementHTML = null, conteneur = null, enchereInfo=null) {
+	constructor(elementHTML = null, conteneur = null, enchereInfo = null) {
 		this.#conteneurHTML = conteneur;
 
 		this.#template = document.querySelector(".js-template-enchere");
 
 		if (elementHTML != null) {
 			this.#elementHTML = elementHTML;
-			this.#idEnchere = this.#elementHTML.querySelector('.js-enchere').dataset.idenchere;
-			this.#btnFavori =
-				this.#elementHTML.querySelector(".icone-favori");
+			this.#idEnchere =
+				this.#elementHTML.querySelector(
+					".js-enchere"
+				).dataset.idenchere;
+			this.#btnFavori = this.#elementHTML.querySelector(".icone-favori");
 
 			this.#btnFavori.addEventListener(
 				"click",
 				this.#modifierFavori.bind(this)
 			);
+
+			this.#modifierBtnMiser();
 		} else {
 			const {
 				idEnchere,
@@ -220,7 +225,17 @@ class Enchere {
 		} else if (this.#statut == "OUVERT") {
 			this.#btnMiser.dataset.couleur = "secondaire";
 		}
+		if (this.#btnMiser) {
+			this.#btnMiser.addEventListener("click", this.#miser.bind(this));
+		}
 
+		let sessionMembre = sessionStorage.getItem("idMembre");
+		this.#iconeMembre = this.#elementHTML.querySelector(".icone-membre");
+		if (parseInt(sessionMembre) == this.#idMembre) {
+			this.#iconeMembre.classList.remove("invisible");
+			this.#btnMiser.dataset.couleur = "sombre";
+			this.#btnMiser.classList.add("nonClickable");
+		}
 		//ecouteur d'evenement
 		this.#btnFavori = this.#elementHTML.querySelector(".icone-favori");
 		this.#btnLord = this.#elementHTML.querySelector(".icone-lord");
@@ -236,10 +251,6 @@ class Enchere {
 				"click",
 				this.#modifierLord.bind(this)
 			);
-		}
-
-		if (this.#btnMiser) {
-			this.#btnMiser.addEventListener("click", this.#miser.bind(this));
 		}
 	}
 
@@ -339,15 +350,48 @@ class Enchere {
 		}
 	}
 
+	async #modifierBtnMiser() {
+		try {
+			const reponse = await fetch(
+				"http://localhost:8080/stampee/enchere/recupererUn?idEnchere=" +
+					this.#idEnchere
+			);
+
+			const data = await reponse.json();
+
+			this.#idMembre = data['idMembre'];
+			this.#statut = data['statut']
+			console.log(this.#statut, this.#idMembre);
+
+			this.#btnMiser = this.#elementHTML.querySelector(".bouton");
+			console.log(this.#btnMiser);
+			if (this.#statut == "CREE") {
+				this.#btnMiser.dataset.couleur = "sombre";
+				this.#btnMiser.classList.add("nonClickable");
+			} else if (this.#statut == "OUVERT") {
+				this.#btnMiser.dataset.couleur = "secondaire";
+			}
+
+			let sessionMembre = sessionStorage.getItem("idMembre");
+			console.log(sessionMembre);
+
+			this.#iconeMembre =
+				this.#elementHTML.querySelector(".icone-membre");
+			if (parseInt(sessionMembre) == this.#idMembre) {
+				this.#iconeMembre.classList.remove("invisible");
+				this.#btnMiser.dataset.couleur = "sombre";
+				this.#btnMiser.classList.add("nonClickable");
+			}
+		} catch (erreur) {
+			console.warn(erreur);
+		}
+	}
+
 	async #miser(evenement) {
 		evenement.preventDefault();
 		window.location.href =
 			"http://localhost:8080/stampee/mise/creer?idEnchere=" +
 			this.#idEnchere;
-	}
-
-	#trier(tri){
-		
 	}
 }
 
