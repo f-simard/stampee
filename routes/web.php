@@ -37,6 +37,7 @@ Route::get('/connexion', 'AuthController@index');
 Route::post('/connexion', 'AuthController@sauvegarder');
 Route::get('/deconnexion', 'AuthController@supprimer');
 Route::get('/accesRefuse', 'AuthController@accesRefuse');
+Route::get('/Auth/estAdmin', 'AuthController@estAdmin');
 
 
 Route::dispatch();

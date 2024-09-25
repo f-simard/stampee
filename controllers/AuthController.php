@@ -56,4 +56,16 @@ class AuthController
 		session_destroy();
 		return View::redirect('connexion');
 	}
+
+	public function estAdmin(){
+		$data = [];
+		if(isset($_SESSION['estAdmin'])){
+			$data['estAdmin'] = $_SESSION['estAdmin'];
+		} else 
+		{
+			$data['estAdmin'] = 0;
+		}
+
+		echo json_encode($data);
+	}
 }

@@ -111,7 +111,7 @@ class Enchere {
 		}
 	}
 
-	#injecterHTML() {
+	async#injecterHTML() {
 		const clone = this.#template.content.cloneNode(true);
 
 		this.#conteneurHTML.append(clone);
@@ -161,7 +161,10 @@ class Enchere {
 		this.#elementHTML.querySelector("[data-render='titre']").textContent =
 			titre;
 
-		//TODO: lordAdmin
+		const estAdmin = sessionStorage.getItem('estAdmin');
+		if(estAdmin === '0'){
+			this.#elementHTML.querySelector(".icone-lord").classList.add("invisible");
+		}
 
 		if (this.#elementHTML.querySelector("[data-render='tempEtiquette']")) {
 			let tempsEtiquette;

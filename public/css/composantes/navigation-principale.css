@@ -47,7 +47,6 @@
 		background: var(--primaire);
 		padding-bottom: 8rem;
 
-		/*FIXME: incapable de placer en fixed ou absolute bottom 0, top 100%*/
 		position: fixed;
 		z-index: 4;
 
@@ -56,7 +55,6 @@
 		overflow: auto;
 
 		/*apparition avec opacité*/
-		/*FIXME: transition visible au changement graduel de résolution d'écran*/
 		transition-property: opacity;
 		transition-duration: 200ms;
 	}

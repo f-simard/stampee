@@ -145,9 +145,9 @@
 			</div>
 		</div>
 		<div class="catalogue-conteneur liste" data-enchere="archive">
-			{% if encheres is empty %}
+			{% if encheres.msg is defined%}
 			<h3>Aucune enchere</h3>
-			{% endif %}
+			{% else %}
 			{% for enchere in encheres %}
 			<a href="{{base}}/enchere/voir?idEnchere={{enchere.idEnchere}}">
 				<article class="carte-lot js-enchere" data-mode="liste" data-idenchere="{{enchere.idEnchere}}">
@@ -190,6 +190,7 @@
 				</article>
 			</a>
 			{% endfor %}
+			{% endif %}
 		</div>
 		<template class="js-template-enchere">
 			<a href="{{base}}/enchere/voir?idEnchere={{enchere.idEnchere}}">

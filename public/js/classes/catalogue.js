@@ -34,6 +34,9 @@ class Catalogue {
 		this.#conteneurCatalogue = document.querySelector(
 			".catalogue-conteneur"
 		);
+		if (this.#conteneurCatalogue) {
+			this.#enchereStatut = this.#conteneurCatalogue.dataset.enchere;
+		}
 		this.#mode = "liste";
 
 		//changer mode de vue (liste ou grille)
@@ -53,7 +56,6 @@ class Catalogue {
 
 		// appliquer les filtres
 		this.#formulaireFiltre = document.querySelector(".filtre__contenu");
-		this.#enchereStatut = this.#conteneurCatalogue.dataset.enchere;
 		if (this.#formulaireFiltre) {
 			this.#formulaireFiltre.addEventListener(
 				"submit",

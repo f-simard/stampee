@@ -33,7 +33,6 @@ class EnchereController
 
 		Auth::session();
 
-		/*TODO: ameliorer avec boucle pour $_FILES*/
 		$validateur = new Validator();
 
 		$validateur->champ('dateDebut', $data['dateDebut'], "date de début")->requis()->formatDate()->future();
@@ -107,12 +106,11 @@ class EnchereController
 		$maintenant = new \DateTime();
 		$maintenant = $maintenant->format('Y-m-d');
 
-
 		if ($encheres) {
 			$encheresInfo = $this->completerDonnee($encheres);
+		} else {
+			$encheresInfo['msg'] = 'Aucune enchere';
 		}
-
-		$encheresInfo = $this->completerDonnee($encheres);
 
 		//echo json_encode($encheres);
 		return View::render('enchere/catalogue', ['encheres' => $encheresInfo, 'pays_liste' => $pays_liste, 'conditions' => $conditions, 'aujourdhui'=>$maintenant]);
@@ -135,6 +133,8 @@ class EnchereController
 
 		if ($encheres) {
 			$encheresInfo = $this->completerDonnee($encheres);
+		} else {
+			$encheresInfo['msg'] = 'Aucune enchere';
 		}
 
 		//echo json_encode($encheres);

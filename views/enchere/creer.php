@@ -36,8 +36,6 @@
 			{% endif %}
 		</div>
 
-		<!-- TODO: fonctionalité activer maintenant -->
-
 		<fieldset>
 			<legend>Timbres à mettre en enchère</legend>
 			{% if timbres %}

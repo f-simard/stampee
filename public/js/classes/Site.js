@@ -7,6 +7,7 @@ class Site {
 	#base;
 	#asset;
 	#upload;
+	#estAdmin;
 
 	//Permet d'accéder à l'instance de la classe de n'importe où dans le code en utilisant App.instance
 	static get instance() {
@@ -44,6 +45,8 @@ class Site {
 				}
 			);
 		}
+
+		this.#setAdmin();
 	}
 
 	base() {
@@ -129,6 +132,15 @@ class Site {
 			y = y - window.scrollY;
 			return { x: x, y: y };
 		}
+	}
+
+	async #setAdmin() {
+		const reponse = await fetch(
+			"http://localhost:8080/stampee/Auth/estAdmin"
+		);
+		const data = await reponse.json();
+		console.log(data['estAdmin']);
+		sessionStorage.setItem("estAdmin", data['estAdmin']);
 	}
 }
 
