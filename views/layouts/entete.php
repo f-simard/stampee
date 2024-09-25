@@ -64,7 +64,7 @@
 		<h4><a href="{{base}}/enchere/catalogue" {% if navActive=="enchere" %} class="actif" {% endif %}>Enchères</a></h4>
 		<h4><a href="{{base}}/enConstruction">Actualité</a></h4>
 		<h4><a href="{{base}}/enConstruction">FAQ</a></h4>
-		<h4><a href="{{base}}/enConstruction">À Propos</a></h4>
+		<h4><a href="{{base}}/propos" {% if navActive=="propos" %} class="actif" {% endif %}>À Propos</a></h4>
 		<a href="{{base}}/enConstruction" data-ecran="mobile">
 			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="globe" class="icone" width="50" height="50"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
 				<title>Globe</title>

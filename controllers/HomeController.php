@@ -29,4 +29,9 @@ class HomeController
 
 		return View::render('pages/accueil', ['encheres'=>$encheres]);
 	}
+
+	public function propos()
+	{
+		return View::render('pages/propos');
+	}
 }

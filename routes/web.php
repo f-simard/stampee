@@ -5,6 +5,7 @@ use App\Routes\Route;
 Route::get('/enConstruction', 'TestController@enConstruction');
 
 Route::get('','HomeController@index');
+Route::get('/propos','HomeController@propos');
 
 Route::get('/membre/creer', 'MembreController@creer');
 Route::post('/membre/creer', 'MembreController@sauvegarder');

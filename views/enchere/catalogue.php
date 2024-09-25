@@ -108,12 +108,12 @@
 			<label for="tri">Tri</label>
 			<select name="tri" id="tri">
 				<option value="e|idEnchere|ASC" selected>Numéro de lot</option>
-				<option value="m|montant|ASC">Mise courante croissante</option>
-				<option value="m|montant|ASC">Mise courante décroissante</option>
+				<option value="m|misecourante|ASC">Mise courante croissante</option>
+				<option value="m|misecourante|DESC">Mise courante décroissante</option>
 				<option value="e|estimation|ASC">Estimation croissante</option>
 				<option value="e|estimation|DESC">Estimation décroissate</option>
-				<option value="e|prixplancher|ASC">Mise de départ croissante</option>
-				<option value="e|prixplancher|DESC">Mise de départ décroissante</option>
+				<option value="e|prixPlancher|ASC">Mise de départ croissante</option>
+				<option value="e|prixPlancher|DESC">Mise de départ décroissante</option>
 			</select>
 			<button class="bouton-reset">
 				<picture>

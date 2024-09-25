@@ -41,7 +41,7 @@ class Catalogue {
 		}
 		this.#mode = "liste";
 		this.#listeEnchere = [];
-		this.#choixTri = null;
+		this.#choixTri = document.querySelector("option[selected]").value;
 
 		//changer mode de vue (liste ou grille)
 		this.#iconeMode = document.querySelector(".choix-mode");
@@ -90,7 +90,6 @@ class Catalogue {
 		}
 
 		this.#choixTriHTML = document.querySelector("select[name='tri']");
-		console.log(this.#choixTriHTML);
 		this.#choixTriHTML.addEventListener(
 			"change",
 			this.#choisirTri.bind(this)
@@ -131,16 +130,14 @@ class Catalogue {
 					data = await reponse.json();
 				}
 
-				console.log(data);
-				// encheresTriees = this.#trier(data, "m|montant|ASC");
-				// console.log(encheresTriees);
+				let encheresTriees = this.#trier(data, this.#choixTri);
 
 				if (data.hasOwnProperty("msg")) {
 					this.#conteneurCatalogue.innerHTML =
 						"<h3>Aucune enchère</h3>";
 				} else {
 					this.#conteneurCatalogue.innerHTML = "";
-					data.forEach((enchere) => {
+					encheresTriees.forEach((enchere) => {
 						const e = new Enchere(
 							null,
 							this.#conteneurCatalogue,
@@ -170,26 +167,39 @@ class Catalogue {
 				}
 			}.bind(this)
 		);
+
+		this.#appliquerFiltre(null);
 	}
 
 	#trier(data, tri) {
-		encheresTriees = [...data];
-		optionTri = tri.split("|");
-		table = optionTri[0];
-		colonne = optionTri[1];
-		ordre = optionTri[2];
+		let copie = data;
+		let encheresTriees;
+		let optionTri = tri.split("|");
+		const table = optionTri[0];
+		const colonne = optionTri[1];
+		const ordre = optionTri[2];
 		switch (ordre) {
 			case "ASC":
-				encheresTriees.sort((a, b) => {
-					if (a.colonne < b.colonne) {
+				encheresTriees = copie.sort((a, b) => {
+					if (a[colonne] < b[colonne]) {
 						return -1;
+					} else if (a[colonne] > b[colonne]) {
+						return 1;
 					}
+					return 0; // They are equal
 				});
 				break;
 			case "DESC":
+				encheresTriees = copie.sort((a, b) => {
+					if (a[colonne] < b[colonne]) {
+						return 1;
+					} else if (a[colonne] > b[colonne]) {
+						return -1;
+					}
+					return 0; // They are equal
+				});
 				break;
 		}
-		console.log(m | montant | ASC);
 
 		return encheresTriees;
 	}
@@ -295,8 +305,9 @@ class Catalogue {
 	}
 
 	async #appliquerFiltre(evenement) {
-		evenement.preventDefault();
-
+		if (evenement != null) {
+			evenement.preventDefault();
+		}
 		const queryString = this.#parseFiltre();
 
 		try {
@@ -320,7 +331,8 @@ class Catalogue {
 				this.#conteneurCatalogue.innerHTML = "<h3>Aucune enchère</h3>";
 			} else {
 				this.#conteneurCatalogue.innerHTML = "";
-				data.forEach((enchere) => {
+				let encheresTriees = this.#trier(data, this.#choixTri);
+				encheresTriees.forEach((enchere) => {
 					const e = new Enchere(
 						null,
 						this.#conteneurCatalogue,
@@ -332,7 +344,7 @@ class Catalogue {
 		} catch (erreur) {
 			this.#conteneurCatalogue.innerHTML =
 				"<h3 class='erreur'>Erreur</h3>";
-			console.log(erreur);
+			console.warn(erreur);
 		}
 	}
 
@@ -360,7 +372,8 @@ class Catalogue {
 				this.#conteneurCatalogue.innerHTML = "<h3>Aucune enchère</h3>";
 			} else {
 				this.#conteneurCatalogue.innerHTML = "";
-				data.forEach((enchere) => {
+				let encheresTriees = this.#trier(data, this.#choixTri);
+				encheresTriees.forEach((enchere) => {
 					const e = new Enchere(
 						null,
 						this.#conteneurCatalogue,
@@ -372,7 +385,7 @@ class Catalogue {
 		} catch (erreur) {
 			this.#conteneurCatalogue.innerHTML =
 				"<h3 class='erreur'>Erreur</h3>";
-			console.log(erreur);
+			console.warn(erreur);
 		}
 	}
 }
