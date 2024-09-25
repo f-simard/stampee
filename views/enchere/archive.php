@@ -145,52 +145,7 @@
 			</div>
 		</div>
 		<div class="catalogue-conteneur liste" data-enchere="archive">
-			{% if encheres.msg is defined%}
-			<h3>Aucune enchere</h3>
-			{% else %}
-			{% for enchere in encheres %}
-			<a href="{{base}}/enchere/voir?idEnchere={{enchere.idEnchere}}">
-				<article class="carte-lot js-enchere" data-mode="liste" data-idenchere="{{enchere.idEnchere}}">
-					{% if session.estAdmin == 1%}
-					<i class="icone-lord {% if enchere.lord == 1 %}fa-solid {% else %}fa-regular {% endif %} fa-star"
-						data-lord="{% if enchere.lord == 1 is defined %}true {% else %}false {% endif %}">Lord</i>
-					{% endif %}
-					<picture class="media-cadre">
-						<img src="{{upload}}{{enchere.chemin}}" alt="timbre">
-					</picture>
-					<div>
-						<section class="info-lot">
-							<div>
-								<div class="info-lot__sous-entete">
-									<h5 data-info="lot">Enchere {{ enchere.idEnchere }}</h5>
-									{% if enchere.lord == 1 %}
-									<i class="fa-solid fa-award fa-gl"></i>
-									{% endif %}
-								</div>
-								<i class="icone-favori {% if enchere.estFavori is defined %}fa-solid {% else %}fa-regular {% endif %} fa-bookmark fa-lg"
-									data-favori="{% if enchere.estFavori is defined %}true {% else %}false {% endif %}"></i>
-							</div>
-							<h3 data-info="nom">{% if enchere.nbTimbre > 1 %} Lot de plusieurs timbres ({{enchere.nbTimbre}}) {% else %} {{enchere.titre}} {% endif %}</h3>
-							<h5 data-info="date">{{enchere.anneeProd}}</h5>
-							<p data-info="description"><span class="lien">Plus d'information &#10095; </span>
-							</p>
-						</section>
-						<div class="info-enchere">
-							<div>
-								<p>Estimation</p>
-								<p data-enchere="estimation">{% if enchere.estimation == 0 %} N/A {% else %} {{enchere.idDevise}} {{enchere.estimation}} {% endif %}</p>
-							</div>
-							<div>
-								<p>Mise gagnante</p>
-								<p data-enchere="miseCourante">{% if enchere.miseMax %}{{enchere.idDevise}} {{enchere.miseMax}} {% else %} Aucune mise {% endif %}</p>
-							</div>
-							<button class="bouton" data-couleur="secondaire">Miser</button>
-						</div>
-					</div>
-				</article>
-			</a>
-			{% endfor %}
-			{% endif %}
+			
 		</div>
 		<template class="js-template-enchere">
 			<a href="{{base}}/enchere/voir?idEnchere={{enchere.idEnchere}}">

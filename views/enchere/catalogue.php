@@ -145,7 +145,7 @@
 			</div>
 		</div>
 		<div class="catalogue-conteneur liste" data-enchere="active">
-			{% if encheres.msg is defined%}
+			<!-- {% if encheres.msg is defined%}
 			<h3>Aucune enchere</h3>
 			{% else %}
 			{% for enchere in encheres %}
@@ -200,7 +200,7 @@
 				</article>
 			</a>
 			{% endfor %}
-			{% endif %}
+			{% endif %} -->
 		</div>
 	</div>
 	<template class="js-template-enchere">

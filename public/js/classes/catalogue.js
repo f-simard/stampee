@@ -16,6 +16,7 @@ class Catalogue {
 	#champsCertifie;
 	#champsPays;
 	#champLord;
+	#listeEnchere;
 
 	//Permet d'accéder à l'instance de la classe de n'importe où dans le code en utilisant App.instance
 	static get instance() {
@@ -38,6 +39,7 @@ class Catalogue {
 			this.#enchereStatut = this.#conteneurCatalogue.dataset.enchere;
 		}
 		this.#mode = "liste";
+		this.#listeEnchere = [];
 
 		//changer mode de vue (liste ou grille)
 		this.#iconeMode = document.querySelector(".choix-mode");
@@ -86,17 +88,50 @@ class Catalogue {
 		}
 
 		//execution de code
-		this.#instancierCarte();
-		//ecouteur d'evenement
+		this.#instancierEnchere();
 	}
 
-	#instancierCarte() {
-		const encheres = document.querySelectorAll(".js-enchere");
+	async #instancierEnchere() {
+		if (document.querySelector(".details-timbre")) {
+			const elementHTML = document.querySelector(".details-timbre");
 
-		encheres.forEach(function (enchere) {
-			const idEnchere = enchere.dataset.idenchere;
-			const e = new Enchere(idEnchere, enchere);
-		});
+			new Enchere(elementHTML);
+		} else {
+			try {
+				let reponse;
+				let data;
+				if (this.#enchereStatut == "active") {
+					const reponse = await fetch(
+						"http://localhost:8080/stampee/enchere/activeFiltre"
+					);
+					data = await reponse.json();
+				} else if (this.#enchereStatut == "archive") {
+					reponse = await fetch(
+						"http://localhost:8080/stampee/enchere/archiveFiltre"
+					);
+					data = await reponse.json();
+				}
+
+				if ("msg" in data) {
+					this.#conteneurCatalogue.innerHTML =
+						"<h3>Aucune enchère</h3>";
+				} else {
+					this.#conteneurCatalogue.innerHTML = "";
+					data.forEach((enchere) => {
+						const e = new Enchere(
+							null,
+							this.#conteneurCatalogue,
+							enchere
+						);
+						this.#listeEnchere.push(e);
+					});
+				}
+			} catch (erreur) {
+				this.#conteneurCatalogue.innerHTML =
+					"<h3 class='erreur'>Erreur</h3>";
+				console.warn(erreur);
+			}
+		}
 	}
 
 	#changerMode(evenement) {
@@ -204,7 +239,6 @@ class Catalogue {
 
 		const queryString = this.#parseFiltre();
 
-
 		try {
 			let reponse;
 			let data;
@@ -227,12 +261,12 @@ class Catalogue {
 			} else {
 				this.#conteneurCatalogue.innerHTML = "";
 				data.forEach((enchere) => {
-					new Enchere(
-						enchere.idEnchere,
+					const e = new Enchere(
 						null,
 						this.#conteneurCatalogue,
 						enchere
 					);
+					this.#listeEnchere.push(e);
 				});
 			}
 		} catch (erreur) {
@@ -267,12 +301,12 @@ class Catalogue {
 			} else {
 				this.#conteneurCatalogue.innerHTML = "";
 				data.forEach((enchere) => {
-					new Enchere(
-						enchere.idEnchere,
+					const e = new Enchere(
 						null,
 						this.#conteneurCatalogue,
 						enchere
 					);
+					this.#listeEnchere.push(e);
 				});
 			}
 		} catch (erreur) {

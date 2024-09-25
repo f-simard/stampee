@@ -95,7 +95,7 @@ class EnchereController
 		return View::render('enchere/parMembre', ['succes' => $msg, 'encheres' => $encheres]);
 	}
 
-	public function afficherTous()
+	public function afficherCatalogue()
 	{
 		$pays = new Pays;
 		$pays_liste = $pays->select('nom');
@@ -103,21 +103,11 @@ class EnchereController
 		$condition = new Condition();
 		$conditions = $condition->select();
 
-
-		$enchere = new Enchere();
-		$encheres = $enchere->selectionnerCatalogue();
-
 		$maintenant = new \DateTime();
 		$maintenant = $maintenant->format('Y-m-d');
 
-		if ($encheres) {
-			$encheresInfo = $this->completerDonnee($encheres);
-		} else {
-			$encheresInfo['msg'] = 'Aucune enchere';
-		}
-
 		//echo json_encode($encheres);
-		return View::render('enchere/catalogue', ['encheres' => $encheresInfo, 'pays_liste' => $pays_liste, 'conditions' => $conditions, 'aujourdhui'=>$maintenant]);
+		return View::render('enchere/catalogue', ['pays_liste' => $pays_liste, 'conditions' => $conditions, 'aujourdhui' => $maintenant]);
 	}
 
 	//returne de json
@@ -130,22 +120,11 @@ class EnchereController
 		$condition = new Condition();
 		$conditions = $condition->select();
 
-		$enchere = new Enchere();
-		$encheres = $enchere->selectionnerArchive();
-
-		$encheresInfo = [];
-
-		if ($encheres) {
-			$encheresInfo = $this->completerDonnee($encheres);
-		} else {
-			$encheresInfo['msg'] = 'Aucune enchere';
-		}
-
 		//echo json_encode($encheres);
-		return View::render('enchere/archive', ['encheres' => $encheresInfo, 'pays_liste' => $pays_liste, 'conditions' => $conditions]);
+		return View::render('enchere/archive', ['pays_liste' => $pays_liste, 'conditions' => $conditions]);
 	}
 
-	public function recupererActiveFiltre($data=[])
+	public function recupererActiveFiltre($data = [])
 	{
 
 		$enchere = new Enchere();
@@ -153,9 +132,8 @@ class EnchereController
 
 		if ($encheres) {
 			$encheresInfo = $this->completerDonnee($encheres);
-
 		} else {
-			$encheresInfo['msg']='Aucune enchere';
+			$encheresInfo['msg'] = 'Aucune enchere';
 		}
 		echo json_encode($encheresInfo);
 	}
@@ -174,6 +152,53 @@ class EnchereController
 		echo json_encode($encheresInfo);
 	}
 
+	public function recupererUn($data = [])
+	{
+
+		$idEnchere = $data['idEnchere'];
+
+		$enchere = new Enchere();
+		$enchereInfo = $enchere->selectByField($idEnchere, 'idEnchere');
+		$diff = $enchere->tempsRestant($idEnchere);
+
+		$enchereInfo['temps'] = $diff;
+
+		$enchere_has_timbre = new Enchere_has_Timbre();
+		$nbTimbre = $enchere_has_timbre->compte($idEnchere, 'idEnchere');
+		$timbres = $enchere_has_timbre->selectionnerDetails($idEnchere, 'idEnchere');
+
+		if (isset($_SESSION['idMembre'])) {
+			$favori = new Favori();
+			$conditions['idMembre'] = $_SESSION['idMembre'];
+			$conditions['idEnchere'] = $idEnchere;
+			$estFavori = $favori->selectionner($conditions);
+		} else {
+			$estFavori = false;
+		}
+
+		if ($estFavori) {
+			$enchereInfo['estFavori'] = 1;
+		}
+
+		foreach ($timbres as &$timbre) {
+			$image = new Image();
+			$images = $image->imagePrincipale($timbre['idTimbre']);
+			$timbre['imageSrc'] = $images['chemin'];
+
+			$imgs = $image->selectMultipleByField($timbre['idTimbre'], 'idTimbre');
+
+			foreach ($imgs as $img) {
+				$toutesImages[] = $img['chemin'];
+			}
+
+			$condition = new Condition;
+			$timbreCondition = $condition->selectByField($timbre['idCondition'], 'idCondition');
+			$timbre['nomCondition'] = $timbreCondition['nom'];
+		}
+
+		echo json_encode($enchereInfo);
+	}
+
 	public function afficherUn($data = [])
 	{
 
@@ -189,7 +214,7 @@ class EnchereController
 		$nbTimbre = $enchere_has_timbre->compte($idEnchere, 'idEnchere');
 		$timbres = $enchere_has_timbre->selectionnerDetails($idEnchere, 'idEnchere');
 
-		if(isset($_SESSION['idMembre'])){
+		if (isset($_SESSION['idMembre'])) {
 			$favori = new Favori();
 			$conditions['idMembre'] = $_SESSION['idMembre'];
 			$conditions['idEnchere'] = $idEnchere;
@@ -197,8 +222,6 @@ class EnchereController
 		} else {
 			$estFavori = false;
 		}
-
-
 
 		if ($estFavori) {
 			$enchereInfo['estFavori'] = 1;
@@ -260,7 +283,7 @@ class EnchereController
 		$enchere = new Enchere();
 		$miseAJour = $enchere->update($data, $idEnchere);
 
-		return $this->afficherTous();
+		return $this->afficherCatalogue();
 	}
 
 	public function completerDonnee($encheres)

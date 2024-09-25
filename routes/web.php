@@ -20,10 +20,8 @@ Route::get('/timbre/voir', 'TimbreController@afficherUn');
 
 Route::get('/enchere/creer', 'EnchereController@creer');
 Route::post('/enchere/creer', 'EnchereController@sauvegarder');
-Route::get('/enchere/catalogue', 'EnchereController@afficherTous');
-Route::get('/enchere/activeFiltre', 'EnchereController@recupererActiveFiltre');
+Route::get('/enchere/catalogue', 'EnchereController@afficherCatalogue');
 Route::get('/enchere/archive', 'EnchereController@afficherArchive');
-Route::get('/enchere/archiveFiltre', 'EnchereController@recupererArchiveFiltre');
 Route::get('/enchere/voir', 'EnchereController@afficherUn');
 Route::post('/enchere/supprimer', 'EnchereController@supprimer');
 Route::post('/enchere/lord', 'EnchereController@lord');
@@ -40,5 +38,9 @@ Route::get('/deconnexion', 'AuthController@supprimer');
 Route::get('/accesRefuse', 'AuthController@accesRefuse');
 Route::get('/Auth/estAdmin', 'AuthController@estAdmin');
 
+//appel API
+Route::get('/enchere/activeFiltre', 'EnchereController@recupererActiveFiltre');
+Route::get('/enchere/archiveFiltre', 'EnchereController@recupererArchiveFiltre');
+Route::get('/enchere/recupererUn', 'EnchereController@recupererUn');
 
 Route::dispatch();

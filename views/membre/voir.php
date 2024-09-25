@@ -70,7 +70,6 @@
 		<a href="{{base}}/deconnexion" class="bouton" data-couleur="primaire">Déconnecter</a>
 	</section>
 
-
 </main>
 
 {{ include('layouts/pied.php') }}
