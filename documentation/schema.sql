@@ -231,7 +231,7 @@ CREATE TABLE IF NOT EXISTS `stampee`.`Mise` (
   `montant` FLOAT NOT NULL,
   `dateCreation` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `idDevise` VARCHAR(3) NOT NULL,
-  PRIMARY KEY (`idMembre`, `idEnchere`),
+  PRIMARY KEY (`idMembre`, `idEnchere`, `montant`),
   INDEX `fk_Membre_has_Enchere_Enchere2_idx` (`idEnchere` ASC) VISIBLE,
   INDEX `fk_Membre_has_Enchere_Membre2_idx` (`idMembre` ASC) VISIBLE,
   INDEX `fk_Mise_Devise1_idx` (`idDevise` ASC) VISIBLE,

@@ -66,6 +66,10 @@ class TimbreController
 		} else {
 			$data['certifie'] = 0;
 		}
+		if ($data['tirage'] == '') {
+			unset($data['tirage']);
+		}
+		
 		
 		$data['idMembre'] = $_SESSION['idMembre'];
 		

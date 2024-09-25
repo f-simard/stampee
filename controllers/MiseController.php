@@ -33,7 +33,6 @@ class MiseController
 
 	public function sauvegarder($data = [])
 	{
-		echo 'miser';
 		Auth::session();
 
 		$idEnchere = $data['idEnchere'];
@@ -44,7 +43,7 @@ class MiseController
 		$mise = new Mise();
 
 		$miseMax = $mise->miseMax($idEnchere, 'idEnchere');
-		if ($miseMax) {
+		if ($miseMax['montant'] != null) {
 			$min = $miseMax['montant'];
 		} else {
 			$min = $infoEnchere['prixPlancher'];

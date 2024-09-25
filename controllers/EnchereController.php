@@ -46,6 +46,10 @@ class EnchereController
 		//ajouter et manipuler data
 		$data['idDevise'] = $_SESSION['idDevise'];
 
+		if ($data['estimation'] == '') {
+			unset($data['estimation']);
+		}
+
 		if (isset($data['lord'])) {
 			$data['lord'] = 1;
 		} else {
