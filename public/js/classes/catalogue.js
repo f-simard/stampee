@@ -17,6 +17,9 @@ class Catalogue {
 	#champsPays;
 	#champLord;
 	#listeEnchere;
+	#optionsTriHTML;
+	#choixTriHTML;
+	#choixTri;
 
 	//Permet d'accéder à l'instance de la classe de n'importe où dans le code en utilisant App.instance
 	static get instance() {
@@ -32,14 +35,13 @@ class Catalogue {
 		}
 
 		//element HTML et autres variabless
-		this.#conteneurCatalogue = document.querySelector(
-			".catalogue-conteneur"
-		);
+		this.#conteneurCatalogue = document.querySelector(".js-catalogue");
 		if (this.#conteneurCatalogue) {
 			this.#enchereStatut = this.#conteneurCatalogue.dataset.enchere;
 		}
 		this.#mode = "liste";
 		this.#listeEnchere = [];
+		this.#choixTri = null;
 
 		//changer mode de vue (liste ou grille)
 		this.#iconeMode = document.querySelector(".choix-mode");
@@ -87,14 +89,31 @@ class Catalogue {
 			);
 		}
 
+		this.#choixTriHTML = document.querySelector("select[name='tri']");
+		console.log(this.#choixTriHTML);
+		this.#choixTriHTML.addEventListener(
+			"change",
+			this.#choisirTri.bind(this)
+		);
+
+		this.#optionsTriHTML = document.querySelectorAll(
+			"select[name='tri'] > option"
+		);
+		this.#optionsTriHTML.forEach(
+			function (option) {
+				option.addEventListener("click", this.#choisirTri.bind(this));
+			}.bind(this)
+		);
+
 		//execution de code
-		this.#instancierEnchere();
+		if (this.#conteneurCatalogue) {
+			this.#instancierEnchere();
+		}
 	}
 
 	async #instancierEnchere() {
 		if (document.querySelector(".details-timbre")) {
 			const elementHTML = document.querySelector(".details-timbre");
-
 			new Enchere(elementHTML);
 		} else {
 			try {
@@ -112,7 +131,11 @@ class Catalogue {
 					data = await reponse.json();
 				}
 
-				if ("msg" in data) {
+				console.log(data);
+				// encheresTriees = this.#trier(data, "m|montant|ASC");
+				// console.log(encheresTriees);
+
+				if (data.hasOwnProperty("msg")) {
 					this.#conteneurCatalogue.innerHTML =
 						"<h3>Aucune enchère</h3>";
 				} else {
@@ -132,6 +155,43 @@ class Catalogue {
 				console.warn(erreur);
 			}
 		}
+	}
+
+	#choisirTri(evenement) {
+		const cible = evenement.target.selectedOptions[0];
+		this.#choixTri = cible.value;
+
+		this.#optionsTriHTML.forEach(
+			function (option) {
+				if (option.value == this.#choixTri) {
+					option.setAttribute("selected", "");
+				} else {
+					option.removeAttribute("selected");
+				}
+			}.bind(this)
+		);
+	}
+
+	#trier(data, tri) {
+		encheresTriees = [...data];
+		optionTri = tri.split("|");
+		table = optionTri[0];
+		colonne = optionTri[1];
+		ordre = optionTri[2];
+		switch (ordre) {
+			case "ASC":
+				encheresTriees.sort((a, b) => {
+					if (a.colonne < b.colonne) {
+						return -1;
+					}
+				});
+				break;
+			case "DESC":
+				break;
+		}
+		console.log(m | montant | ASC);
+
+		return encheresTriees;
 	}
 
 	#changerMode(evenement) {
@@ -256,7 +316,7 @@ class Catalogue {
 				data = await reponse.json();
 			}
 
-			if ("msg" in data) {
+			if (data.hasOwnProperty("msg")) {
 				this.#conteneurCatalogue.innerHTML = "<h3>Aucune enchère</h3>";
 			} else {
 				this.#conteneurCatalogue.innerHTML = "";
@@ -296,7 +356,7 @@ class Catalogue {
 				data = await reponse.json();
 			}
 
-			if ("msg" in data) {
+			if (data.hasOwnProperty("msg")) {
 				this.#conteneurCatalogue.innerHTML = "<h3>Aucune enchère</h3>";
 			} else {
 				this.#conteneurCatalogue.innerHTML = "";

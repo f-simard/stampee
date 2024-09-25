@@ -345,6 +345,10 @@ class Enchere {
 			"http://localhost:8080/stampee/mise/creer?idEnchere=" +
 			this.#idEnchere;
 	}
+
+	#trier(tri){
+		
+	}
 }
 
 export default Enchere;

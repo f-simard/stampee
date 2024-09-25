@@ -27,7 +27,10 @@ class Site {
 		}
 
 		//generer catalogue
-		this.#catalogue = new Catalogue();
+		if (document.querySelector(".js-catalogue")) {
+			this.#catalogue = new Catalogue();
+		}
+
 
 		if (document.querySelector(".medias-timbre-principal ")) {
 			this.#imageAgrandissable = document.querySelector(

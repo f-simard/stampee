@@ -7,7 +7,7 @@
 		</section>
 
 		<div class="principal">
-			<div class="catalogue-conteneur liste">
+			<div class="catalogue-conteneur grille">
 				{% for mise in mises %}
 				<article>
 					<a href="{{base}}/enchere/voir?idEnchere={{mise.idEnchere}}">Enchere {{mise.idEnchere}}</a>

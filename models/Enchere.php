@@ -94,7 +94,7 @@ class Enchere extends CRUD
 
 	public function filtreCatalogue()
 	{
-		$this->sql  = "SELECT DISTINCT e.*, count(t.idTimbre) as nbTimbre, t.*, img.chemin , MAX(m.montant) as misecourante FROM $this->table as e
+		$this->sql  = "SELECT DISTINCT e.*, count(distinct t.idTimbre) as nbTimbre, t.*, img.chemin , MAX(m.montant) as misecourante FROM $this->table as e
 		INNER JOIN enchere_has_timbre AS et ON et.idEnchere = e.idEnchere
 		INNER JOIN timbre AS t ON t.idTimbre = et.idTimbre
 		INNER JOIN image AS img ON img.idTimbre = t.idTimbre
@@ -107,7 +107,7 @@ class Enchere extends CRUD
 
 	public function filtreCatalogueArchive()
 	{
-		$this->sql  = "SELECT DISTINCT e.*, count(t.idTimbre) as nbTimbre, t.*, img.chemin , MAX(m.montant) as misecourante FROM $this->table as e
+		$this->sql  = "SELECT DISTINCT e.*, count(distinct t.idTimbre) as nbTimbre, t.*, img.chemin , MAX(m.montant) as misecourante FROM $this->table as e
 		INNER JOIN enchere_has_timbre AS et ON et.idEnchere = e.idEnchere
 		INNER JOIN timbre AS t ON t.idTimbre = et.idTimbre
 		INNER JOIN image AS img ON img.idTimbre = t.idTimbre
@@ -245,7 +245,7 @@ class Enchere extends CRUD
 
 	public function selectionnerSelonFavori($data = [])
 	{
-		$sql = "SELECT DISTINCT e.*, count(t.idTimbre) as nbTimbre, t.*, img.chemin FROM $this->table as e
+		$sql = "SELECT DISTINCT e.*, count(distinc t.idTimbre) as nbTimbre, t.*, img.chemin FROM $this->table as e
 		INNER JOIN enchere_has_timbre AS et ON et.idEnchere = e.idEnchere
 		INNER JOIN timbre AS t ON t.idTimbre = et.idTimbre
 		INNER JOIN image AS img ON img.idTimbre = t.idTimbre
@@ -270,7 +270,7 @@ class Enchere extends CRUD
 	{
 
 		/*$sql = "SELECT * FROM $table WHERE $field = ?";*/
-		$sql = "SELECT DISTINCT e.*, count(t.idTimbre) as nbTimbre, t.*, img.chemin FROM $this->table as e
+		$sql = "SELECT DISTINCT e.*, count(distinct t.idTimbre) as nbTimbre, t.*, img.chemin FROM $this->table as e
 		INNER JOIN enchere_has_timbre AS et ON et.idEnchere = e.idEnchere
 		INNER JOIN timbre AS t ON t.idTimbre = et.idTimbre
 		INNER JOIN image AS img ON img.idTimbre = t.idTimbre

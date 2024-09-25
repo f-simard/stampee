@@ -5,7 +5,7 @@
 			<h2>Timbres personnels</h2>
 		</section>
 		<div class="principal">
-			<div class="catalogue-conteneur liste" data-enchere="active">
+			<div class="catalogue-conteneur grille grille--2">
 				{% for timbre in timbres %}
 				<a href="{{base}}/timbre/voir?idTimbre={{timbre.idTimbre}}">
 					<article class="carte-lot" data-mode="liste">
@@ -14,14 +14,12 @@
 						</picture>
 						<div>
 							<section class="info-lot">
-								<div>
-									<div class="info-lot__sous-entete">
+								<div class="info-lot__sous-entete">
 										<h5 data-info="lot">Lot {{timbre.idTimbre}}</h5>
 										{% if timbre.lord == 1 %}
 										<i class="fa-solid fa-award fa-gl"></i>
 										{% endif %}
 									</div>
-								</div>
 								<h3 data-info="nom">{{timbre.titre}}</h3>
 								<h5 data-info="date">{{timbre.anneeProd}}</h5>
 								{% if timbre.description is not empty %}

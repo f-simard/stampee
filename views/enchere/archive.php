@@ -144,8 +144,8 @@
 				</svg>
 			</div>
 		</div>
-		<div class="catalogue-conteneur liste" data-enchere="archive">
-			
+		<div class="catalogue-conteneur liste js-catalogue" data-enchere="archive">
+
 		</div>
 		<template class="js-template-enchere">
 			<a href="{{base}}/enchere/voir?idEnchere={{enchere.idEnchere}}">
