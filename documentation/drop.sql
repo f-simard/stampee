@@ -19,3 +19,17 @@ DROP table if exists `e2396414`.`Enchere`;
 DROP table if exists `e2396414`.`Devise`;
 DROP table if exists `e2396414`.`Pays`;
 DROP table if exists `e2396414`.`Langue`;
+DROP table if exists `e2396414`.`Condition`;
+
+
+DROP table if exists `e2396414`.`mise`;
+DROP table if exists `e2396414`.`image`;
+DROP table if exists `e2396414`.`favori`;
+DROP table if exists `e2396414`.`enchere_has_timbre`;
+DROP table if exists `e2396414`.`timbre`;
+DROP table if exists `e2396414`.`membre`;
+DROP table if exists `e2396414`.`enchere`;
+DROP table if exists `e2396414`.`devise`;
+DROP table if exists `e2396414`.`pays`;
+DROP table if exists `e2396414`.`langue`;
+DROP table if exists `e2396414`.`condition`;

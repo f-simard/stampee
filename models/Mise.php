@@ -6,7 +6,7 @@ use App\Models\CRUD;
 
 class Mise extends CRUD
 {
-	protected $table = "Mise";
+	protected $table = "mise";
 	protected $fillable = [
 		'idMembre',
 		'idEnchere',

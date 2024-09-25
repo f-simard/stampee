@@ -5,7 +5,7 @@ use App\Models\CRUD;
 
 class Devise extends CRUD {
 
-    protected $table = "Devise";
+    protected $table = "devise";
     protected $primaryKey = 'idDevise';
 	protected $fillable = ['nom']; 
 

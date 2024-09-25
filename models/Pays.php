@@ -5,7 +5,7 @@ use App\Models\CRUD;
 
 class Pays extends CRUD {
 
-    protected $table = "Pays";
+    protected $table = "pays";
     protected $primaryKey = 'idPays';
 	protected $fillable = ['nom']; 
 

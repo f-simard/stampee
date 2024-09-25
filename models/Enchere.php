@@ -4,13 +4,10 @@ namespace App\Models;
 
 use App\Models\CRUD;
 use DateTime;
-use Twig\Node\Expression\ConstantExpression;
-
-use function PHPSTORM_META\sql_injection_subst;
 
 class Enchere extends CRUD
 {
-	protected $table = "Enchere";
+	protected $table = "enchere";
 	protected $primaryKey = 'idEnchere';
 	protected $fillable = [
 		'dateDebut',
@@ -29,9 +26,9 @@ class Enchere extends CRUD
 	{
 
 		/*$sql = "SELECT * FROM $table WHERE $field = ?";*/
-		$sql = "SELECT DISTINCT e.*, count(t.idTimbre) as nbTimbre FROM `Enchere` as e
-		INNER JOIN Enchere_has_Timbre AS et ON et.idEnchere = e.idEnchere
-		INNER JOIN Timbre AS t ON t.idTimbre = et.idTimbre
+		$sql = "SELECT DISTINCT e.*, count(t.idTimbre) as nbTimbre FROM $this->table as e
+		INNER JOIN enchere_has_timbre AS et ON et.idEnchere = e.idEnchere
+		INNER JOIN timbre AS t ON t.idTimbre = et.idTimbre
 		WHERE t.idMembre = ?
 		GROUP BY e.idEnchere;";
 
@@ -51,10 +48,10 @@ class Enchere extends CRUD
 	{
 
 		/*$sql = "SELECT * FROM $table WHERE $field = ?";*/
-		$sql = "SELECT DISTINCT e.*, count(t.idTimbre) as nbTimbre, t.*, img.chemin FROM `Enchere` as e
-		INNER JOIN Enchere_has_Timbre AS et ON et.idEnchere = e.idEnchere
-		INNER JOIN Timbre AS t ON t.idTimbre = et.idTimbre
-		INNER JOIN Image AS img ON img.idTimbre = t.idTimbre
+		$sql = "SELECT DISTINCT e.*, count(t.idTimbre) as nbTimbre, t.*, img.chemin FROM $this->table as e
+		INNER JOIN enchere_has_timbre AS et ON et.idEnchere = e.idEnchere
+		INNER JOIN timbre AS t ON t.idTimbre = et.idTimbre
+		INNER JOIN image AS img ON img.idTimbre = t.idTimbre
 		WHERE img.principale = 1
 		AND e.statut <> 'FERMEE'
 		GROUP BY e.idEnchere";
@@ -75,10 +72,10 @@ class Enchere extends CRUD
 	{
 
 		/*$sql = "SELECT * FROM $table WHERE $field = ?";*/
-		$sql = "SELECT DISTINCT e.*, count(t.idTimbre) as nbTimbre, t.*, img.chemin FROM `Enchere` as e
-		INNER JOIN Enchere_has_Timbre AS et ON et.idEnchere = e.idEnchere
-		INNER JOIN Timbre AS t ON t.idTimbre = et.idTimbre
-		INNER JOIN Image AS img ON img.idTimbre = t.idTimbre
+		$sql = "SELECT DISTINCT e.*, count(t.idTimbre) as nbTimbre, t.*, img.chemin FROM $this->table as e
+		INNER JOIN enchere_has_timbre AS et ON et.idEnchere = e.idEnchere
+		INNER JOIN timbre AS t ON t.idTimbre = et.idTimbre
+		INNER JOIN image AS img ON img.idTimbre = t.idTimbre
 		WHERE img.principale = 1
 		AND e.statut = 'FERMEE'
 		GROUP BY e.idEnchere";
@@ -97,11 +94,11 @@ class Enchere extends CRUD
 
 	public function filtreCatalogue()
 	{
-		$this->sql  = "SELECT DISTINCT e.*, count(t.idTimbre) as nbTimbre, t.*, img.chemin , MAX(m.montant) as misecourante FROM `Enchere` as e
-		INNER JOIN Enchere_has_Timbre AS et ON et.idEnchere = e.idEnchere
-		INNER JOIN Timbre AS t ON t.idTimbre = et.idTimbre
-		INNER JOIN Image AS img ON img.idTimbre = t.idTimbre
-        LEFT JOIN Mise as m on m.idEnchere = e.idEnchere
+		$this->sql  = "SELECT DISTINCT e.*, count(t.idTimbre) as nbTimbre, t.*, img.chemin , MAX(m.montant) as misecourante FROM $this->table as e
+		INNER JOIN enchere_has_timbre AS et ON et.idEnchere = e.idEnchere
+		INNER JOIN timbre AS t ON t.idTimbre = et.idTimbre
+		INNER JOIN image AS img ON img.idTimbre = t.idTimbre
+        LEFT JOIN mise as m on m.idEnchere = e.idEnchere
 		WHERE img.principale = 1
 		AND e.statut <> 'FERMEE'";
 
@@ -110,11 +107,11 @@ class Enchere extends CRUD
 
 	public function filtreCatalogueArchive()
 	{
-		$this->sql  = "SELECT DISTINCT e.*, count(t.idTimbre) as nbTimbre, t.*, img.chemin , MAX(m.montant) as misecourante FROM `Enchere` as e
-		INNER JOIN Enchere_has_Timbre AS et ON et.idEnchere = e.idEnchere
-		INNER JOIN Timbre AS t ON t.idTimbre = et.idTimbre
-		INNER JOIN Image AS img ON img.idTimbre = t.idTimbre
-        LEFT JOIN Mise as m on m.idEnchere = e.idEnchere
+		$this->sql  = "SELECT DISTINCT e.*, count(t.idTimbre) as nbTimbre, t.*, img.chemin , MAX(m.montant) as misecourante FROM $this->table as e
+		INNER JOIN enchere_has_timbre AS et ON et.idEnchere = e.idEnchere
+		INNER JOIN timbre AS t ON t.idTimbre = et.idTimbre
+		INNER JOIN image AS img ON img.idTimbre = t.idTimbre
+        LEFT JOIN mise as m on m.idEnchere = e.idEnchere
 		WHERE img.principale = 1
 		AND e.statut = 'FERMEE'";
 
@@ -204,7 +201,7 @@ class Enchere extends CRUD
 		}
 
 		$stmt = $this->prepare($this->sql);
-		if(!empty($this->conditions)){
+		if (!empty($this->conditions)) {
 			foreach ($this->conditions as $cle => $valeur) {
 				$stmt->bindValue(":$cle", $valeur);
 			}
@@ -248,11 +245,11 @@ class Enchere extends CRUD
 
 	public function selectionnerSelonFavori($data = [])
 	{
-		$sql = "SELECT DISTINCT e.*, count(t.idTimbre) as nbTimbre, t.*, img.chemin FROM `Enchere` as e
-		INNER JOIN Enchere_has_Timbre AS et ON et.idEnchere = e.idEnchere
-		INNER JOIN Timbre AS t ON t.idTimbre = et.idTimbre
-		INNER JOIN Image AS img ON img.idTimbre = t.idTimbre
-		INNER JOIN Favori AS f ON f.idEnchere = e.idEnchere
+		$sql = "SELECT DISTINCT e.*, count(t.idTimbre) as nbTimbre, t.*, img.chemin FROM $this->table as e
+		INNER JOIN enchere_has_timbre AS et ON et.idEnchere = e.idEnchere
+		INNER JOIN timbre AS t ON t.idTimbre = et.idTimbre
+		INNER JOIN image AS img ON img.idTimbre = t.idTimbre
+		INNER JOIN favori AS f ON f.idEnchere = e.idEnchere
 		WHERE img.principale = 1
 		AND f.idMembre = ?
 		GROUP BY e.idEnchere;";
@@ -273,10 +270,10 @@ class Enchere extends CRUD
 	{
 
 		/*$sql = "SELECT * FROM $table WHERE $field = ?";*/
-		$sql = "SELECT DISTINCT e.*, count(t.idTimbre) as nbTimbre, t.*, img.chemin FROM `Enchere` as e
-		INNER JOIN Enchere_has_Timbre AS et ON et.idEnchere = e.idEnchere
-		INNER JOIN Timbre AS t ON t.idTimbre = et.idTimbre
-		INNER JOIN Image AS img ON img.idTimbre = t.idTimbre
+		$sql = "SELECT DISTINCT e.*, count(t.idTimbre) as nbTimbre, t.*, img.chemin FROM $this->table as e
+		INNER JOIN enchere_has_timbre AS et ON et.idEnchere = e.idEnchere
+		INNER JOIN timbre AS t ON t.idTimbre = et.idTimbre
+		INNER JOIN image AS img ON img.idTimbre = t.idTimbre
 		WHERE img.principale = 1
 		AND e.statut <> 'FERMEE'
 		AND e.lord = 1

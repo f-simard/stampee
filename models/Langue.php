@@ -5,7 +5,7 @@ use App\Models\CRUD;
 
 class Langue extends CRUD {
 
-    protected $table = "Langue";
+    protected $table = "langue";
     protected $primaryKey = 'idLangue';
 	protected $fillable = ['nom']; 
 

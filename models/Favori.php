@@ -6,7 +6,7 @@ use App\Models\CRUD;
 
 class Favori extends CRUD
 {
-	protected $table = "Favori";
+	protected $table = "favori";
 	protected $fillable = ['idEnchere', 'idMembre'];
 
 	public function supprimerFavori($data=[]){

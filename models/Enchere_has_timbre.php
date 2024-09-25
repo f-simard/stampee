@@ -7,7 +7,7 @@ use App\Models\CRUD;
 class Enchere_has_Timbre extends CRUD
 {
 
-	protected $table = "Enchere_has_Timbre";
+	protected $table = "enchere_has_timbre";
 	protected $fillable = ['idTimbre', 'idEnchere'];
 
 	final public function ajouterPlusieurs($timbres, $idEnchere)
@@ -39,7 +39,7 @@ class Enchere_has_Timbre extends CRUD
 
 	final public function selectionnerDetails($valeur, $champ){
 		$sql = "SELECT t.* FROM $this->table 
-		INNER JOIN Timbre as t ON  t.idTimbre =  $this->table.idTimbre
+		INNER JOIN timbre as t ON  t.idTimbre =  $this->table.idTimbre
 		WHERE $champ = :$champ;";
 		$stmt = $this->prepare($sql);
 		$stmt->bindValue(":$champ", $valeur);

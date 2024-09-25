@@ -7,7 +7,7 @@ use App\Models\CRUD;
 class Membre extends CRUD
 {
 
-	protected $table = "Membre";
+	protected $table = "membre";
 	protected $primaryKey = 'idMembre';
 	protected $fillable = [
 		'nomUtilisateur',

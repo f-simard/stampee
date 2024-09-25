@@ -5,7 +5,7 @@ use App\Models\CRUD;
 
 class Condition extends CRUD {
 
-    protected $table = "Condition";
+    protected $table = "condition";
     protected $primaryKey = 'idCondition';
 	protected $fillable = ['nom']; 
 
