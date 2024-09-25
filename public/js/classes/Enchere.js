@@ -30,11 +30,13 @@ class Enchere {
 	#temps;
 	#nbMise;
 	#miseMax;
+	#btnMiser;
 
 	constructor(idEnchere, elementHTML = null, conteneur = null, enchereInfo) {
 		this.#idEnchere = idEnchere;
 		this.#elementHTML = elementHTML;
 		this.#conteneurHTML = conteneur;
+		this.#btnMiser = this.#elementHTML.querySelector("button");
 
 		if (elementHTML == null) {
 			this.#template = document.querySelector(".js-template-enchere");
@@ -109,9 +111,13 @@ class Enchere {
 				this.#modifierLord.bind(this)
 			);
 		}
+
+		if (this.#btnMiser) {
+			this.#btnMiser.addEventListener("click", this.#miser.bind(this));
+		}
 	}
 
-	async#injecterHTML() {
+	async #injecterHTML() {
 		const clone = this.#template.content.cloneNode(true);
 
 		this.#conteneurHTML.append(clone);
@@ -161,9 +167,11 @@ class Enchere {
 		this.#elementHTML.querySelector("[data-render='titre']").textContent =
 			titre;
 
-		const estAdmin = sessionStorage.getItem('estAdmin');
-		if(estAdmin === '0'){
-			this.#elementHTML.querySelector(".icone-lord").classList.add("invisible");
+		const estAdmin = sessionStorage.getItem("estAdmin");
+		if (estAdmin === "0") {
+			this.#elementHTML
+				.querySelector(".icone-lord")
+				.classList.add("invisible");
 		}
 
 		if (this.#elementHTML.querySelector("[data-render='tempEtiquette']")) {
@@ -217,12 +225,22 @@ class Enchere {
 		this.#elementHTML.querySelector(
 			"[data-render='anneeProd']"
 		).textContent = this.#anneeProd;
+
+		this.#btnMiser = this.#elementHTML.querySelector("button");
+		if (this.#statut == "CREE") {
+			bouton.dataset.couleur = "sombre";
+			bouton.classList.add("nonClickable");
+		} else if (this.#statut == "OUVERT") {
+			bouton.data.couleur = "secondaire";
+		}
+		this.#btnMiser.addEventListener("click", this.#miser.bind(this));
 	}
 
 	#prevenirRedirection(evenement) {
 		if (
 			evenement.target.classList.contains("icone-favori") ||
-			evenement.target.classList.contains("icone-lord")
+			evenement.target.classList.contains("icone-lord") ||
+			evenement.target.classList.contains("nonClickable")
 		) {
 			evenement.preventDefault();
 		}
@@ -312,6 +330,14 @@ class Enchere {
 				console.log(erreur);
 			}
 		}
+	}
+
+	async #miser(evenement) {
+
+		evenement.preventDefault();
+		window.location.href =
+			"http://localhost:8080/stampee/mise/creer?idEnchere=" +
+			this.#idEnchere;
 	}
 }
 

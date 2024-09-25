@@ -20,7 +20,7 @@
 	text-align: center;
 }
 
-.bouton:hover {
+.bouton:not(.nonClickable):hover {
 	border-radius: 20px;
 }
 

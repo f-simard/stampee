@@ -204,7 +204,6 @@ class Catalogue {
 
 		const queryString = this.#parseFiltre();
 
-		console.log(queryString);
 
 		try {
 			let reponse;
@@ -250,7 +249,7 @@ class Catalogue {
 		try {
 			let reponse;
 			let data;
-			console.log(this.#enchereStatut);
+
 			if (this.#enchereStatut == "active") {
 				const reponse = await fetch(
 					"http://localhost:8080/stampee/enchere/activeFiltre?"

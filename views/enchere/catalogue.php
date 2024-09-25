@@ -194,7 +194,7 @@
 								<p>Mise courante {% if enchere.nbMise %} ({{enchere.nbMise}} mises) {% endif %}</p>
 								<p data-enchere="miseCourante">{% if enchere.miseMax %}{{enchere.idDevise}} {{enchere.miseMax}} {% else %} Aucune mise {% endif %}</p>
 							</div>
-							<button class="bouton" data-couleur="secondaire">Miser</button>
+							<button class="bouton {% if enchere.statut == 'CREE' %}nonClickable{% endif %}" data-couleur="{% if enchere.statut == 'CREE' %}sombre{% else %}secondaire{% endif %}">Miser</button>
 						</div>
 					</div>
 				</article>
@@ -238,7 +238,7 @@
 							<p>Mise courante <span data-render="nbMise">{{nbMise}}</span></p>
 							<p data-enchere="miseCourante" data-render="miseCourante">{{miseCourante}}</p>
 						</div>
-						<button class="bouton" data-couleur="secondaire">Miser</button>
+						<button class="bouton" data-couleur="">Miser</button>
 					</div>
 				</div>
 			</article>

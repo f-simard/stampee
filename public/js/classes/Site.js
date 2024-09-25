@@ -139,7 +139,6 @@ class Site {
 			"http://localhost:8080/stampee/Auth/estAdmin"
 		);
 		const data = await reponse.json();
-		console.log(data['estAdmin']);
 		sessionStorage.setItem("estAdmin", data['estAdmin']);
 	}
 }

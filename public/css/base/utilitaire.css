@@ -50,3 +50,7 @@ main > .succes {
 .invisible{
 	display: none;
 }
+
+.nonClickable{
+	pointer-events: none;
+}
