@@ -16,6 +16,10 @@
 	font-family: var(--font-serif);
 }
 
+.formulaire [type="submit"]{
+	margin-top: var(--spacing-thinner);
+}
+
 .formulaire fieldset > div {
 	padding-inline: var(--spacing-thinner);
 	padding-block: var(--spacing-nano);

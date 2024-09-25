@@ -189,10 +189,16 @@ class EnchereController
 		$nbTimbre = $enchere_has_timbre->compte($idEnchere, 'idEnchere');
 		$timbres = $enchere_has_timbre->selectionnerDetails($idEnchere, 'idEnchere');
 
-		$favori = new Favori();
-		$conditions['idMembre'] = $_SESSION['idMembre'];
-		$conditions['idEnchere'] = $idEnchere;
-		$estFavori = $favori->selectionner($conditions);
+		if(isset($_SESSION['idMembre'])){
+			$favori = new Favori();
+			$conditions['idMembre'] = $_SESSION['idMembre'];
+			$conditions['idEnchere'] = $idEnchere;
+			$estFavori = $favori->selectionner($conditions);
+		} else {
+			$estFavori = false;
+		}
+
+
 
 		if ($estFavori) {
 			$enchereInfo['estFavori'] = 1;
