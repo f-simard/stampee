@@ -62,6 +62,7 @@
 
 	</section>
 	<section class="actions">
+		<a href="{{base}}/membre/mise" class="bouton" data-couleur="secondaire">Voir mes mises</a>
 		<a href="{{base}}/membre/enchere" class="bouton" data-couleur="secondaire">Voir mes enchere</a>
 		<a href="{{base}}/enchere/creer" class="bouton" data-couleur="secondaire">Ajouter enchere</a>
 		<a href="{{base}}/membre/timbre" class="bouton" data-couleur="secondaire">Voir mes timbres</a>

@@ -17,7 +17,7 @@
 					</div>
 					<div class="paire">
 						<p>Date</p>
-						<p>{{mise.date}} {{mise.date}}</p>
+						<p>{{mise.date}}</p>
 					</div>
 				</article>
 				{% endfor %}

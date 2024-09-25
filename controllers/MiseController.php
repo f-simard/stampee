@@ -88,4 +88,21 @@ class MiseController
 			]);
 		}
 	}
+
+	public function afficherSelonMembre()
+	{
+		Auth::session();
+		$mise = new Mise();
+		$mises = $mise->selectMultipleByField($_SESSION['idMembre'], 'idMembre');
+
+
+		foreach($mises as &$mise){
+			$date = new \DateTime($mise['dateCreation']);
+			$date = $date->format('Y-m-d H:i');
+
+			$mise['date'] = $date;
+		}
+
+		return View::render('mise/parMembre', ['mises' => $mises]);
+	}
 }
