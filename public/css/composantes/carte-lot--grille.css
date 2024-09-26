@@ -7,7 +7,7 @@ display: grid;
 	
 	gap: var(--spacing-thinner);
 
-		.icone-lord {
+		:not(.invisible).icone-lord {
 			grid-area: lord;
 		}
 

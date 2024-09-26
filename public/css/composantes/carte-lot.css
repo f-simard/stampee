@@ -17,8 +17,8 @@
 	}
 
 	@media screen and (min-width: 900px) {
-		--taille-minimale: 206px;
-		--taille-maximale: 206px;
+		--taille-minimale: 250px;
+		--taille-maximale: 250px;
 	}
 
 	transition-property: transform;

@@ -13,16 +13,16 @@
 		<form method='get' class="filtre__contenu">
 			<h4>Filtres</h4>
 			<!-- <div class="filtre-recherche">
-				<label for="recherche-filtre">Recherche</label>
-				<div>
-					<input type="text" name="recherche-filtre" id="recherche-filtre">
-					<button class="bouton-reset">
-						<picture class="icone bouton-reset" data-format="mini">
-							<img src="{{asset}}/img/icones/loupe_noire.svg" alt="recherche">
-						</picture>
-					</button>
-				</div>
-			</div> -->
+<label for="recherche-filtre">Recherche</label>
+<div>
+<input type="text" name="recherche-filtre" id="recherche-filtre">
+<button class="bouton-reset">
+<picture class="icone bouton-reset" data-format="mini">
+<img src="{{asset}}/img/icones/loupe_noire.svg" alt="recherche">
+</picture>
+</button>
+</div>
+</div> -->
 			<input type="checkbox" name="details-lord" id="details-lord" class="details__checkbox">
 			<details open>
 				<summary>
@@ -144,42 +144,39 @@
 				</svg>
 			</div>
 		</div>
-		<div class="catalogue-conteneur liste js-catalogue" data-enchere="archive">
+		<div class="catalogue-conteneur js-catalogue" data-mode="liste" data-enchere="archive">
 
 		</div>
 		<template class="js-template-enchere">
 			<a href="{{base}}/enchere/voir?idEnchere={{enchere.idEnchere}}">
-				<article class="carte-lot js-enchere" data-mode="liste" data-idenchere="">
+				<article class="carte-lot js-enchere carte-lot--liste" data-idenchere="">
 					<i class="icone-lord fa-star" data-lord="">Lord</i>
-					<picture class="media-cadre">
+					<picture class="carte-lot__image">
 						<img src="" alt="timbre">
 					</picture>
-					<div>
-						<section class="info-lot">
-							<div>
-								<div class="info-lot__sous-entete">
-									<h5 data-info="lot">Enchere <span data-render="idEnchere"></span></h5>
-									<i class="fa-solid fa-award fa-gl"></i>
-								</div>
-								<i class="icone-favori fa-bookmark fa-lg"
-									data-favori=""></i>
-							</div>
-							<h3 data-info="nom" data-render="titre">{{titre}}</h3>
-							<h5 data-info="date" data-render="anneeProd">{{anneeProd}}</h5>
-							<p data-info="description"><span class="lien">Plus d'information &#10095; </span>
-							</p>
-						</section>
-						<div class="info-enchere">
-							<div>
-								<p>Estimation</p>
-								<p data-enchere="estimation" data-render="estimation">{{estimation}}</p>
-							</div>
-							<div>
-								<p>Mise courante <span data-render="nbMise">{{nbMise}}</span></p>
-								<p data-enchere="miseCourante" data-render="miseCourante">{{miseCourante}}</p>
-							</div>
-							<button class="bouton" data-couleur="secondaire">Miser</button>
+					<div class="carte-lot__timbre">
+						<div class="titre-favori">
+							<section>
+								<h5 data-info="lot">Enchere <span data-render="idEnchere"></span></h5>
+								<i class="fa-solid fa-award fa-gl"></i>
+							</section>
+							<i class="icone-favori fa-bookmark fa-lg" data-favori=""></i>
 						</div>
+						<h3 data-render="titre">{{titre}}</h3>
+						<h5 data-render="anneeProd">{{anneeProd}}</h5>
+						<p><span class="carte-lot__lien">Plus d'information &#10095; </span>
+						</p>
+					</div>
+					<div class="carte-lot__enchere">
+						<div>
+							<p>Estimation</p>
+							<p data-enchere="estimation" data-render="estimation">{{estimation}}</p>
+						</div>
+						<div>
+							<p>Mise courante <span data-render="nbMise">{{nbMise}}</span></p>
+							<p data-enchere="miseCourante" data-render="miseCourante">{{miseCourante}}</p>
+						</div>
+						<button class="bouton" data-couleur="secondaire">Miser</button>
 					</div>
 				</article>
 			</a>

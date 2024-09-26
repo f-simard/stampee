@@ -68,10 +68,9 @@ class Enchere extends CRUD
 		count(distinct t.idTimbre) as nbTimbre, 
 		t.*, 
 		img.chemin , 
-		MAX(m.montant) as misecourante 
+		MAX(m.montant) as misecourante,
 		max(t.anneeProd) as anneeProdMax, 
-		min(t.anneeProd) as anneeProdMin
-		FROM $this->table as e
+		min(t.anneeProd) as anneeProdMin FROM $this->table as e
 		INNER JOIN enchere_has_timbre AS et ON et.idEnchere = e.idEnchere
 		INNER JOIN timbre AS t ON t.idTimbre = et.idTimbre
 		INNER JOIN image AS img ON img.idTimbre = t.idTimbre
