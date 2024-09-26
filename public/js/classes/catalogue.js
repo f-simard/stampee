@@ -200,19 +200,19 @@ class Catalogue {
 			this.#mode = evenement.target.closest("svg").dataset.mode;
 		}
 
-		if (this.#mode == "grille") {
-			this.#conteneurCatalogue.classList.add("grille");
-			this.#conteneurCatalogue.classList.remove("liste");
-		} else if (this.#mode == "liste") {
-			this.#conteneurCatalogue.classList.add("liste");
-			this.#conteneurCatalogue.classList.remove("remove");
-		}
+		this.#conteneurCatalogue.dataset.mode = this.#mode;
 
 		let articles = this.#conteneurCatalogue.querySelectorAll(".js-enchere");
 
 		articles.forEach(
 			function (article) {
-				article.dataset.mode = this.#mode;
+		if (this.#mode == "grille") {
+			article.classList.add("carte-lot--grille");
+			article.classList.remove("carte-lot--liste");
+		} else if (this.#mode == "liste") {
+			article.classList.add("carte-lot--liste");
+			article.classList.remove("carte-lot--grille");
+		}
 			}.bind(this)
 		);
 	}

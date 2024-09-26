@@ -1,23 +1,21 @@
-.catalogue-conteneur.grille {
+.catalogue-conteneur[data-mode="grille"],
+.catalogue-conteneur[data-mode="liste"] {
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(var(--taille),1fr));
+	grid-template-columns: repeat(auto-fit, minmax(var(--taille), 1fr));
 	gap: var(--spacing-broad);
 
-	--taille: clamp(30ch, 2vw, 40ch);
+	--taille: 35ch;
 
-	@media screen and (max-width:480px) {
-		--taille: 20ch;
+	@media screen and (min-width: 450px) {
+		--taille: clamp(35ch, 1vw, 40ch);
 	}
-
 }
 
-.catalogue-conteneur.liste {
-	display: flex;
-	flex-direction: column;
-	gap: var(--spacing-thin);
-
-	@media screen and (max-width:780px) {
-		gap: var(--spacing-broader);
+@media screen and (min-width: 900px) {
+	.catalogue-conteneur[data-mode="liste"] {
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-thin);
 	}
 
 }

@@ -31,7 +31,7 @@ main:has(aside) {
 	aside {
 		margin-block: var(--spacing-thinner);
 	}
-	@media screen and (min-width: 1024px) {
+	@media screen and (min-width: 1250px) {
 		display: grid;
 		grid-template-areas:
 			"titre titre"
@@ -54,14 +54,14 @@ main:has(aside) {
 			overflow: auto;
 		}
 
-		.bouton-container {
+		.bouton-conteneur {
 			grid-area: bouton;
 			position: relative;
 		}
 	}
 }
 
-.bouton-container + main:has(.filtre) {
+.bouton-conteneur + main:has(.filtre) {
 	margin-top: 0;
 }
 

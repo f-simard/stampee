@@ -1,0 +1,22 @@
+.titre-favori{
+	display: flex;
+	gap:var(--spacing-thin);
+	justify-content: space-between;
+	align-items: center;
+}
+
+.titre-favori i {
+	display: inline-block;
+}
+
+.titre-favori > section{
+	display: flex;
+	gap:var(--spacing-nano);
+	justify-content: space-between;
+	align-items: center;
+
+	h5 {
+		font-weight: 400;
+	}
+
+}

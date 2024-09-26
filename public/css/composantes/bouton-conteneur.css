@@ -1,4 +1,4 @@
-.bouton-container{
+.bouton-conteneur{
     display: flex;
     padding: var(--spacing-thin);
     gap: var(--spacing-thin);

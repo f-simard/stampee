@@ -1,6 +1,6 @@
 {{ include('layouts/entete.php' , {titre: 'Accueil', 'navActive':'propos'}) }}
 </header>
-<div class="bouton-container section">
+<div class="bouton-conteneur section">
 	<button class="bouton" data-couleur="secondaire">Philatelie &#10097;</button>
 	<button class="bouton" data-couleur="secondaire">Valeur &#10097;</button>
 	<button class="bouton" data-couleur="secondaire">Bio &#10097;</button>

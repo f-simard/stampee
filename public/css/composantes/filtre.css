@@ -3,7 +3,6 @@
 
 	display: flex;
 	flex-direction: column;
-	gap: var(--spacing-broad);
 	align-items: flex-start;
 	justify-content: flex-start;
 
@@ -73,14 +72,14 @@
 	margin-top: var(--spacing-micro);
 }
 
-@media (min-width: 1025px) {
+@media (min-width: 1251px) {
 	/*retirer check box*/
 	div:has([id="filtre-bouton"]) {
 		display: none;
 	}
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1250px) {
 	.filtre__check {
 		font-family: var(--font-sans-serif);
 

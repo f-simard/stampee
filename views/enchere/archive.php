@@ -2,7 +2,7 @@
 
 <main>
 	<h1>Vitrine</h1>
-	<div class="bouton-container section">
+	<div class="bouton-conteneur section">
 		<a href="{{base}}/enchere/catalogue" class="bouton" data-couleur="sombre" data-enchere="active" data-selected="false">Encheres actives</a>
 		<a href="{{base}}/enchere/archive" class="bouton" data-couleur="sombre" data-enchere="passee" data-selected="true">Enchere passées</a>
 	</div>

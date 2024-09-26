@@ -3,48 +3,22 @@
 	color: var(--sombre);
 	position: relative;
 
-	display: flex;
-
-	& .info-lot>div {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-	}
-
-	& .info-lot__sous-entete {
-		display: flex;
-		gap: 0.3rem;
-		align-items: center;
-		justify-content: center;
-	}
-
-	& .icone-cadre>img {
-		object-fit: contain;
-	}
-
-	& .media-cadre {
+	& .carte-lot__image {
 		display: block;
 		min-width: var(--taille-minimale);
 		max-width: var(--taille-maximale);
 		aspect-ratio: 1/1;
 
-		&>img {
+		& > img {
 			width: 100%;
 			height: 100%;
-			object-fit: contain;
+			object-fit: cover;
 		}
-
 	}
 
-	--taille-minimale: 206px;
-	--taille-maximale: 206px;
-
-	@media screen and (max-width: 768px) {
-		--taille-minimale: 150px;
-	}
-
-	@media screen and (max-width: 480px) {
-		--taille-minimale: 120px;
+	@media screen and (min-width: 900px) {
+		--taille-minimale: 206px;
+		--taille-maximale: 206px;
 	}
 
 	transition-property: transform;
@@ -52,140 +26,56 @@
 	transition-timing-function: ease-in-out;
 }
 
-.carte-lot[data-mode="liste"] {
-
-	flex-direction: row;
-	align-items: center;
-	gap: clamp(var(--spacing-thin), 2.5vw, var(--spacing-broad));
-
-	& .info-lot {
-		max-width: 60ch;
-
-		flex-grow: 1;
-		flex-shrink: 1;
-	}
-
-	& .info-enchere {
-		min-width: 15ch;
-		flex-grow: 1;
-	}
-
-	& .icone-favori {
-		margin-right: 1rem;
-	}
-
-	@media screen and (max-width:650px) {
-
-		flex-direction: column;
-		gap: var(--spacing-thinner);
-		align-items: flex-start;
-
-		& .media-cadre {
-			width: 60%;
-			aspect-ratio: 4/3;
-		}
-
-	}
-
-	&>div {
-		flex-grow: 1;
-
-		display: flex;
-		gap: clamp(var(--spacing-thin), 2.5vw, var(--spacing-broad));
-		align-items: center;
-		justify-content: space-between;
-
-		@media screen and (max-width:650px) {
-
-			flex-direction: column;
-			gap: var(--spacing-thin);
-			align-items: flex-start;
-
-			& .media-cadre {
-				width: 60%;
-				aspect-ratio: 4/3;
-			}
-
-		}
-	}
-
-}
-
-.carte-lot[data-mode="grille"] {
-
-	flex-direction: column;
-	gap: var(--spacing-thinner);
-
-	&>div {
-		display: flex;
-		flex-direction: column;
-		gap: var(--spacing-thinner);
-		align-items: flex-start;
-		justify-content: center;
-
-	}
-
-}
-
 .carte-lot:active {
 	transform: scale(0.98);
 }
 
-.carte-lot .info-enchere>div>*+* {
-	margin-top: var(--spacing-nano);
+.carte-lot:hover .media-cadre {
+	filter: sepia(0.6);
 }
 
-.carte-lot .info-enchere>div>:first-child,
- .carte-lot .info-enchere>div span{
+.carte-lot__enchere {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-thinnest);
+}
+
+.carte-lot__timbre {
+	[data-render="anneeProd"] {
+		margin-top: var(--spacing-nano);
+	}
+	.carte-lot__lien {
+		margin-top: var(--spacing-thinner);
+	}
+}
+
+.carte-lot__enchere > div:not(:last-child) {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-nano);
+}
+
+.carte-lot__enchere > div > p:first-child,
+.carte-lot__enchere > div span {
 	color: color-mix(in lch, var(--sombre) 70%, white 30%);
 	font-size: var(--font-short);
 }
 
-.carte-lot .info-enchere [data-enchere="miseCourante"] {
+.carte-lot__enchere [data-render="miseCourante"] {
 	font-weight: 550;
 	font-size: var(--font-medium);
 }
 
-.carte-lot .info-enchere [data-enchere="estimation"] {
+.carte-lot .carte-lot__enchere [data-render="estimation"] {
 	font-weight: 550;
 }
 
-.carte-lot [data-info="lot"] {
-	font-weight: 400;
-}
-
-.carte-lot [data-info="nom"] {
-	font-family: var(--font-serif);
-	margin-top: var(--spacing-micro);
-}
-
-.carte-lot .info-enchere div {
-	padding-block: var(--spacing-micro);
-}
-
-.carte-lot .info-enchere div:last-of-type {
-	margin-bottom: var(--spacing-micro);
-}
-
-.carte-lot [data-info="date"] {
-	font-weight: 400;
-	margin-top: var(--spacing-thinnest);
-}
-
-.carte-lot [data-info="description"] {
-	margin-top: var(--spacing-micro);
-}
-
-.carte-lot .info-lot .lien {
+.carte-lot__lien {
 	display: inline-block;
 	color: color-mix(in lch, var(--sombre) 70%, white 30%);
 	text-decoration: underline;
 }
 
-.carte-lot .info-lot .lien:hover {
+.carte-lot__lien:hover {
 	cursor: pointer;
-}
-
-.carte-lot:hover .media-cadre {
-	filter: sepia(0.60);
 }

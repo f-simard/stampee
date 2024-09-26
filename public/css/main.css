@@ -12,7 +12,6 @@
 @import url("./composition/grille.css");
 @import url("./composition/texte-image.css");
 @import url("./composition/texte-cta.css");
-@import url("./composition/apropos.css");
 @import url("./composition/section-centrale.css");
 @import url("./composition/champ-etiquette.css");
 @import url("./composition/principal.css");
@@ -25,6 +24,8 @@
 @import url("./composantes/carrousel.css");
 @import url("./composantes/icone.css");
 @import url("./composantes/carte-lot.css");
+@import url("./composantes/carte-lot--grille.css");
+@import url("./composantes/carte-lot--liste.css");
 @import url("./composantes/carte-actualite.css");
 @import url("./composantes/carte-coup-coeur.css");
 @import url("./composantes/carte-equipe.css");
@@ -39,7 +40,7 @@
 @import url("./composantes/lien-details.css");
 @import url("./composantes/formulaire.css");
 @import url("./composantes/medaillon.css");
-@import url("./composantes/agrandir.css");
-
+@import url("./composantes/bouton-conteneur.css");
+@import url("./composantes/titre-favori.css");
 
 @import url("./base/utilitaire.css")

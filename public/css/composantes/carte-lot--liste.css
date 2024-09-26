@@ -1,0 +1,42 @@
+.carte-lot--liste {
+	display: grid;
+	grid-template-areas: "image image"
+	"lord lord"
+	"timbre enchere";
+	
+	gap: var(--spacing-thinner);
+
+		.icone-lord {
+			grid-area: lord;
+			display: flex;
+		}
+
+		.carte-lot__image {
+			grid-area: image;
+		}
+
+		.carte-lot__timbre {
+			grid-area: timbre;
+		}
+
+		.carte-lot__enchere {
+			grid-area: enchere;
+		}
+
+	@media screen and (min-width: 900px) {
+		display: flex;
+		flex-direction: row;
+		gap: var(--spacing-broad);
+		align-items: center;
+		justify-content: center;
+
+		.carte-lot__timbre {
+			flex-shrink: 1;
+			flex-grow: 1;
+		}
+
+		.carte-lot__enchere {
+			min-width: 20ch;
+		}
+	}
+}

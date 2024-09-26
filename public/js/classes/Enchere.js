@@ -151,7 +151,7 @@ class Enchere {
 				.classList.add("invisible");
 		}
 
-		this.#elementHTML.querySelector(".media-cadre > img").src =
+		this.#elementHTML.querySelector(".carte-lot__image > img").src =
 			Site.instance.upload() + this.#chemin;
 		this.#elementHTML.href =
 			Site.instance.base() + "/enchere/voir?idEnchere=" + this.#idEnchere;

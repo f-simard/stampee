@@ -1,0 +1,27 @@
+.carte-lot--grille {
+
+display: grid;
+	grid-template-areas: "image image"
+	"lord lord"
+	"timbre enchere";
+	
+	gap: var(--spacing-thinner);
+
+		.icone-lord {
+			grid-area: lord;
+		}
+
+		.carte-lot__image {
+			grid-area: image;
+			display: flex;
+			margin-inline: auto;
+		}
+
+		.carte-lot__timbre {
+			grid-area: timbre;
+		}
+
+		.carte-lot__enchere {
+			grid-area: enchere;
+		}
+}
