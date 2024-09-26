@@ -7,10 +7,10 @@
 		</section>
 
 		<div class="principal">
-			<div class="catalogue-conteneur grille">
+			<div class="grille">
 				{% for mise in mises %}
 				<article>
-					<a href="{{base}}/enchere/voir?idEnchere={{mise.idEnchere}}">Enchere {{mise.idEnchere}}</a>
+					<a href="{{base}}/enchere/voir?idEnchere={{mise.idEnchere}}">Enchere {{mise.idEnchere}} <i class="fa-solid fa-chevron-right"></i></a>
 					<div class="paire">
 						<p>Mise</p>
 						<p>{{mise.idDevise}} {{mise.montant}}</p>

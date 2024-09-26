@@ -1,6 +1,6 @@
 {{ include('layouts/entete.php' , {titre: 'Connexion'}) }}
 
-<main class="grille grille--2 grille--top">
+<main class="grille--2 grille--top">
 	<div>
 		<h2>Déja membre?</h2>
 		<form class="formulaire formulaire_etroit" method="post" novalidate>
@@ -32,7 +32,7 @@
 
 	<div>
 		<h2>Nouveau membre ?</h2>
-		<a href="{{base}}/membre/creer" class="bouton" data-couleur="primaire-inverse">Créer un compte</a>
+		<a href="{{base}}/membre/creer" class="bouton formulaire" data-couleur="primaire-inverse">Créer un compte</a>
 	</div>
 
 </main>

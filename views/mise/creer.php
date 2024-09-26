@@ -4,7 +4,7 @@
 	<section>
 		<h1>Placer une offre</h1>
 	</section>
-	<div class="grille grille--2">
+	<div class="grille">
 		<section>
 			<h2>Info enchère</h2>
 			<div>

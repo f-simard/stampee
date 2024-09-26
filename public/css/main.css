@@ -37,6 +37,7 @@
 @import url("./composantes/bouton-conteneur.css");
 @import url("./composantes/titre-favori.css");
 @import url("./composantes/bouton-icone.css");
+@import url("./composantes/actions.css");
 
 @import url("./composantes/carte/carte-lot.css");
 @import url("./composantes/carte/carte-lot--grille.css");
@@ -44,5 +45,6 @@
 @import url("./composantes/carte/carte-equipe.css");
 @import url("./composantes/carte/carte-actualite.css");
 @import url("./composantes/carte/carte-timbre.css");
+@import url("./composantes/carte/carte-coup-coeur.css");
 
 @import url("./base/utilitaire.css")

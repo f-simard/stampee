@@ -10,11 +10,11 @@
 		</section>
 
 		<div class="principal">
-			<div class="catalogue-conteneur grille">
+			<div class="grille">
 				{% for enchere in encheres %}
 				<a href="{{base}}/enchere/voir?idEnchere={{enchere.idEnchere}}">
-					<article class="carte-lot" data-mode="grille">
-						<section class="info-lot">
+					<article class="">
+						<section>
 								<h5>Enchere {{enchere.idEnchere}}</h5>
 							<div class="paire">
 								<p>Date debut</p>

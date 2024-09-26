@@ -1,6 +1,6 @@
 {{ include('layouts/entete.php' , {title: 'Voir membre'}) }}
 
-<main>
+<main class="grille--2 grille--top">
 	<section class="titre-paragraphe">
 		<h2>Compte</h2>
 
@@ -61,14 +61,14 @@
 		</div>
 
 	</section>
-	<section class="actions">
+	<div class="actions">
 		<a href="{{base}}/membre/mise" class="bouton" data-couleur="secondaire">Voir mes mises</a>
 		<a href="{{base}}/membre/enchere" class="bouton" data-couleur="secondaire">Voir mes encheres</a>
 		<a href="{{base}}/enchere/creer" class="bouton" data-couleur="secondaire">Ajouter encheres</a>
 		<a href="{{base}}/membre/timbre" class="bouton" data-couleur="secondaire">Voir mes timbres</a>
 		<a href="{{base}}/timbre/creer" class="bouton" data-couleur="secondaire">Ajouter timbre</a>
 		<a href="{{base}}/deconnexion" class="bouton" data-couleur="primaire">Déconnecter</a>
-	</section>
+</div>
 
 </main>
 
