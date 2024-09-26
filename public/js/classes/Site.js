@@ -17,7 +17,7 @@ class Site {
 	}
 
 	constructor() {
-		this.#base = "/stampee";
+		this.#base = "http://localhost:8080/stampee";
 		this.#asset = "/stampee/public/";
 		this.#upload = "/stampee/uploads/";
 

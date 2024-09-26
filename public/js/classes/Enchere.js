@@ -277,7 +277,7 @@ class Enchere {
 		if (favori == "true") {
 			try {
 				const reponse = await fetch(
-					"http://localhost:8080/stampee/favori/supprimer",
+					Site.instance.base() + "/favori/supprimer",
 					{
 						method: "POST",
 						body: data,
@@ -292,7 +292,7 @@ class Enchere {
 		} else {
 			try {
 				const reponse = await fetch(
-					"http://localhost:8080/stampee/favori/creer",
+					Site.instance.base() + "/favori/creer",
 					{
 						method: "POST",
 						body: data,
@@ -320,7 +320,7 @@ class Enchere {
 		if (lord == "true") {
 			try {
 				const reponse = await fetch(
-					"http://localhost:8080/stampee/enchere/lord?retirer",
+					Site.instance.base() + "/enchere/lord?retirer",
 					{
 						method: "POST",
 						body: data,
@@ -335,7 +335,7 @@ class Enchere {
 		} else {
 			try {
 				const reponse = await fetch(
-					"http://localhost:8080/stampee/enchere/lord?ajouter",
+					Site.instance.base() + "/enchere/lord?ajouter",
 					{
 						method: "POST",
 						body: data,
@@ -353,7 +353,8 @@ class Enchere {
 	async #modifierBtnMiser() {
 		try {
 			const reponse = await fetch(
-				"http://localhost:8080/stampee/enchere/recupererUn?idEnchere=" +
+				Site.instance.base() +
+					"/enchere/recupererUn?idEnchere=" +
 					this.#idEnchere
 			);
 
@@ -373,7 +374,7 @@ class Enchere {
 			}
 
 			let sessionMembre = sessionStorage.getItem("idMembre");
-			
+
 			this.#iconeMembre =
 				this.#elementHTML.querySelector(".icone-membre");
 			if (parseInt(sessionMembre) == this.#idMembre) {

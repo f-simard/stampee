@@ -1,4 +1,5 @@
 import Enchere from "./Enchere.js";
+import Site from "./Site.js";
 
 class Catalogue {
 	static #instance;
@@ -114,12 +115,12 @@ class Catalogue {
 			let data;
 			if (this.#enchereStatut == "active") {
 				const reponse = await fetch(
-					"http://localhost:8080/stampee/enchere/activeFiltre"
+					Site.instance.base() + "/enchere/activeFiltre"
 				);
 				data = await reponse.json();
 			} else if (this.#enchereStatut == "archive") {
 				reponse = await fetch(
-					"http://localhost:8080/stampee/enchere/archiveFiltre"
+					Site.instance.base() + "/enchere/archiveFiltre"
 				);
 				data = await reponse.json();
 			}
@@ -305,13 +306,13 @@ class Catalogue {
 			let data;
 			if (this.#enchereStatut == "active") {
 				const reponse = await fetch(
-					"http://localhost:8080/stampee/enchere/activeFiltre?" +
+					Site.instance.base() + "/enchere/activeFiltre?" +
 						queryString
 				);
 				data = await reponse.json();
 			} else if (this.#enchereStatut == "archive") {
 				reponse = await fetch(
-					"http://localhost:8080/stampee/enchere/archiveFiltre?" +
+					Site.instance.base() + "/enchere/archiveFiltre?" +
 						queryString
 				);
 				data = await reponse.json();
@@ -348,12 +349,12 @@ class Catalogue {
 
 			if (this.#enchereStatut == "active") {
 				const reponse = await fetch(
-					"http://localhost:8080/stampee/enchere/activeFiltre?"
+					Site.instance.base() + "/enchere/activeFiltre?"
 				);
 				data = await reponse.json();
 			} else if (this.#enchereStatut == "archive") {
 				reponse = await fetch(
-					"http://localhost:8080/stampee/enchere/archiveFiltre?"
+					Site.instance.base() + "/enchere/archiveFiltre?"
 				);
 				data = await reponse.json();
 			}
