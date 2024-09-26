@@ -169,7 +169,7 @@
 						<p>Mise courante <span data-render="nbMise">{{nbMise}}</span></p>
 						<p data-render="miseCourante">{{miseCourante}}</p>
 					</div>
-					<div>
+					<div class="bouton-icone">
 						<button class="bouton" data-couleur="">Miser</button>
 						<i class="icone-membre fa-solid fa-user invisible"></i>
 					</div>

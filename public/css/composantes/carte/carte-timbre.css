@@ -1,0 +1,46 @@
+.carte-timbre {
+	font-family: var(--font-sans-serif);
+
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+
+	justify-content: center;
+	gap: var(--spacing-thin);
+
+	picture {
+		max-width: 30ch;
+		aspect-ratio: 4/3;
+
+		img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+	}
+
+	@media screen and (min-width: 600px) {
+		flex-direction: row;
+			align-items: center;
+	}
+
+	@media screen and (min-width: 768px) {
+		flex-direction: column;
+	}
+
+	@media screen and (min-width: 1200px) {
+		flex-direction: row;
+	}
+}
+
+.carte-timbre__details {
+	flex-grow: 1;
+}
+
+.carte-timbre__general{
+	flex-grow: 1;
+
+	:first-child{
+		font-weight: 400;
+	}
+}

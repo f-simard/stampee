@@ -15,6 +15,7 @@
 @import url("./composition/section-centrale.css");
 @import url("./composition/champ-etiquette.css");
 @import url("./composition/principal.css");
+@import url("./composition/liste.css");
 
 @import url("./composantes/navigation-principale.css");
 @import url("./composantes/navigation-secondaire.css");
@@ -23,24 +24,25 @@
 @import url("./composantes/bouton.css");
 @import url("./composantes/carrousel.css");
 @import url("./composantes/icone.css");
-@import url("./composantes/carte-lot.css");
-@import url("./composantes/carte-lot--grille.css");
-@import url("./composantes/carte-lot--liste.css");
-@import url("./composantes/carte-actualite.css");
-@import url("./composantes/carte-coup-coeur.css");
-@import url("./composantes/carte-equipe.css");
-@import url("./composantes/details-timbre.css");
+@import url("./composantes/enchere.css");
 @import url("./composantes/tri-catalogue.css");
 @import url("./composantes/filtre.css");
 @import url("./composantes/filtre-recherche.css");
 @import url("./composantes/timbre-similaire.css");
 @import url("./composantes/logo.css");
-@import url("./composantes/pagination.css");
 @import url("./composantes/balise-details.css");
 @import url("./composantes/lien-details.css");
 @import url("./composantes/formulaire.css");
 @import url("./composantes/medaillon.css");
 @import url("./composantes/bouton-conteneur.css");
 @import url("./composantes/titre-favori.css");
+@import url("./composantes/bouton-icone.css");
+
+@import url("./composantes/carte/carte-lot.css");
+@import url("./composantes/carte/carte-lot--grille.css");
+@import url("./composantes/carte/carte-lot--liste.css");
+@import url("./composantes/carte/carte-equipe.css");
+@import url("./composantes/carte/carte-actualite.css");
+@import url("./composantes/carte/carte-timbre.css");
 
 @import url("./base/utilitaire.css")

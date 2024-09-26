@@ -196,6 +196,8 @@ class EnchereController
 
 		$enchere = new Enchere();
 		$enchereInfo = $enchere->selectByField($idEnchere, 'idEnchere');
+		$proprietaire = $enchere->proprietaire($idEnchere);
+
 		$diff = $enchere->tempsRestant($idEnchere);
 
 		$enchereInfo['temps'] = $diff;
@@ -237,7 +239,13 @@ class EnchereController
 			$timbre['nomCondition'] = $timbreCondition['nom'];
 		}
 
-		return View::render('enchere/voir', ['enchere' => $enchereInfo, 'nbTimbre' => $nbTimbre, 'timbres' => $timbres, 'images' => $toutesImages]);
+		return View::render('enchere/voir', [
+			'enchere' => $enchereInfo,
+			'proprietaire' =>$proprietaire,
+			'nbTimbre' => $nbTimbre,
+			'timbres' => $timbres,
+			'images' => $toutesImages
+		]);
 	}
 
 	public function supprimer($data = [])

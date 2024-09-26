@@ -5,6 +5,10 @@
 	margin-bottom: var(--spacing-broad);
 }
 
+.titre-bouton h3{
+	font-family: var(--font-serif);
+}
+
 .titre-bouton button {
 	color: transparent;
 	background-color: transparent;

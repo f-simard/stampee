@@ -1,0 +1,11 @@
+.enchere{
+	font-family: var(--font-sans-serif);
+
+	h3{
+		margin-top: var(--spacing-thinnest);
+	}
+}
+
+.enchere > div {
+	margin-top: var(--spacing-thinner);
+}

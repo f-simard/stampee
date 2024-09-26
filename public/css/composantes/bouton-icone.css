@@ -1,0 +1,7 @@
+.bouton-icone {
+	display: flex;
+	flex-direction: row;
+	gap: var(--spacing-nano);
+	align-items: center;
+	justify-content: center;
+}
