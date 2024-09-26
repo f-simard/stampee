@@ -44,61 +44,18 @@ class Enchere extends CRUD
 		}
 	}
 
-	public function selectionnerCatalogue()
-	{
-
-		/*$sql = "SELECT * FROM $table WHERE $field = ?";*/
-		$sql = "SELECT DISTINCT e.*, count(t.idTimbre) as nbTimbre, t.*, img.chemin FROM $this->table as e
-		INNER JOIN enchere_has_timbre AS et ON et.idEnchere = e.idEnchere
-		INNER JOIN timbre AS t ON t.idTimbre = et.idTimbre
-		INNER JOIN image AS img ON img.idTimbre = t.idTimbre
-		WHERE img.principale = 1
-		AND e.statut <> 'FERME'
-		GROUP BY e.idEnchere";
-
-		$stmt = $this->prepare($sql);
-		$stmt->execute();
-
-		$count = $stmt->rowCount();
-
-		if ($count >= 1) {
-			return $stmt->fetchAll();
-		} else {
-			return false;
-		}
-	}
-
-	public function selectionnerArchive()
-	{
-
-		/*$sql = "SELECT * FROM $table WHERE $field = ?";*/
-		$sql = "SELECT DISTINCT e.*, count(t.idTimbre) as nbTimbre, t.*, img.chemin FROM $this->table as e
-		INNER JOIN enchere_has_timbre AS et ON et.idEnchere = e.idEnchere
-		INNER JOIN timbre AS t ON t.idTimbre = et.idTimbre
-		INNER JOIN image AS img ON img.idTimbre = t.idTimbre
-		WHERE img.principale = 1
-		AND e.statut = ''
-		GROUP BY e.idEnchere";
-
-		$stmt = $this->prepare($sql);
-		$stmt->execute();
-
-		$count = $stmt->rowCount();
-
-		if ($count >= 1) {
-			return $stmt->fetchAll();
-		} else {
-			return false;
-		}
-	}
-
 	public function filtreCatalogue()
 	{
-		$this->sql  = "SELECT DISTINCT e.*, count(distinct t.idTimbre) as nbTimbre, t.*, img.chemin , MAX(m.montant) as misecourante FROM $this->table as e
+		$this->sql  = "SELECT DISTINCT e.*, 
+		count(distinct t.idTimbre) as nbTimbre, 
+		t.*, img.chemin , 
+		MAX(m.montant) as misecourante, 
+		max(t.anneeProd) as anneeProdMax, 
+		min(t.anneeProd) as anneeProdMin FROM $this->table as e
 		INNER JOIN enchere_has_timbre AS et ON et.idEnchere = e.idEnchere
 		INNER JOIN timbre AS t ON t.idTimbre = et.idTimbre
 		INNER JOIN image AS img ON img.idTimbre = t.idTimbre
-        LEFT JOIN mise as m on m.idEnchere = e.idEnchere
+		LEFT JOIN mise as m on m.idEnchere = e.idEnchere
 		WHERE img.principale = 1
 		AND e.statut <> 'FERME'";
 
@@ -107,11 +64,18 @@ class Enchere extends CRUD
 
 	public function filtreCatalogueArchive()
 	{
-		$this->sql  = "SELECT DISTINCT e.*, count(distinct t.idTimbre) as nbTimbre, t.*, img.chemin , MAX(m.montant) as misecourante FROM $this->table as e
+		$this->sql  = "SELECT DISTINCT e.*, 
+		count(distinct t.idTimbre) as nbTimbre, 
+		t.*, 
+		img.chemin , 
+		MAX(m.montant) as misecourante 
+		max(t.anneeProd) as anneeProdMax, 
+		min(t.anneeProd) as anneeProdMin
+		FROM $this->table as e
 		INNER JOIN enchere_has_timbre AS et ON et.idEnchere = e.idEnchere
 		INNER JOIN timbre AS t ON t.idTimbre = et.idTimbre
 		INNER JOIN image AS img ON img.idTimbre = t.idTimbre
-        LEFT JOIN mise as m on m.idEnchere = e.idEnchere
+		LEFT JOIN mise as m on m.idEnchere = e.idEnchere
 		WHERE img.principale = 1
 		AND e.statut = 'FERME'";
 
@@ -218,7 +182,8 @@ class Enchere extends CRUD
 		}
 	}
 
-	public function proprietaire($idEnchere){
+	public function proprietaire($idEnchere)
+	{
 		/*$sql = "SELECT * FROM $table WHERE $field = ?";*/
 		$sql = "SELECT DISTINCT t.idMembre FROM $this->table as e
 		INNER JOIN enchere_has_timbre AS et ON et.idEnchere = e.idEnchere

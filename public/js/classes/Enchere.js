@@ -30,8 +30,10 @@ class Enchere {
 	#temps;
 	#nbMise;
 	#miseMax;
+	#anneeProdMax;
+	#anneeProdMin;
 	#btnMiser;
-	#iconeMembre;
+	#iconeMembre;	
 
 	constructor(elementHTML = null, conteneur = null, enchereInfo = null) {
 		this.#conteneurHTML = conteneur;
@@ -78,6 +80,8 @@ class Enchere {
 				temps,
 				nbMise,
 				miseMax,
+				anneeProdMax,
+				anneeProdMin
 			} = enchereInfo;
 
 			this.#idEnchere = idEnchere;
@@ -104,6 +108,8 @@ class Enchere {
 			this.#nbMise = nbMise;
 			this.#miseMax = miseMax;
 			this.#temps = temps;
+			this.#anneeProdMax = anneeProdMax;
+			this.#anneeProdMin = anneeProdMin;
 
 			this.#injecterHTML();
 		}
@@ -214,9 +220,13 @@ class Enchere {
 			"[data-render='estimation']"
 		).textContent = estimation;
 
+		let anneeProd = this.#anneeProd
+		if(this.#nbTimbre > 1){
+			anneeProd = this.#anneeProdMin + "-" + this.#anneeProdMax
+		}
 		this.#elementHTML.querySelector(
 			"[data-render='anneeProd']"
-		).textContent = this.#anneeProd;
+		).textContent = anneeProd;
 
 		this.#btnMiser = this.#elementHTML.querySelector("button");
 		if (this.#statut == "CREE") {
