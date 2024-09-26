@@ -200,6 +200,10 @@ class EnchereController
 
 		$enchereInfo['temps'] = $diff;
 
+		$mise = new Mise();
+		$miseMax = $mise->miseMax($enchereInfo['idEnchere'], 'idEnchere');
+		$enchereInfo['misecourante'] = $miseMax['montant'];
+
 		$enchere_has_timbre = new Enchere_has_Timbre();
 		$nbTimbre = $enchere_has_timbre->compte($idEnchere, 'idEnchere');
 		$timbres = $enchere_has_timbre->selectionnerDetails($idEnchere, 'idEnchere');

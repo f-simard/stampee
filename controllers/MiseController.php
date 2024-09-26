@@ -20,6 +20,7 @@ class MiseController
 
 		$enchere = new Enchere();
 		$infoEnchere = $enchere->selectByField($idEnchere, 'idEnchere');
+		$proprietaire = $enchere->proprietaire($idEnchere);
 
 		$mise = new Mise();
 		$miseMax = $mise->miseMax($idEnchere, 'idEnchere');
@@ -28,7 +29,13 @@ class MiseController
 		$devise = new Devise;
 		$devises = $devise->select('nom');
 
-		return View::render('mise/creer', ['enchere' => $infoEnchere, 'miseMax' => $miseMax, 'miseCompte' => $miseCompte, 'devises' => $devises]);
+		return View::render('mise/creer', [
+			'enchere' => $infoEnchere,
+			'proprietaire' => $proprietaire,
+			'miseMax' => $miseMax,
+			'miseCompte' => $miseCompte,
+			'devises' => $devises
+		]);
 	}
 
 	public function sauvegarder($data = [])
@@ -96,7 +103,7 @@ class MiseController
 		$mises = $mise->selectMultipleByField($_SESSION['idMembre'], 'idMembre');
 
 
-		foreach($mises as &$mise){
+		foreach ($mises as &$mise) {
 			$date = new \DateTime($mise['dateCreation']);
 			$date = $date->format('Y-m-d H:i');
 

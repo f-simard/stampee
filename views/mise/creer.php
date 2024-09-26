@@ -60,7 +60,8 @@
 					{% if erreurs.montant is defined %}
 					<span class="erreur">{{erreurs.montant}}</span>
 					{% endif %}
-					<input type="submit" value="Miser" class="bouton" data-couleur="secondaire">
+					<input type="submit" value="Miser" class="bouton {% if session.idMembre == proprietaire.idMembre %}nonClickable{% endif %}" data-couleur="{% if session.idMembre == proprietaire.idMembre %}sombre{% else %}secondaire{% endif %}">
+					<i class="icone-membre fa-solid fa-user {% if session.idMembre != proprietaire.idMembre %}invisible{% endif %}"></i>
 				</div>
 			</form>
 		</section>

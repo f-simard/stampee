@@ -218,6 +218,26 @@ class Enchere extends CRUD
 		}
 	}
 
+	public function proprietaire($idEnchere){
+		/*$sql = "SELECT * FROM $table WHERE $field = ?";*/
+		$sql = "SELECT DISTINCT t.idMembre FROM $this->table as e
+		INNER JOIN enchere_has_timbre AS et ON et.idEnchere = e.idEnchere
+		INNER JOIN timbre AS t ON t.idTimbre = et.idTimbre
+		WHERE e.idEnchere = ?
+		GROUP BY e.idEnchere;";
+
+		$stmt = $this->prepare($sql);
+		$stmt->execute(array($idEnchere));
+
+		$count = $stmt->rowCount();
+
+		if ($count == 1) {
+			return $stmt->fetch();
+		} else {
+			return false;
+		}
+	}
+
 	public function tempsRestant($idEnchere)
 	{
 

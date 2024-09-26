@@ -20,7 +20,7 @@
 					<p>Estimation <span>{% if enchere.estimation == 0 %} N/A {% else %} {{enchere.estimation}} {{enchere.devise}} {% endif %}</span></p>
 					{% if enchere.statut != FERME %}
 					<p>Mise minimale: <span>{{enchere.idDevise}} {{enchere.prixPlancher}}</span></p>
-					<p>Mise courante: <span>{{enchere.idDevise}}</span></p>
+					<p>Mise courante: <span>{{enchere.idDevise}} {{enchere.misecourante}}</span></p>
 					{% if enchere.temps.avantDebut is defined %}
 					<p>Début de l'enchère dans : <span>{{enchere.temps.avantDebut}}</span></p>
 					{% endif %}

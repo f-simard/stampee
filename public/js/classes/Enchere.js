@@ -373,8 +373,7 @@ class Enchere {
 			}
 
 			let sessionMembre = sessionStorage.getItem("idMembre");
-			console.log(sessionMembre);
-
+			
 			this.#iconeMembre =
 				this.#elementHTML.querySelector(".icone-membre");
 			if (parseInt(sessionMembre) == this.#idMembre) {
