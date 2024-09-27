@@ -62,7 +62,7 @@
 
 .timbre__media--principal {
 	display: block;
-	max-height: 25dvh;
+	max-height: 50dvh;
 	overflow: hidden;
 
 	img {
@@ -75,8 +75,7 @@
 @media screen and (min-width: 768px) {
 	.timbre__media--principal {
 		display: block;
-		max-height: 60ch;
-		max-height: 30dvh;
+		max-height: 40dvh;
 		overflow: hidden;
 	}
 }
