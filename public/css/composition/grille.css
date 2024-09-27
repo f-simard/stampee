@@ -5,15 +5,19 @@
 }
 
 .grille--2 {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); 
-    gap: var(--spacing-broad); 
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap:var(--spacing-broad);
 
 	@media (max-width: 768px) {
-        grid-template-columns: 1fr;
-    }
+		grid-template-columns: 1fr;
+	}
 }
 
-.grille--top{
+.grille--2-largeGap {
+	gap: calc(var(--spacing-broad) * 5);
+}
+
+.grille--top {
 	align-items: start;
 }

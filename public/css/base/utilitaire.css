@@ -1,43 +1,43 @@
-[data-bg="sombre--10"]{
+[data-bg="sombre--10"] {
 	background-color: var(--sombre--10);
 }
 
-.boite-coin-arroundi{
+.boite-coin-arroundi {
 	padding: var(--spacing-thinner);
-	border-radius:var(--radius-sharp);
+	border-radius: var(--radius-sharp);
 }
 
 /*source: cours*/
-.erreur{
+.erreur {
 	font-family: var(--font-sans-serif);
 
-    display: inline-block;
-    padding:5px;
-    background-color: rgb(251, 187, 187);
-    border-radius: 5px;
-    border: red 1px solid;
-    font-size: 0.9em;
-    color:red;
+	display: inline-block;
+	padding: 5px;
+	background-color: rgb(251, 187, 187);
+	border-radius: 5px;
+	border: red 1px solid;
+	font-size: 0.9em;
+	color: red;
 }
 
 main > .erreur {
 	margin-top: 5vw;
-    width: 100%;
+	width: 100%;
 }
 
 .succes {
 	display: inline-block;
-    padding:5px;
-    background-color: rgb(202, 251, 152);
-    border-radius: 5px;
-    border: green 1px solid;
-    font-size: 0.9em;
-    color:green;
+	padding: 5px;
+	background-color: rgb(202, 251, 152);
+	border-radius: 5px;
+	border: green 1px solid;
+	font-size: 0.9em;
+	color: green;
 }
 
 main > .succes {
 	margin-top: 5vw;
-    width: 100%;
+	width: 100%;
 }
 
 .paire {
@@ -47,10 +47,14 @@ main > .succes {
 	justify-content: space-between;
 }
 
-.invisible{
+.invisible {
 	display: none;
 }
 
-.nonClickable{
+.nonClickable {
 	pointer-events: none;
+}
+
+.m-auto {
+	margin-inline: auto;
 }

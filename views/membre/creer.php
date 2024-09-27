@@ -1,6 +1,6 @@
 {{ include('layouts/entete.php' , {title: 'Créer membre'}) }}
 
-<main>
+<main class="m-auto">
 	<h2>Créer un compte</h2>
 	<form class="formulaire" method="post" enctype="multipart/form-data" novalidate>
 

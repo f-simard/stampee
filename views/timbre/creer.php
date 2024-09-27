@@ -1,6 +1,6 @@
 {{ include('layouts/entete.php' , {title: 'Créer timbre'}) }}
 
-<main>
+<main class="m-auto">
 	<h2>Ajouter timbre</h2>
 	<form class="formulaire" method="post" enctype="multipart/form-data" novalidate>
 
@@ -120,8 +120,8 @@
 		</div>
 
 		<div>
-			<input type="checkbox" name="certifie" id="certifie" {% if timbre.certifie == 1 %} checked {% endif %}>
 			<label for="certifie">Certifié</label>
+			<input type="checkbox" name="certifie" id="certifie" {% if timbre.certifie == 1 %} checked {% endif %}>
 		</div>
 
 		<input type="submit" value="Sauvegarder" class="bouton" data-couleur="secondaire">

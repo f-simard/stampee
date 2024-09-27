@@ -1,6 +1,6 @@
 {{ include('layouts/entete.php' , {titre: 'Connexion'}) }}
 
-<main class="grille--2 grille--top">
+<main class="m-auto">
 	<div>
 		<h2>Déja membre?</h2>
 		<form class="formulaire formulaire_etroit" method="post" novalidate>

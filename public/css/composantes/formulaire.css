@@ -20,7 +20,7 @@
 	margin-top: var(--spacing-thinner);
 }
 
-.formulaire fieldset > div {
+.formulaire fieldset {
 	padding-inline: var(--spacing-thinner);
 	padding-block: var(--spacing-nano);
 }
@@ -63,10 +63,6 @@
 		:is(input, select) {
 			grid-area: champ;
 			padding: var(--spacing-nano);
-		}
-
-		> [type="checkbox"] {
-			margin-right: auto;
 		}
 
 		.erreur {

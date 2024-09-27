@@ -1,6 +1,6 @@
 {{ include('layouts/entete.php' , {title: 'Voir membre'}) }}
 
-<main class="grille--2 grille--top">
+<main class="grille--2 grille--2-largeGap m-auto">
 	<section class="titre-paragraphe">
 		<h2>Compte</h2>
 
@@ -68,7 +68,7 @@
 		<a href="{{base}}/membre/timbre" class="bouton" data-couleur="secondaire">Voir mes timbres</a>
 		<a href="{{base}}/timbre/creer" class="bouton" data-couleur="secondaire">Ajouter timbre</a>
 		<a href="{{base}}/deconnexion" class="bouton" data-couleur="primaire">Déconnecter</a>
-</div>
+	</div>
 
 </main>
 

@@ -1,0 +1,49 @@
+.carte-resume {
+	font-family: var(--font-sans-serif);
+
+	picture {
+		margin-bottom: var(--spacing-thinner);
+
+		display: block;
+		max-width: 35ch;
+		aspect-ratio: 4/3;
+
+		img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+	}
+}
+
+.carte-resume__titre {
+	display: inline-block;
+	margin-bottom: var(--spacing-thinnest);
+	font-weight: 700;
+	font-size: var(--font-medium);
+}
+
+.carte-resume > * + * {
+	margin-top: var(--spacing-nano);
+}
+
+.carte-resume button {
+	margin-top: var(--spacing-thinnest);
+}
+
+.carte-resume > section {
+	h5{
+		font-weight: 400;
+	}
+	h3 {
+		margin-bottom: var(--spacing-nano);
+	}
+
+	p {
+		margin-top: var(--spacing-thinnest);
+	}
+
+	:last-child{
+		margin-top: var(--spacing-thinner);
+	}
+}

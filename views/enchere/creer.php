@@ -1,6 +1,6 @@
 {{ include('layouts/entete.php' , {title: 'Créer enchere'}) }}
 
-<main>
+<main class="m-auto">
 	<h2>Ajouter enchère</h2>
 	<form class="formulaire" method="post" novalidate>
 
@@ -45,8 +45,8 @@
 				<!-- sourceHTML: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox-->
 				<!-- sourceHTML: https://www.hashbangcode.com/article/html-checkbox-php-array -->
 				{% set idTimbre = "timbre" ~ timbre.idTimbre %}
-				<label id="timbre{{timbre.idTimbre}}">{{timbre.titre}} </label>
 				<input type="checkbox" name="timbres[]" id="timbre{{timbre.idTimbre}}" value="{{timbre.idTimbre}}" {% if timbre.idTimbre in enchere.timbres %} checked {% endif %}>
+				<label id="timbre{{timbre.idTimbre}}">{{timbre.titre}} </label>
 			</div>
 			{% endfor %}
 			{% else %}

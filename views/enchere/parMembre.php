@@ -13,9 +13,8 @@
 			<div class="grille">
 				{% for enchere in encheres %}
 				<a href="{{base}}/enchere/voir?idEnchere={{enchere.idEnchere}}">
-					<article class="">
-						<section>
-								<h5>Enchere {{enchere.idEnchere}}</h5>
+					<article class="carte-resume">
+							<h5 class="carte-resume__titre">Enchere {{enchere.idEnchere}}</h5>
 							<div class="paire">
 								<p>Date debut</p>
 								<p>{{enchere.dateDebut}}</p>
@@ -44,10 +43,9 @@
 								<p>Nombre de timbre</p>
 								<p>{{enchere.nbTimbre}}</p>
 							</div>
-						</section>
 						<form action="{{base}}/enchere/supprimer" method="post">
 							<input type="hidden" name="idEnchere" value="{{enchere.idEnchere}}">
-							<button class="bouton">Supprimer</button>
+							<button class="bouton" data-couleur="sombre">Supprimer</button>
 						</form>
 					</article>
 				</a>

@@ -46,5 +46,6 @@
 @import url("./composantes/carte/carte-actualite.css");
 @import url("./composantes/carte/carte-timbre.css");
 @import url("./composantes/carte/carte-coup-coeur.css");
+@import url("./composantes/carte/carte-resume.css");
 
 @import url("./base/utilitaire.css")
