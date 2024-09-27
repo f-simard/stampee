@@ -6,18 +6,18 @@ use App\Providers\View;
 use App\Providers\Validator;
 use App\Providers\Auth;
 
-use App\Models\Enchere;
-use App\Models\Timbre;
-use App\Models\Enchere_has_Timbre;
-use App\Models\Image;
-use App\Models\Mise;
 use App\Models\Favori;
+use App\Models\Pays;
+use App\Models\Condition;
 
-class FavoriController{
 
-	public function creer($data=[]){
+class FavoriController
+{
 
-		try{
+	public function creer($data = [])
+	{
+
+		try {
 			Auth::session();
 
 			$data['idMembre'] = $_SESSION['idMembre'];
@@ -28,11 +28,9 @@ class FavoriController{
 			echo 'a ajouté';
 
 			// View::redirect('enchere/voir?idEnchere=' . $data['idEnchere']);
-		} catch(\Exception $e){
-			View::render('erreur',['msg'=> $e->getMessage()]);
+		} catch (\Exception $e) {
+			View::render('erreur', ['msg' => $e->getMessage()]);
 		}
-
-
 	}
 
 	public function supprimer($data = [])
@@ -57,36 +55,21 @@ class FavoriController{
 			} catch (\Exception $e) {
 				View::render('erreur', ['msg' => $e->getMessage()]);
 			}
-
 		}
 	}
 
-	public function afficherSelonMembre() {
-		$enchere = new Enchere();
-		$encheres = $enchere->selectionnerSelonFavori();
+	public function afficherSelonMembre()
+	{
+		$pays = new Pays;
+		$pays_liste = $pays->select('nom');
 
-		foreach ($encheres as &$e) {
-			$mise = new Mise();
-			$miseMax = $mise->miseMax($e['idEnchere'], 'idEnchere');
-			$nbMise = $mise->compte($e['idEnchere'], 'idEnchere');
+		$condition = new Condition();
+		$conditions = $condition->select();
 
-			if ($miseMax && $nbMise) {
-				$e['miseMax'] = $miseMax['montant'];
-				$e['nbMise'] = $nbMise['compte'];
-			}
+		$maintenant = new \DateTime();
+		$maintenant = $maintenant->format('Y-m-d');
 
-			$favori = new Favori();
-			$conditions['idMembre'] = $_SESSION['idMembre'];
-			$conditions['idEnchere'] = $e['idEnchere'];
-			$estFavori = $favori->selectionner($conditions);
-
-			if ($estFavori) {
-				$e['estFavori'] = 1;
-			}
-		}
-
-		return View::render('favori/parMembre', ['encheres' => $encheres]);
+		//echo json_encode($encheres);
+		return View::render('favori/parMembre', ['pays_liste' => $pays_liste, 'conditions' => $conditions, 'aujourdhui' => $maintenant]);
 	}
-
-
 }

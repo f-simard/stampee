@@ -33,7 +33,7 @@ class Enchere {
 	#anneeProdMax;
 	#anneeProdMin;
 	#btnMiser;
-	#iconeMembre;	
+	#iconeMembre;
 
 	constructor(elementHTML = null, conteneur = null, enchereInfo = null) {
 		this.#conteneurHTML = conteneur;
@@ -81,7 +81,7 @@ class Enchere {
 				nbMise,
 				miseMax,
 				anneeProdMax,
-				anneeProdMin
+				anneeProdMin,
 			} = enchereInfo;
 
 			this.#idEnchere = idEnchere;
@@ -137,13 +137,15 @@ class Enchere {
 		this.#elementHTML.querySelector("[data-favori]").dataset.favori =
 			dataFavori;
 
-		const lordClasse = this.#lord ? "fa-solid" : "fa-regular";
-		this.#elementHTML
-			.querySelector(".icone-lord")
-			.classList.add(lordClasse);
-
-		const dataLord = this.#lord ? "true " : "false";
-		this.#elementHTML.querySelector("[data-lord]").dataset.lord = dataLord;
+		if (this.#elementHTML.querySelector("[data-lord]")) {
+			const lordClasse = this.#lord ? "fa-solid" : "fa-regular";
+			this.#elementHTML
+				.querySelector(".icone-lord")
+				.classList.add(lordClasse);
+			const dataLord = this.#lord ? "true " : "false";
+			this.#elementHTML.querySelector("[data-lord]").dataset.lord =
+				dataLord;
+		}
 
 		if (!this.#lord) {
 			this.#elementHTML
@@ -220,9 +222,9 @@ class Enchere {
 			"[data-render='estimation']"
 		).textContent = estimation;
 
-		let anneeProd = this.#anneeProd
-		if(this.#nbTimbre > 1){
-			anneeProd = this.#anneeProdMin + "-" + this.#anneeProdMax
+		let anneeProd = this.#anneeProd;
+		if (this.#nbTimbre > 1) {
+			anneeProd = this.#anneeProdMin + "-" + this.#anneeProdMax;
 		}
 		this.#elementHTML.querySelector(
 			"[data-render='anneeProd']"
@@ -370,8 +372,8 @@ class Enchere {
 
 			const data = await reponse.json();
 
-			this.#idMembre = data['idMembre'];
-			this.#statut = data['statut']
+			this.#idMembre = data["idMembre"];
+			this.#statut = data["statut"];
 			console.log(this.#statut, this.#idMembre);
 
 			this.#btnMiser = this.#elementHTML.querySelector(".bouton");

@@ -123,12 +123,18 @@ class Catalogue {
 					Site.instance.base() + "/enchere/archiveFiltre"
 				);
 				data = await reponse.json();
+			} else if (this.#enchereStatut == "favori") {
+				reponse = await fetch(
+					Site.instance.base() + "/enchere/favoriFiltre?f|idMembre|E=" + sessionStorage.getItem('idMembre')
+				);
+				data = await reponse.json();
 			}
 
 			if (data.hasOwnProperty("msg")) {
 				this.#conteneurCatalogue.innerHTML = "<h3>Aucune enchère</h3>";
 			} else {
 				this.#conteneurCatalogue.innerHTML = "";
+
 				let encheresTriees = this.#trier(data, this.#choixTri);
 				encheresTriees.forEach((enchere) => {
 					const e = new Enchere(
@@ -199,6 +205,12 @@ class Catalogue {
 		if (evenement) {
 			this.#mode = evenement.target.closest("svg").dataset.mode;
 		}
+
+		const svg = this.#iconeMode.querySelectorAll("svg");
+		svg.forEach(function(s){
+			s.dataset.selected = s.dataset.mode == this.#mode;
+		}.bind(this))
+
 
 		this.#conteneurCatalogue.dataset.mode = this.#mode;
 
@@ -306,14 +318,23 @@ class Catalogue {
 			let data;
 			if (this.#enchereStatut == "active") {
 				const reponse = await fetch(
-					Site.instance.base() + "/enchere/activeFiltre?" +
+					Site.instance.base() +
+						"/enchere/activeFiltre?" +
 						queryString
 				);
 				data = await reponse.json();
 			} else if (this.#enchereStatut == "archive") {
 				reponse = await fetch(
-					Site.instance.base() + "/enchere/archiveFiltre?" +
+					Site.instance.base() +
+						"/enchere/archiveFiltre?" +
 						queryString
+				);
+				data = await reponse.json();
+			} else if (this.#enchereStatut == "favori") {
+				reponse = await fetch(
+					Site.instance.base() +
+						"/enchere/favoriFiltre?f|idMembre|E=" +
+						sessionStorage.getItem("idMembre") + "&" + queryString
 				);
 				data = await reponse.json();
 			}

@@ -157,6 +157,20 @@ class EnchereController
 		echo json_encode($encheresInfo);
 	}
 
+	public function recupererFavoriFiltre($data = [])
+	{
+
+		$enchere = new Enchere();
+		$encheres = $enchere->filtreCatalogueFavori()->conditions($data)->executerFiltre();
+
+		if ($encheres) {
+			$encheresInfo = $this->completerDonnee($encheres);
+		} else {
+			$encheresInfo['msg'] = 'Aucune enchere';
+		}
+		echo json_encode($encheresInfo);
+	}
+
 	public function recupererUn($data = [])
 	{
 

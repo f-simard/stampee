@@ -227,27 +227,23 @@ class Enchere extends CRUD
 		}
 	}
 
-	public function selectionnerSelonFavori($data = [])
+	public function filtreCatalogueFavori($data = [])
 	{
-		$sql = "SELECT DISTINCT e.*, count(distinc t.idTimbre) as nbTimbre, t.*, img.chemin FROM $this->table as e
+		$this->sql = "SELECT DISTINCT e.*, 
+		count(distinct t.idTimbre) as nbTimbre, 
+		t.*, img.chemin , 
+		MAX(m.montant) as misecourante, 
+		max(t.anneeProd) as anneeProdMax, 
+		min(t.anneeProd) as anneeProdMin FROM enchere as e
 		INNER JOIN enchere_has_timbre AS et ON et.idEnchere = e.idEnchere
 		INNER JOIN timbre AS t ON t.idTimbre = et.idTimbre
 		INNER JOIN image AS img ON img.idTimbre = t.idTimbre
-		INNER JOIN favori AS f ON f.idEnchere = e.idEnchere
+        INNER JOIN favori as f on f.idEnchere = e.idEnchere
+		LEFT JOIN mise as m on m.idEnchere = e.idEnchere
 		WHERE img.principale = 1
-		AND f.idMembre = ?
-		GROUP BY e.idEnchere;";
+		AND e.statut <> 'FERME'";
 
-		$stmt = $this->prepare($sql);
-		$stmt->execute(array($_SESSION['idMembre']));
-
-		$count = $stmt->rowCount();
-
-		if ($count >= 1) {
-			return $stmt->fetchAll();
-		} else {
-			return false;
-		}
+		return $this;
 	}
 
 	public function selectionner4Lord()

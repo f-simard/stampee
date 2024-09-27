@@ -43,6 +43,7 @@ Route::get('/Auth/idMembre', 'AuthController@idMembre');
 //appel API
 Route::get('/enchere/activeFiltre', 'EnchereController@recupererActiveFiltre');
 Route::get('/enchere/archiveFiltre', 'EnchereController@recupererArchiveFiltre');
+Route::get('/enchere/favoriFiltre', 'EnchereController@recupererFavoriFiltre');
 Route::get('/enchere/recupererUn', 'EnchereController@recupererUn');
 
 Route::dispatch();
