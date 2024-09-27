@@ -1,16 +1,16 @@
 .navigation-secondaire {
 	display: flex;
 	justify-content: space-between;
-	padding-inline: var(--spacing-thinner);
 }
 
-.navigation-secondaire>section {
+.navigation-secondaire > section {
 	margin: var(--spacing-thin);
 	font-family: var(--font-sans-serif);
 }
 
 .navigation-secondaire h4 {
 	margin-bottom: var(--spacing-thinnest);
+	font-size: var(--font-medium);
 }
 
 .navigation-secondaire ul {
@@ -44,8 +44,7 @@
 		padding: 0 var(--spacing-micro);
 	}
 
-	.navigation-secondaire>section {
-		margin: var(--spacing-micro) 0;
+	.navigation-secondaire > section {
 		padding: var(--spacing-micro);
 		text-align: center;
 	}
@@ -55,7 +54,7 @@
 	}
 
 	.navigation-secondaire h4 {
+		font-size: var(--font-medium);
 		margin-bottom: var(--spacing-thinnest);
 	}
-
 }
