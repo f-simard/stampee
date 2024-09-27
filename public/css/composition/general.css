@@ -13,10 +13,13 @@ body {
 }
 
 main {
+
 	flex-grow: 1;
 	margin-top: var(--spacing-broad);
 	
 	padding-inline: 4vw;
+	width: 100%;
+	margin-inline: auto;
 
 	@media screen and (min-width: 1440px) {
 		max-width: 1440px;

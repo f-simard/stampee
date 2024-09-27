@@ -1,5 +1,5 @@
 {{ include('layouts/entete.php' , {titre: 'Mes mises'}) }}
-<main class="m-auto">
+<main class="w-auto">
 	<section>
 		<section class="titre-bouton">
 			<h2>Mises personnelles</h2>

@@ -1,6 +1,6 @@
 {{ include('layouts/entete.php' , {title: 'Voir membre'}) }}
 
-<main class="grille--2 m-auto">
+<main class="grille--2 w-auto">
 	<section class="titre-paragraphe">
 		<h2>Compte</h2>
 

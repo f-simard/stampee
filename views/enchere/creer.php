@@ -1,6 +1,6 @@
 {{ include('layouts/entete.php' , {title: 'Créer enchere'}) }}
 
-<main class="m-auto">
+<main class="w-auto">
 	<h2>Ajouter enchère</h2>
 	<form class="formulaire" method="post" novalidate>
 
