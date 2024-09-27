@@ -1,0 +1,17 @@
+.mise {
+	font-family: var(--font-sans-serif);
+
+	h1 {
+		font-family: var(--font-serif);
+	}
+
+	h2 {
+		font-family: var(--font-sans-serif);
+		margin-block: var(--spacing-thinner);
+
+	}
+}
+
+.mise__enchere > div > * + * {
+	margin-top: var(--spacing-nano);
+}

@@ -1,11 +1,11 @@
 {{ include('layouts/entete.php' , {titre: 'Miser'}) }}
 
-<main>
+<main class="mise box">
 	<section>
 		<h1>Placer une offre</h1>
 	</section>
 	<div class="grille--2">
-		<section>
+		<section class="mise__enchere">
 			<h2>Info enchère</h2>
 			<div>
 				<div class="paire">
@@ -38,10 +38,9 @@
 				</div>
 			</div>
 		</section>
-		<section>
+		<section class="mise__miser">
 			<h2>Mon offre</h2>
-			<form method="post" novalidate>
-				<div>
+			<form method="post" class="formulaire" novalidate>
 					<div>
 						<label for="idDevise">Devise *</label>
 						<select name="idDevise" id="idDevise" disabled>
@@ -54,14 +53,18 @@
 						<span class="erreur">{{erreurs.devise}}</span>
 						{% endif %}
 					</div>
-					<label for="montant">Mise*</label>
-					<input type="hidden" name="idEnchere" value="{{enchere.idEnchere}}">
-					<input type="number" name="montant" id="montant" min={{enchere.prixPlancher}} />
-					{% if erreurs.montant is defined %}
-					<span class="erreur">{{erreurs.montant}}</span>
-					{% endif %}
-					<input type="submit" value="Miser" class="bouton {% if session.idMembre == proprietaire.idMembre %}nonClickable{% endif %}" data-couleur="{% if session.idMembre == proprietaire.idMembre %}sombre{% else %}secondaire{% endif %}">
-					<i class="icone-membre fa-solid fa-user {% if session.idMembre != proprietaire.idMembre %}invisible{% endif %}"></i>
+					<div>
+						<label for="montant">Mise*</label>
+						<input type="hidden" name="idEnchere" value="{{enchere.idEnchere}}">
+						<input type="number" name="montant" id="montant" min={{enchere.prixPlancher}} />
+						{% if erreurs.montant is defined %}
+						<span class="erreur">{{erreurs.montant}}</span>
+						{% endif %}
+					</div>
+					<div class="bouton-icone">
+						<input type="submit" value="Miser" class="bouton {% if session.idMembre == proprietaire.idMembre %}nonClickable{% endif %}" data-couleur="{% if session.idMembre == proprietaire.idMembre %}sombre{% else %}secondaire{% endif %}">
+						<i class="icone-membre fa-solid fa-user {% if session.idMembre != proprietaire.idMembre %}invisible{% endif %}"></i>
+					</div>
 				</div>
 			</form>
 		</section>
