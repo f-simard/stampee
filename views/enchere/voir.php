@@ -1,5 +1,5 @@
 {{ include('layouts/entete.php' , {titre: 'Details'}) }}
-<main class="grille--2">
+<main class="grille--2 box">
 	<section class="enchere">
 		<div class="titre-favori">
 			<section>
