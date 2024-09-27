@@ -1,8 +1,6 @@
 {{ include('layouts/entete.php' , {titre: 'Details'}) }}
-<main>
-
+<main class="box">
 	<section class="timbre">
-
 		<div class="timbre__general">
 			<h5>Timbre {{timbre.idTimbre}}</h5>
 			<h2>{{timbre.titre}}</h2>

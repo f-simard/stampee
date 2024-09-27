@@ -29,7 +29,7 @@
 			grid-area: details;
 		}
 
-		grid-template-columns: 35% auto;
+		grid-template-columns: 50ch auto;
 	}
 }
 
@@ -57,7 +57,7 @@
 
 .timbre__media--additionnels {
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(25ch, 1fr));
+	grid-template-columns: repeat(auto-fill, minmax(22ch, 1fr));
 	gap: 2ch;
 
 	picture {
