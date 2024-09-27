@@ -407,7 +407,7 @@ class Enchere {
 	async #miser(evenement) {
 		evenement.preventDefault();
 		window.location.href =
-			"http://localhost:8080/stampee/mise/creer?idEnchere=" +
+			Site.instance.upload() + "/mise/creer?idEnchere=" +
 			this.#idEnchere;
 	}
 }
