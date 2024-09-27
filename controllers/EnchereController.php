@@ -120,8 +120,13 @@ class EnchereController
 		$condition = new Condition();
 		$conditions = $condition->select();
 
+
+		$maintenant = new \DateTime();
+		$maintenant = $maintenant->format('Y-m-d');
+
+
 		//echo json_encode($encheres);
-		return View::render('enchere/archive', ['pays_liste' => $pays_liste, 'conditions' => $conditions]);
+		return View::render('enchere/archive', ['pays_liste' => $pays_liste, 'conditions' => $conditions, 'aujourdhui' => $maintenant]);
 	}
 
 	public function recupererActiveFiltre($data = [])
@@ -196,56 +201,63 @@ class EnchereController
 
 		$enchere = new Enchere();
 		$enchereInfo = $enchere->selectByField($idEnchere, 'idEnchere');
-		$proprietaire = $enchere->proprietaire($idEnchere);
 
-		$diff = $enchere->tempsRestant($idEnchere);
+		if($enchereInfo){
+			$proprietaire = $enchere->proprietaire($idEnchere);
 
-		$enchereInfo['temps'] = $diff;
+			$diff = $enchere->tempsRestant($idEnchere);
 
-		$mise = new Mise();
-		$miseMax = $mise->miseMax($enchereInfo['idEnchere'], 'idEnchere');
-		$enchereInfo['misecourante'] = $miseMax['montant'];
+			$enchereInfo['temps'] = $diff;
 
-		$enchere_has_timbre = new Enchere_has_Timbre();
-		$nbTimbre = $enchere_has_timbre->compte($idEnchere, 'idEnchere');
-		$timbres = $enchere_has_timbre->selectionnerDetails($idEnchere, 'idEnchere');
+			$mise = new Mise();
+			$miseMax = $mise->miseMax($enchereInfo['idEnchere'], 'idEnchere');
+			$enchereInfo['misecourante'] = $miseMax['montant'];
 
-		if (isset($_SESSION['idMembre'])) {
-			$favori = new Favori();
-			$conditions['idMembre'] = $_SESSION['idMembre'];
-			$conditions['idEnchere'] = $idEnchere;
-			$estFavori = $favori->selectionner($conditions);
-		} else {
-			$estFavori = false;
-		}
+			$enchere_has_timbre = new Enchere_has_Timbre();
+			$nbTimbre = $enchere_has_timbre->compte($idEnchere, 'idEnchere');
+			$timbres = $enchere_has_timbre->selectionnerDetails($idEnchere, 'idEnchere');
 
-		if ($estFavori) {
-			$enchereInfo['estFavori'] = 1;
-		}
-
-		foreach ($timbres as &$timbre) {
-			$image = new Image();
-			$images = $image->imagePrincipale($timbre['idTimbre']);
-			$timbre['imageSrc'] = $images['chemin'];
-
-			$imgs = $image->selectMultipleByField($timbre['idTimbre'], 'idTimbre');
-
-			foreach ($imgs as $img) {
-				$toutesImages[] = $img['chemin'];
+			if (isset($_SESSION['idMembre'])) {
+				$favori = new Favori();
+				$conditions['idMembre'] = $_SESSION['idMembre'];
+				$conditions['idEnchere'] = $idEnchere;
+				$estFavori = $favori->selectionner($conditions);
+			} else {
+				$estFavori = false;
 			}
 
-			$condition = new Condition;
-			$timbreCondition = $condition->selectByField($timbre['idCondition'], 'idCondition');
-			$timbre['nomCondition'] = $timbreCondition['nom'];
+			if ($estFavori) {
+				$enchereInfo['estFavori'] = 1;
+			}
+
+			foreach ($timbres as &$timbre) {
+				$image = new Image();
+				$images = $image->imagePrincipale($timbre['idTimbre']);
+				$timbre['imageSrc'] = $images['chemin'];
+
+				$imgs = $image->selectMultipleByField($timbre['idTimbre'], 'idTimbre');
+
+				foreach ($imgs as $img) {
+					$toutesImages[] = $img['chemin'];
+				}
+
+				$condition = new Condition;
+				$timbreCondition = $condition->selectByField($timbre['idCondition'], 'idCondition');
+				$timbre['nomCondition'] = $timbreCondition['nom'];
+			}
+
+			return View::render('enchere/voir', [
+				'enchere' => $enchereInfo,
+				'proprietaire' => $proprietaire,
+				'nbTimbre' => $nbTimbre,
+				'timbres' => $timbres,
+				'images' => $toutesImages
+			]);
+		} else {
+			return View::render('erreur', ['msg' => 'Enchere introuvable']);
 		}
 
-		return View::render('enchere/voir', [
-			'enchere' => $enchereInfo,
-			'proprietaire' =>$proprietaire,
-			'nbTimbre' => $nbTimbre,
-			'timbres' => $timbres,
-			'images' => $toutesImages
-		]);
+	
 	}
 
 	public function supprimer($data = [])

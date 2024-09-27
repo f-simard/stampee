@@ -157,7 +157,6 @@ class TimbreController
 
 		if ($timbreInfo) {
 
-
 			$image = new Image();
 			$images = $image->selectMultipleByField($idTimbre, 'idTimbre');
 
