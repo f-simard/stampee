@@ -7,7 +7,7 @@
 
 	@media screen and (min-width: 768px) {
 		display: grid;
-		grid-template-areas: "timbre timbre" "image-principale general" "images details";
+		grid-template-areas: "image-principale general" "images details";
 
 		h2 {
 			grid-area: timbre;
@@ -31,8 +31,18 @@
 	}
 }
 
-.timbre__general > * + * {
-	margin-top: var(--spacing-nano);
+.timbre__general {
+	h5 {
+		font-weight: 400;
+	}
+
+	h2 {
+		font-family: var(--font-serif);
+		margin-block: var(--spacing-thinner);
+	}
+	> * + * {
+		margin-top: var(--spacing-nano);
+	}
 }
 
 .timbre__general :last-child {

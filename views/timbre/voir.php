@@ -2,9 +2,10 @@
 <main>
 
 	<section class="timbre">
-		<h2>Timbre {{timbre.idTimbre}}</h2>
+
 		<div class="timbre__general">
-			<h3>{{timbre.titre}}</h3>
+			<h5>Timbre {{timbre.idTimbre}}</h5>
+			<h2>{{timbre.titre}}</h2>
 			<p data-info="description">{{timbre.largeur}} x {{timbre.hauteur}}</p>
 			<p>{{timbre.description}}</p>
 		</div>
