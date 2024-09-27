@@ -8,7 +8,7 @@
 		<section class="titre-paragraphe">
 			<h2>Bienvenu sur <i>Lord Stampee</i>, la première destination pour les collectionneurs et les amateurs de timbres-poste ! </h2>
 		</section>
-		<a href="connexion.html" class="bouton bouton-grand" data-couleur="secondaire">Créer un profile</a>
+		<a href="{{base}}/membre/creer" class="bouton bouton-grand" data-couleur="secondaire">Créer un profile</a>
 	</section>
 </section>
 <main class="m-auto">
