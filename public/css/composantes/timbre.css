@@ -76,6 +76,5 @@
 	.timbre__media--principal {
 		display: block;
 		max-height: 40dvh;
-		overflow: hidden;
 	}
 }
