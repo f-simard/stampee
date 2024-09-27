@@ -60,16 +60,21 @@ class FavoriController
 
 	public function afficherSelonMembre()
 	{
-		$pays = new Pays;
-		$pays_liste = $pays->select('nom');
+		if(Auth::session()){
+			$pays = new Pays;
+			$pays_liste = $pays->select('nom');
 
-		$condition = new Condition();
-		$conditions = $condition->select();
+			$condition = new Condition();
+			$conditions = $condition->select();
 
-		$maintenant = new \DateTime();
-		$maintenant = $maintenant->format('Y-m-d');
+			$maintenant = new \DateTime();
+			$maintenant = $maintenant->format('Y-m-d');
 
-		//echo json_encode($encheres);
-		return View::render('favori/parMembre', ['pays_liste' => $pays_liste, 'conditions' => $conditions, 'aujourdhui' => $maintenant]);
+			//echo json_encode($encheres);
+			return View::render('favori/parMembre', ['pays_liste' => $pays_liste, 'conditions' => $conditions, 'aujourdhui' => $maintenant]);
+		} else {
+			return View::redirect('/connexion');
+		}
 	}
+	
 }

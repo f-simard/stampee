@@ -58,3 +58,7 @@ main > .succes {
 .m-auto {
 	margin-inline: auto;
 }
+
+.mt-broadest{
+	margin-top: calc(var(--spacing-thinner)*3.3);
+}
