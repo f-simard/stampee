@@ -6,7 +6,7 @@
 	<button class="bouton" data-couleur="secondaire">Bio &#10097;</button>
 	<button class="bouton" data-couleur="secondaire">Equipe &#10097;</button>
 </div>
-<main>
+<main class="m-auto">
 	<section class="texte-image">
 		<picture>
 			<img src="{{asset}}/img/philatelie.jpg" alt="image pour philatelie">

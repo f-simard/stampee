@@ -1,0 +1,88 @@
+.timbre {
+	font-family: var(--font-sans-serif);
+
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-broad);
+
+	@media screen and (min-width: 768px) {
+		display: grid;
+		grid-template-areas: "timbre timbre" "image-principale general" "images details";
+
+		h2 {
+			grid-area: timbre;
+		}
+
+		.timbre__media--principal {
+			grid-area: image-principale;
+		}
+		.timbre__media--additionnels {
+			grid-area: images;
+		}
+
+		.timbre__general {
+			grid-area: general;
+		}
+		.timbre__details {
+			grid-area: details;
+		}
+
+		grid-template-columns: 60ch auto;
+	}
+}
+
+.timbre__general > * + * {
+	margin-top: var(--spacing-nano);
+}
+
+.timbre__general :last-child {
+	margin-top: var(--spacing-thinnest);
+}
+
+.timbre__details > * + * {
+	margin-top: var(--spacing-nano);
+}
+
+.timbre__media--additionnels {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(25ch, 1fr));
+	gap: 2ch;
+
+	picture {
+		display: block;
+			overflow: hidden;
+	}
+
+	img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+}
+
+.timbre__media--principal {
+	display: block;
+	max-height: 25dvh;
+	overflow: hidden;
+
+	img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+}
+
+@media screen and (min-width: 768px) {
+	.timbre__media--principal {
+		display: block;
+		max-height: 60ch;
+		max-height: 30dvh;
+		overflow: hidden;
+
+		img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+	}
+}

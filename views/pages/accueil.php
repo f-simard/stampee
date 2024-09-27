@@ -11,7 +11,7 @@
 		<a href="connexion.html" class="bouton bouton-grand" data-couleur="secondaire">Créer un profile</a>
 	</section>
 </section>
-<main>
+<main class="m-auto">
 	<section class="texte-image">
 		<picture>
 			<img src="{{asset}}/img/lord_stampee.jpg" alt="Lord Stampee">

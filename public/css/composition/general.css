@@ -79,6 +79,7 @@ h1 {
 
 h2 {
 	font-size: var(--font-extra);
+	font-family: var(--font-serif);
 }
 
 h3 {

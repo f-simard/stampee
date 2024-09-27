@@ -35,13 +35,13 @@ class Site {
 
 		//genere enchere
 		if (document.querySelector(".js-enchere")) {
-			const elementHTML = document.querySelector(".details-timbre");
+			const elementHTML = document.querySelector(".enchere");
 			this.#enchere = new Enchere(elementHTML);
 		}
 
-		if (document.querySelector(".medias-timbre-principal ")) {
+		if (document.querySelector(".agrandir")) {
 			this.#imageAgrandissable = document.querySelector(
-				".medias-timbre-principal "
+				".agrandir"
 			);
 			this.#imageAgrandissable.addEventListener(
 				"mouseenter",
@@ -147,7 +147,7 @@ class Site {
 
 	async #setAdmin() {
 		const reponse = await fetch(
-			"http://localhost:8080/stampee/Auth/estAdmin"
+			this.#base + "/Auth/estAdmin"
 		);
 		const data = await reponse.json();
 		sessionStorage.setItem("estAdmin", data["estAdmin"]);
@@ -155,7 +155,7 @@ class Site {
 
 	async #setMembre() {
 		const reponse = await fetch(
-			"http://localhost:8080/stampee/Auth/idMembre"
+			this.#base + "/Auth/idMembre"
 		);
 		const data = await reponse.json();
 		console.log(data);

@@ -11,6 +11,10 @@ class AuthController
 
 	public function index()
 	{
+
+		if (isset($_SESSION['idMembre'])) {
+			return View::redirect('membre/voir?idMembre=' . $_SESSION['idMembre']);
+		}
 		View::render('auth/index');
 	}
 
@@ -37,7 +41,6 @@ class AuthController
 			if ($membreVerifie) {
 
 				return View::redirect('membre/voir?idMembre=' . $idMembre);
-
 			} else {
 				$erreurs['message'] = 'Veuillez vérifier vos informations';
 				return View::render('auth/index', ['erreurs' => $erreurs, 'membre' => $data]);
@@ -57,12 +60,12 @@ class AuthController
 		return View::redirect('connexion');
 	}
 
-	public function estAdmin(){
+	public function estAdmin()
+	{
 		$data = [];
-		if(isset($_SESSION['estAdmin'])){
+		if (isset($_SESSION['estAdmin'])) {
 			$data['estAdmin'] = $_SESSION['estAdmin'];
-		} else 
-		{
+		} else {
 			$data['estAdmin'] = 0;
 		}
 

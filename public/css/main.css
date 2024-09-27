@@ -38,6 +38,8 @@
 @import url("./composantes/titre-favori.css");
 @import url("./composantes/bouton-icone.css");
 @import url("./composantes/actions.css");
+@import url("./composantes/timbre.css");
+@import url("./composantes/agrandir.css");
 
 @import url("./composantes/carte/carte-lot.css");
 @import url("./composantes/carte/carte-lot--grille.css");
