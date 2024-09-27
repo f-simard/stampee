@@ -47,7 +47,6 @@ class AuthController
 			}
 		} else {
 
-			echo 'erreur';
 			$erreurs = $validateur->obtenirErreur();
 
 			return View::render('auth/index', ['erreurs' => $erreurs, 'membre' => $data]);
