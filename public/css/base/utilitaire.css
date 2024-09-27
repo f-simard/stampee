@@ -55,10 +55,14 @@ main > .succes {
 	pointer-events: none;
 }
 
-.mt-broadest{
-	margin-top: calc(var(--spacing-thinner)*3.3);
+.mt-broadest {
+	margin-top: calc(var(--spacing-thinner) * 3.3);
 }
 
-.w-auto{
+.w-auto {
 	width: auto;
+}
+
+.box {
+	box-sizing: border-box;
 }
