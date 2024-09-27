@@ -40,9 +40,7 @@ class Site {
 		}
 
 		if (document.querySelector(".agrandir")) {
-			this.#imageAgrandissable = document.querySelector(
-				".agrandir"
-			);
+			this.#imageAgrandissable = document.querySelector(".agrandir");
 			this.#imageAgrandissable.addEventListener(
 				"mouseenter",
 				this.#agrandirImage.bind(this, 2)
@@ -86,8 +84,8 @@ class Site {
 		loupe.style.backgroundImage = "url('" + img.src + "')";
 		loupe.style.backgroundRepeat = "no-repeat";
 		loupe.style.backgroundSize =
-			img.width * zoom + "px " + img.height * zoom + "px";
-		bw = 3;
+			img.offsetWidth * zoom + "px " + img.offsetHeight * zoom + "px";
+		bw = 2;
 		w = loupe.offsetWidth / 2;
 		h = loupe.offsetHeight / 2;
 
@@ -109,14 +107,14 @@ class Site {
 			y = pos.y;
 
 			//empecher de mettre la loupe à l'exterieur de l'image
-			if (x > img.width - w / zoom) {
-				x = img.width - w / zoom;
+			if (x > img.offsetWidth - w / zoom) {
+				x = img.offsetWidth - w / zoom;
 			}
 			if (x < w / zoom) {
 				x = w / zoom;
 			}
-			if (y > img.height - h / zoom) {
-				y = img.height - h / zoom;
+			if (y > img.offsetHeight - h / zoom) {
+				y = img.offsetHeight - h / zoom;
 			}
 			if (y < h / zoom) {
 				y = h / zoom;
@@ -136,8 +134,8 @@ class Site {
 			/* Get the x and y positions of the image: */
 			a = img.getBoundingClientRect();
 			/* Calculate the cursor's x and y coordinates, relative to the image: */
-			x = e.pageX - a.left;
-			y = e.pageY - a.top;
+			x = e.clientX - a.left;
+			y = e.clientY - a.top;
 			/* Consider any page scrolling: */
 			x = x - window.scrollX;
 			y = y - window.scrollY;
@@ -146,17 +144,13 @@ class Site {
 	}
 
 	async #setAdmin() {
-		const reponse = await fetch(
-			this.#base + "/Auth/estAdmin"
-		);
+		const reponse = await fetch(this.#base + "/Auth/estAdmin");
 		const data = await reponse.json();
 		sessionStorage.setItem("estAdmin", data["estAdmin"]);
 	}
 
 	async #setMembre() {
-		const reponse = await fetch(
-			this.#base + "/Auth/idMembre"
-		);
+		const reponse = await fetch(this.#base + "/Auth/idMembre");
 		const data = await reponse.json();
 		console.log(data);
 		sessionStorage.setItem("idMembre", data["idMembre"]);
