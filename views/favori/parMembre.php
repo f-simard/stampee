@@ -1,6 +1,6 @@
 {{ include('layouts/entete.php' , {titre: 'Vitrine', 'navActive':'Favoris'}) }}
 
-<main>
+<main class="box">
 	<h1>Enchères favorites actives</h1>
 	<aside class="filtre">
 		<div class="filtre__check">

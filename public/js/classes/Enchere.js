@@ -116,6 +116,7 @@ class Enchere {
 	}
 
 	async #injecterHTML() {
+		console.log('injecter');
 		const clone = this.#template.content.cloneNode(true);
 
 		this.#conteneurHTML.append(clone);
@@ -137,7 +138,7 @@ class Enchere {
 		this.#elementHTML.querySelector("[data-favori]").dataset.favori =
 			dataFavori;
 
-		if (this.#elementHTML.querySelector("[data-lord]")) {
+		if (this.#elementHTML.querySelector(".icone-lord")) {
 			const lordClasse = this.#lord ? "fa-solid" : "fa-regular";
 			this.#elementHTML
 				.querySelector(".icone-lord")
@@ -147,11 +148,15 @@ class Enchere {
 				dataLord;
 		}
 
+		console.log(this.#lord);
+		console.log(this.#elementHTML.querySelector(".fa-award"));
+
 		if (!this.#lord) {
 			this.#elementHTML
 				.querySelector(".fa-award")
 				.classList.add("invisible");
 		}
+
 
 		this.#elementHTML.querySelector(".carte-lot__image > img").src =
 			Site.instance.upload() + this.#chemin;

@@ -88,7 +88,7 @@
 		</div>
 
 		<div>
-			<label for="anneeProd">Année de production</label>
+			<label for="anneeProd">Année de production*</label>
 			<input required type="number" name="anneeProd" id="anneeProd" value="{{timbre.anneeProd}}">
 			{% if erreurs.anneeProd is defined %}
 			<span class="erreur">{{erreurs.anneeProd}}</span>

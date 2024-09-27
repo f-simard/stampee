@@ -1,6 +1,6 @@
 {{ include('layouts/entete.php' , {titre: 'Vitrine', 'navActive':'enchere'}) }}
 
-<main>
+<main class="box">
 	<h1>Vitrine</h1>
 	<div class="bouton-conteneur section">
 		<a href="{{base}}/enchere/catalogue" class="bouton" data-couleur="sombre" data-enchere="active" data-selected="true">Encheres actives</a>

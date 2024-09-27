@@ -5,7 +5,7 @@
 	align-items: center;
 }
 
-.titre-favori i {
+.titre-favori i:not(.invisible) {
 	display: inline-block;
 }
 
